@@ -317,9 +317,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSpeed: 5
   maxSpeed: 10
-  minHeight: 0
-  maxHeight: 0
+  minHeight: 0.1
+  maxHeight: 10
+  rotationSpeed: 100
+  minRotX: -45
+  maxRotX: 45
   boostMultiplier: 2
+  boost: 0
   cam: {fileID: 882337257}
 --- !u!4 &1329536000
 Transform:
