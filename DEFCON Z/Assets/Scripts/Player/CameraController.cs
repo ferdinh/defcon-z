@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-	[Header("Camera Movement")]
-	public float minSpeed;
-	public float maxSpeed;
-	public float minHeight;
-	public float maxHeight;
-
+    [Header("Camera Movement")]
+    public float minSpeed;
+    public float maxSpeed;
+    public float minHeight;
+    public float maxHeight;
+    
     [Header("Camera Rotation")]
     public float rotationSpeed;
-	public float minRotX;
-	public float maxRotX;
-
+    public float minRotX;
+    public float maxRotX;
+    
     [Header("Other Settings")]
     public float boostMultiplier;
     public bool boost;
@@ -33,7 +33,8 @@ public class CameraController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             boost = true;
-        } else if (Input.GetKeyUp(KeyCode.LeftShift))
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             boost = false;
         }
@@ -42,6 +43,9 @@ public class CameraController : MonoBehaviour
         RotateCamera(); // calculate and apply camera rotation
     }
 
+    /// <summary>
+    /// Rotates the attached camera based on user input
+    /// </summary>
     private void RotateCamera()
     {
 
@@ -63,6 +67,9 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Moves the attached camera based on user input
+    /// </summary>
     private void MoveCamera()
     {
         Vector3 target = Vector3.zero;
@@ -76,9 +83,11 @@ public class CameraController : MonoBehaviour
         {
             target += cam.transform.right * (minSpeed * Input.GetAxis("Horizontal")) * Time.deltaTime;
         }
+
+        target.y = 0; // reset the y transformation to 0 so that panning does not effect height
+
         if (Input.GetAxis("YMovementAxis") != 0)
         {
-			target.y = 0;
 			target.y += minSpeed * Input.GetAxis("YMovementAxis") * Time.deltaTime;
         }
 
