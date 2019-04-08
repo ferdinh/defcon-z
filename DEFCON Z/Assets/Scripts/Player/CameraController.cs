@@ -82,7 +82,6 @@ public class CameraController : MonoBehaviour
 			target.y += minSpeed * Input.GetAxis("YMovementAxis") * Time.deltaTime;
         }
 
-        
         cam.transform.position += target;
     }
 }
