@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour
     }
 
     /// <summary>
-    /// Rotates the attachd camera based on user input
+    /// Rotates the attached camera based on user input
     /// </summary>
     private void RotateCamera()
     {
