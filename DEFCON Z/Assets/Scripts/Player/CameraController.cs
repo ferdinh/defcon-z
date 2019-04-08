@@ -76,9 +76,11 @@ public class CameraController : MonoBehaviour
         {
             target += cam.transform.right * (minSpeed * Input.GetAxis("Horizontal")) * Time.deltaTime;
         }
+
+        target.y = 0; // reset the y transformation to 0 so that panning does not effect height
+
         if (Input.GetAxis("YMovementAxis") != 0)
         {
-			target.y = 0;
 			target.y += minSpeed * Input.GetAxis("YMovementAxis") * Time.deltaTime;
         }
 
