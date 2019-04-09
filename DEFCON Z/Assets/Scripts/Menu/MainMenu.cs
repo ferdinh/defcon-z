@@ -5,10 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public Scene testLevel;
+    //private AssetBundle levels;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        //levels = AssetBundle.LoadFromFile("Assets/AssetBundles/Scenes");
     }
 
     // Update is called once per frame
@@ -22,7 +25,8 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("CameraTestScene");
     }
 
     public void QuitGame()
