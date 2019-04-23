@@ -9,6 +9,7 @@ public abstract class ObjectBase: MonoBehaviour
 {
 	public bool destructable;
 	public float health;
+    public string ObjName;
 
 	/// <summary>
 	/// Damages the object
