@@ -16,19 +16,30 @@ public class InputController : MonoBehaviour
 
     void Update()
     {
+        // Fire 1 (Left click)
+        if (Input.GetButtonDown("Fire1"))
+        {
+            // Raycast and select an object
+            player.SelectObject();
+        }
+
+
+        // Fire 1 (Right Click)
+        if (Input.GetButtonDown("Fire2"))
+        {
+            
+        }
+
         // Check if the "Boost" key is being pressed
+        // if the key is pressed, set the boost status to true
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             player.cam.boost = true;
         }
+        // if the key is released set the boost status to false
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             player.cam.boost = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            player.SelectObject();
         }
     }
 }

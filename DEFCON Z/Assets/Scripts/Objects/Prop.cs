@@ -32,7 +32,7 @@ public class Prop : ObjectBase
 
 	public override void DestroySelf()
 	{
-		Debug.Log(this.name + " has reached 0 or less health and has been destroyed");
+		Debug.Log(this.ObjName + " has reached 0 or less health and has been destroyed");
 		Destroy(gameObject); // Remove the game object this script is attached to
 	}
 }

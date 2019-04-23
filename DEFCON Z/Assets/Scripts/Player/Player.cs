@@ -27,23 +27,23 @@ public class Player : MonoBehaviour
     public void SelectObject()
     {
         RaycastHit rayCastHit = new RaycastHit();
+        
+        bool selectable = false;
+
         // check if the raycast hit anything
         if (Physics.Raycast(cam.cam.ScreenPointToRay(Input.mousePosition), out rayCastHit))
         {
             // check if the object hit is tagged as a game object
             if (rayCastHit.transform.gameObject.tag == "GameObject")
             {
-                Debug.Log("Raycast hit: " + rayCastHit.transform.gameObject.GetComponent<ObjectBase>().ObjName + "!");
+                selectable = true;
                 selectedObject = rayCastHit.transform.gameObject;
             }
-            else
-            {
-                Debug.Log("Object hit is not a game object!");
-                Debug.Log(rayCastHit.transform.gameObject.name);
-            }
-        } else
+        }
+        // if player has not clicked on a selectable object, make sure the currently selected object is cleared
+        if (!selectable)
         {
-            Debug.Log("Raycast did not hit an object!");
+            selectedObject = null;
         }
     }
 }
