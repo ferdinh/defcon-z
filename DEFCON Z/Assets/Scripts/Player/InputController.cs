@@ -2,44 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputController : MonoBehaviour
+namespace DEFCONZ
 {
-
-    private Player player;
-
-    // Start is called before the first frame update
-    void Start()
+    public class InputController : MonoBehaviour
     {
-        
-        player = gameObject.GetComponent<Player>();
-    }
 
-    void Update()
-    {
-        // Fire 1 (Left click)
-        if (Input.GetButtonDown("Fire1"))
+        private Player player;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            // Raycast and select an object
-            player.SelectObject();
+
+            player = gameObject.GetComponent<Player>();
         }
 
+        void Update()
+        {
+            // Fire 1 (Left click)
+            if (Input.GetButtonDown("Fire1"))
+            {
+                // Raycast and select an object
+                player.SelectObject();
+            }
 
-        // Fire 1 (Right Click)
-        if (Input.GetButtonDown("Fire2"))
-        {
-            
-        }
 
-        // Check if the "Boost" key is being pressed
-        // if the key is pressed, set the boost status to true
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            player.cam.boost = true;
-        }
-        // if the key is released set the boost status to false
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            player.cam.boost = false;
+            // Fire 1 (Right Click)
+            if (Input.GetButtonDown("Fire2"))
+            {
+                player.SelectedObjectAction();
+            }
+
+            // Check if the "Boost" key is being pressed
+            // if the key is pressed, set the boost status to true
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                player.cam.boost = true;
+            }
+            // if the key is released set the boost status to false
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                player.cam.boost = false;
+            }
         }
     }
 }
+
