@@ -59,7 +59,7 @@ namespace DefconZ
         /// <param name="damage"></param>
         public override void DamageObject(float damage)
         {
-            if (destructable)
+            if (destructible)
             {
                 health -= damage;
 

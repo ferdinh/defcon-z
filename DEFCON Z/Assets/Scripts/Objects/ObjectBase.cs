@@ -9,7 +9,7 @@ namespace DefconZ
     /// </summary>
     public abstract class ObjectBase : MonoBehaviour
     {
-        public bool destructable;
+        public bool destructible;
         public float health;
         public string objName;
 

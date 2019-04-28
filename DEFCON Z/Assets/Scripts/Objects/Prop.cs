@@ -21,7 +21,7 @@ namespace DefconZ
 
         public override void DamageObject(float damage)
         {
-            if (destructable)
+            if (destructible)
             {
                 health -= damage;
 
