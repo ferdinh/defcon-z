@@ -11,7 +11,7 @@ namespace DefconZ
     {
         public bool destructable;
         public float health;
-        public string ObjName;
+        public string objName;
 
         /// <summary>
         /// Damages the object
