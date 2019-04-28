@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DEFCONZ
+namespace DefconZ
 {
     /// <summary>
     /// GameObject.cs defines variables and methods for the behaviour of custom game objects

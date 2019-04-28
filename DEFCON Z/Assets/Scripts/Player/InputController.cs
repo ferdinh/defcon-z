@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DEFCONZ
+namespace DefconZ
 {
     public class InputController : MonoBehaviour
     {
