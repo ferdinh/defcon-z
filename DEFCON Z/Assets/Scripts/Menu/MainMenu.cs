@@ -6,11 +6,22 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public Scene testLevel;
+    public bool settings;
+    public GameObject settingsPanel, menuPanel;
+    [SerializeField]
+    private Vector3 panelPosition, panelHiddenPosition;
     //private AssetBundle levels;
 
     // Start is called before the first frame update
     void Start()
     {
+        panelPosition = settingsPanel.transform.position;
+        panelHiddenPosition = panelPosition;
+        panelHiddenPosition.x = 1000;
+
+        settingsPanel.transform.position = panelHiddenPosition;
+
+        settings = false;
         //levels = AssetBundle.LoadFromFile("Assets/AssetBundles/Scenes");
     }
 
@@ -20,6 +31,25 @@ public class MainMenu : MonoBehaviour
 
     }
 
+    public void toggleSettings()
+    {
+        settings = (settings) ? false : true;
+
+        if (settings)
+        {
+            settingsPanel.transform.position = panelPosition;
+            menuPanel.transform.position = panelHiddenPosition;
+        } else
+        {
+            settingsPanel.transform.position = panelHiddenPosition;
+            menuPanel.transform.position = panelPosition;
+        }
+    }
+
+    public void SettingsButton()
+    {
+        SceneManager.LoadScene("ObjectSelectionScene");
+    }
     /// <summary>
     /// 
     /// </summary>
