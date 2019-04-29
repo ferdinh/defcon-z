@@ -6,7 +6,6 @@ namespace DefconZ
 {
     public class InputController : MonoBehaviour
     {
-
         private Player player;
 
         // Start is called before the first frame update
@@ -36,12 +35,12 @@ namespace DefconZ
             // if the key is pressed, set the boost status to true
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                player.cam.boost = true;
+                player.camController.boost = true;
             }
             // if the key is released set the boost status to false
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                player.cam.boost = false;
+                player.camController.boost = false;
             }
         }
     }
