@@ -25,12 +25,13 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void PlayGame()
     {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        SceneManager.LoadScene("CameraTestScene");
+        // Scene must be added to build settings to be loaded
+        SceneManager.LoadScene("ObjectSelectionScene");
     }
 
     public void QuitGame()
     {
+        Debug.Log("Quitting game!");
         Application.Quit();
     }
 }
