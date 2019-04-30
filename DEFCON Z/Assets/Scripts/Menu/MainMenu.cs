@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     {
         panelPosition = settingsPanel.transform.position;
         panelHiddenPosition = panelPosition;
-        panelHiddenPosition.x = 1000;
+        panelHiddenPosition.x = Screen.width * 2;
 
         settingsPanel.transform.position = panelHiddenPosition;
 
