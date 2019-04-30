@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e69e9b30062330438090d8a93b38556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructible: 0
+  destructible: 1
   health: 15
-  objName: 
+  objName: Red Barrel
 --- !u!65 &5548758548743057860
 BoxCollider:
   m_ObjectHideFlags: 0

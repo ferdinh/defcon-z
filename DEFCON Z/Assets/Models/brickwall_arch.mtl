@@ -1,0 +1,22 @@
+# Blender MTL File: 'brickwall_arch.blend'
+# Material Count: 2
+
+newmtl RedBrick
+Ns 31.640625
+Ka 1.000000 1.000000 1.000000
+Kd 0.181656 0.046499 0.030662
+Ks 0.000000 0.000000 0.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 1
+
+newmtl WhiteBrick
+Ns 4.340274
+Ka 1.000000 1.000000 1.000000
+Kd 0.494290 0.453823 0.507074
+Ks 0.000000 0.000000 0.000000
+Ke 0.0 0.0 0.0
+Ni 1.450000
+d 1.000000
+illum 1
