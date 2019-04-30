@@ -33,13 +33,15 @@ public class MainMenu : MonoBehaviour
 
     public void toggleSettings()
     {
+        // Flip the settings bool.
         settings = (settings) ? false : true;
 
         if (settings)
         {
             settingsPanel.transform.position = panelPosition;
             menuPanel.transform.position = panelHiddenPosition;
-        } else
+        }
+        else
         {
             settingsPanel.transform.position = panelHiddenPosition;
             menuPanel.transform.position = panelPosition;
