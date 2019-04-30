@@ -9,7 +9,7 @@ namespace Tests
 {
     public class MainMenuTest
     {
-        private MainMenu _menu;
+        private DefconZ.MainMenu _menu;
 
         // A Test behaves as an ordinary method
         [Test]
