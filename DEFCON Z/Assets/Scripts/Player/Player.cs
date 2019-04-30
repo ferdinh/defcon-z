@@ -6,7 +6,8 @@ namespace DefconZ
 {
     public class Player : MonoBehaviour
     {
-        public CameraController cam;
+        public CameraController camController;
+        public Camera cam;
         // for testing purposes, show in editor
         [SerializeField]
         private GameObject selectedObject;
@@ -14,7 +15,8 @@ namespace DefconZ
         // Start is called before the first frame update
         void Start()
         {
-            cam = gameObject.GetComponent<CameraController>();
+            camController = GetComponent<CameraController>();
+            cam = camController.mainCamera;
         }
 
         // Update is called once per frame
@@ -33,7 +35,7 @@ namespace DefconZ
             bool _selectable = false;
 
             // check if the raycast hit anything
-            if (Physics.Raycast(cam.mainCamera.ScreenPointToRay(Input.mousePosition), out _rayCastHit))
+            if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out _rayCastHit))
             {
                 Debug.Log("Hit: " + _rayCastHit.transform.name);
                 // check if the object hit is tagged as a game object
@@ -52,8 +54,6 @@ namespace DefconZ
 
         public void SelectedObjectAction()
         {
-            //UnitBase _selectedUnit;
-
             if (selectedObject != null)
             {
                 UnitBase _selectedUnit = selectedObject.GetComponent<UnitBase>();
@@ -64,10 +64,17 @@ namespace DefconZ
                     RaycastHit _rayCastHit = new RaycastHit();
 
                     // check that the player has clicked somewhere
-                    if (Physics.Raycast(cam.mainCamera.ScreenPointToRay(Input.mousePosition), out _rayCastHit))
+                    if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out _rayCastHit))
                     {
-                        Debug.Log(_rayCastHit.transform.position);
-                        _selectedUnit.DoCurrentAction(_rayCastHit.point);
+                        if (_rayCastHit.transform.gameObject.GetComponent<UnitBase>() != null)
+                        {
+                            Debug.Log("Hit another unit");
+							_selectedUnit.StartAttack(_rayCastHit.transform.gameObject);
+                        } else
+                        {
+                            _selectedUnit.MoveTo(_rayCastHit.point);
+                            Debug.Log("Clicked move position");
+                        }
                     } 
                 }
             }
