@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13c9ee511980b841ad1633530a968cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camController: {fileID: 0}
+  cam: {fileID: 0}
+  selectedObject: {fileID: 0}
 --- !u!114 &784628555139685445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,6 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8c81ccc12ebd984e98f1352469815a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camObject: {fileID: 0}
+  mainCamera: {fileID: 0}
   minSpeed: 5
   maxSpeed: 10
   minHeight: 0.1
@@ -78,4 +83,3 @@ MonoBehaviour:
   maxRotX: 45
   boostMultiplier: 2
   boost: 0
-  cam: {fileID: 0}
