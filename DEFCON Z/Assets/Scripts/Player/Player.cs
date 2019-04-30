@@ -69,6 +69,7 @@ namespace DefconZ
                         if (_rayCastHit.transform.gameObject.GetComponent<UnitBase>() != null)
                         {
                             Debug.Log("Hit another unit");
+							_selectedUnit.StartAttack(_rayCastHit.transform.gameObject);
                         } else
                         {
                             _selectedUnit.MoveTo(_rayCastHit.point);
