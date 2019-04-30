@@ -54,8 +54,6 @@ namespace DefconZ
 
         public void SelectedObjectAction()
         {
-            //UnitBase _selectedUnit;
-
             if (selectedObject != null)
             {
                 UnitBase _selectedUnit = selectedObject.GetComponent<UnitBase>();
@@ -68,8 +66,14 @@ namespace DefconZ
                     // check that the player has clicked somewhere
                     if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out _rayCastHit))
                     {
-                        Debug.Log(_rayCastHit.transform.position);
-                        _selectedUnit.DoCurrentAction(_rayCastHit.point);
+                        if (_rayCastHit.transform.gameObject.GetComponent<UnitBase>() != null)
+                        {
+                            Debug.Log("Hit another unit");
+                        } else
+                        {
+                            _selectedUnit.MoveTo(_rayCastHit.point);
+                            Debug.Log("Clicked move position");
+                        }
                     } 
                 }
             }

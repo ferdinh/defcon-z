@@ -47,10 +47,24 @@ namespace DefconZ
         /// <param name="target"></param>
         public void MoveTo(Vector3 target)
         {
+            Debug.Log("Moving to:" + target);
             if (target != null)
             {
                 navMeshAgent.SetDestination(target);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        public void Attack(GameObject obj)
+        {
+            // check if unit is a ranged unit
+
+            // move to approproate distance
+
+            // attack other unit
         }
 
         /// <summary>
