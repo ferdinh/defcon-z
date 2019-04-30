@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/ObjectSelectionScene.unity
+    guid: 47a36c0173f81b0439a179642e786c47
   m_configObjects: {}
