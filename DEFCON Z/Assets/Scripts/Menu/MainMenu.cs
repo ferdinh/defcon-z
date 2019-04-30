@@ -17,7 +17,8 @@ public class MainMenu : MonoBehaviour
     {
         panelPosition = settingsPanel.transform.position;
         panelHiddenPosition = panelPosition;
-        panelHiddenPosition.x = 1000;
+        // TODO: CALCULATE REAL POSITION 
+        panelHiddenPosition.x = 100000;
 
         settingsPanel.transform.position = panelHiddenPosition;
 
@@ -33,13 +34,15 @@ public class MainMenu : MonoBehaviour
 
     public void toggleSettings()
     {
+        // Flip the settings bool.
         settings = (settings) ? false : true;
 
         if (settings)
         {
             settingsPanel.transform.position = panelPosition;
             menuPanel.transform.position = panelHiddenPosition;
-        } else
+        }
+        else
         {
             settingsPanel.transform.position = panelHiddenPosition;
             menuPanel.transform.position = panelPosition;
