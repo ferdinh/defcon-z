@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 namespace DefconZ
 {
-    public class UnitBase : ObjectBase
+    public abstract class UnitBase : ObjectBase, IDestructible
     {
-        [SerializeField]
+        public float health;
+
         private Vector3 targetPosition;
-        [SerializeField]
         private NavMeshAgent navMeshAgent;
 
         // Start is called before the first frame update
@@ -30,11 +30,7 @@ namespace DefconZ
             }
         }
 
-        // Update is called once per frame
-        public void Update()
-        {
-
-        }
+        public abstract void Update();
 
         public void DoCurrentAction(Vector3 position)
         {
@@ -61,46 +57,45 @@ namespace DefconZ
         /// <param name="obj"></param>
         public void StartAttack(GameObject obj)
         {
-			// TODO: Check if the target obj is an enemy unit
-			UnitBase _targetUnit = obj.GetComponent<UnitBase>();
-			if (_targetUnit != null)
-			{
-				// move to approproate distance
-				// TODO: calculate appropriate position to move to (Eg, if this unit is a ranged unit, move to maximum/safe firing range?)
-				Vector3 _targetPos = obj.transform.position;
-				MoveTo(_targetPos);
-
-				// attack other unit
-				// TODO: we need to actully wait until the unit is in attack range before attacking
-				// TODO: We need to have a propper damage amount set-up
-				Debug.Log("Attacking unit: " + _targetUnit.objName + "\n" + _targetUnit.name);
-				_targetUnit.DamageObject(1.0f);
-			}
-
-
-		}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="damage"></param>
-        public override void DamageObject(float damage)
-        {
-            if (destructible)
+            // TODO: Check if the target obj is an enemy unit
+            UnitBase _targetUnit = obj.GetComponent<UnitBase>();
+            if (_targetUnit != null)
             {
-                health -= damage;
+                // move to approproate distance
+                // TODO: calculate appropriate position to move to (Eg, if this unit is a ranged unit, move to maximum/safe firing range?)
+                Vector3 _targetPos = obj.transform.position;
+                MoveTo(_targetPos);
 
-                if (health <= 0.0f)
-                {
-                    DestroySelf();
-                }
+                // attack other unit
+                // TODO: we need to actully wait until the unit is in attack range before attacking
+                // TODO: We need to have a propper damage amount set-up
+                Debug.Log("Attacking unit: " + _targetUnit.objName + "\n" + _targetUnit.name);
+                _targetUnit.TakeDamage(1.0f);
             }
         }
 
-        public override void DestroySelf()
+        /// <summary>
+        /// Defines how a unit is destroyed
+        /// </summary>
+        public virtual void DestroySelf()
         {
             Debug.Log(this.objName + " has reached 0 or less health and has been destroyed");
             Destroy(gameObject); // Remove the game object this script is attached to
+        }
+
+        /// <summary>
+        /// Defines how a unit takes damage
+        /// If the remaining health is less than or equal to zero, the unit is destroyed
+        /// </summary>
+        /// <param name="damage"></param>
+        public virtual void TakeDamage(float damage)
+        {
+            health -= damage;
+
+            if (health <= 0.0f)
+            {
+                DestroySelf();
+            }
         }
     }
 }

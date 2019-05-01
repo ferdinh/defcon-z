@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace DefconZ
 {
-    public class Human : UnitBase
+    public interface IDestructible
     {
-        public override void Update() { }
+        void DestroySelf();
+        void TakeDamage(float damage);
     }
 }
 
