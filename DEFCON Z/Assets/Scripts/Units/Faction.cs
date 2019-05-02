@@ -15,12 +15,18 @@ namespace DefconZ.Units
 
         private void Awake()
         {
+            Units = new List<GameObject>();
+        }
+
+        private void Start()
+        {
             Resource = new Resource();
 
             Resource.CalculateMaxPoints();
             Resource.ComputeStartingValue();
 
-            Units = new List<GameObject>();
+            Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.MaxResourcePoint);
+            Debug.Log(FactionName + " faction has Starting Resource Point of " + Resource.ResourcePoint);
         }
 
 }
