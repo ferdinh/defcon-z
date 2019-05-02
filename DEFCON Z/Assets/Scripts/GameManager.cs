@@ -57,3 +57,5 @@ namespace DefconZ
 
 
             zombieFaction.Units.Add(zombieUnit);
+
+            _factions.Add(zombieFaction);
