@@ -54,7 +54,7 @@ namespace DefconZ
         private void RotateCamera()
         {
 
-            if (Input.GetKey(KeyCode.Mouse2))
+            if (Input.GetAxis("CameraRotation") != 0)
             {
                 Vector3 rotation = new Vector3(0, 0, 0);
 
