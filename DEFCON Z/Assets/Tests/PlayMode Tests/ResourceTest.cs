@@ -34,5 +34,44 @@ namespace Tests
 
         }
 
+
+        /// <summary>
+        /// The test ensure that maximum points for available resources follow
+        /// the modifiers.
+        /// </summary>
+        [Test]
+        public void Resource_CalculateMaxPoints_Should_Follow_Modifiers()
+        {
+            // Arrange 
+            float expectedMaxValue = 18000.0f;
+
+            Resource resource = new Resource();
+
+            Modifier mod = new Modifier
+            {
+                Name = "Test Modifier",
+                Type = ModifierType.Event,
+                Value = 0.5f
+            };
+
+            Modifier mod2 = new Modifier
+            {
+                Name = "Test Modifier",
+                Type = ModifierType.Event,
+                Value = 0.3f
+            };
+    
+            // The additional modifier value will increase the max value
+            // from it's base value by 80 percent.
+            resource.Modifiers.Add(mod);
+            resource.Modifiers.Add(mod2);
+
+
+            // Act
+            resource.CalculateMaxPoints();
+
+            // Assert
+            Assert.AreEqual(expectedMaxValue, resource.MaxResourcePoint);
+        }
     }
 }
