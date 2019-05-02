@@ -26,4 +26,31 @@ public class Resource
         Modifiers = new List<Modifier>();
     }
 
+    /// <summary>
+    /// Computes the starting resource value.
+    /// </summary>
+    public void ComputeStartingValue()
+    {
+        Debug.Log("Calculating starting resources.");
+
+        // Look for the difficulty value.
+        var diffMod = Modifiers.SingleOrDefault(mod => mod.Type.Equals(ModifierType.Difficulty));
+        var diffModValue = 0.0f;
+
+        // TODO: Science point will not be implemented in this sprint 1.
+        SciencePoint = 100;
+
+        // If the case where there is no modifier of type difficulty is found,
+        // then the value will default to zero.
+        if (diffMod != null)
+        {
+            diffModValue = diffMod.Value;
+        }
+
+        var resourceModValue = 0.3f + diffModValue + UnityEngine.Random.Range(0.05f, 0.1f);
+
+        ResourcePoint = resourceModValue * MaxResourcePoint;
+
+        Debug.Log("End starting resources.");
+    }
 }
