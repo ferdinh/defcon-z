@@ -59,7 +59,7 @@ namespace DefconZ.Simulation
         /// <summary>
         /// Calculates the maximum points available.
         /// </summary>
-        internal void CalculateMaxPoints()
+        public void CalculateMaxPoints()
         {
             var modifierValue = 1.0f + Modifiers.Sum(mod => mod.Value);
 
@@ -70,11 +70,18 @@ namespace DefconZ.Simulation
         /// Computes the gain/loss in resources.
         /// </summary>
         /// <exception cref="System.NotImplementedException"></exception>
-        internal void GatherResource()
+        public void GatherResource()
         {
             var resourcePointIncrease = MaxResourcePoint / 1095;
 
             ResourcePoint += resourcePointIncrease;
+
+            // Limit the available resource point to MaxResourcePoint.
+            if (ResourcePoint > MaxResourcePoint)
+            {
+                ResourcePoint = MaxResourcePoint;
+            }
+
 
             Debug.Log($"Resource point increased by {resourcePointIncrease} to {ResourcePoint}");
         }
