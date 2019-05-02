@@ -15,6 +15,7 @@ public class Resource
     public float ResourcePoint { get; set; }
 
 
+    public IList<Modifier> Modifiers { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Resource"/> class.
@@ -22,6 +23,7 @@ public class Resource
     public Resource()
     {
         BaseResourcePoint = 10000.0f;
+        Modifiers = new List<Modifier>();
     }
 
 }
