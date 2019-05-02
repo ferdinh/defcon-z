@@ -63,4 +63,17 @@ public class Resource
 
         MaxResourcePoint = BaseResourcePoint * modifierValue;
     }
+
+    /// <summary>
+    /// Computes the gain/loss in resources.
+    /// </summary>
+    /// <exception cref="System.NotImplementedException"></exception>
+    internal void GatherResource()
+    {
+        var resourcePointIncrease = MaxResourcePoint / 1095;
+
+        ResourcePoint += resourcePointIncrease;
+
+        Debug.Log($"Resource point increased by {resourcePointIncrease} to {ResourcePoint}");
+    }
 }
