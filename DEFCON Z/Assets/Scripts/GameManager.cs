@@ -1,6 +1,5 @@
 ﻿using DefconZ.Units;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace DefconZ
@@ -22,7 +21,8 @@ namespace DefconZ
             if (Instance == null)
             {
                 Instance = this;
-            } else if (Instance != this)
+            }
+            else if (Instance != this)
             {
                 Destroy(gameObject);
             }
@@ -62,10 +62,13 @@ namespace DefconZ
             zombieFaction.Units.Add(zombieUnit);
 
             _factions.Add(zombieFaction);
+
             var clock = Clock.Instance;
 
             clock.GameCycleElapsed += Clock_GameCycleElapsed;
+
         }
+
         private void Clock_GameCycleElapsed(object sender, System.EventArgs e)
         {
             foreach (var faction in _factions)
@@ -77,3 +80,4 @@ namespace DefconZ
             Debug.Log("Game day elapsed " + Clock.Instance.GameDay);
         }
     }
+}
