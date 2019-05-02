@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DefconZ
 {
-    public class Human : UnitBase
+    public class Zombie : UnitBase
     {
         public override void Update() { }
     }
