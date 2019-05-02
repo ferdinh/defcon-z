@@ -53,4 +53,14 @@ public class Resource
 
         Debug.Log("End starting resources.");
     }
+
+    /// <summary>
+    /// Calculates the maximum points available.
+    /// </summary>
+    internal void CalculateMaxPoints()
+    {
+        var modifierValue = 1.0f + Modifiers.Sum(mod => mod.Value);
+
+        MaxResourcePoint = BaseResourcePoint * modifierValue;
+    }
 }
