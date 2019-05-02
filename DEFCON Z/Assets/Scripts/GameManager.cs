@@ -16,6 +16,7 @@ namespace DefconZ
         private List<Faction> _factions;
         public GameObject _humanPrefab;
         public GameObject _zombiePrefab;
+
         private void Awake()
         {
             if (Instance == null)
@@ -28,6 +29,7 @@ namespace DefconZ
 
             _factions = new List<Faction>();
         }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -37,6 +39,7 @@ namespace DefconZ
             humanFaction.FactionType = FactionType.Human;
             humanFaction.FactionName = "Human Player";
             humanFaction.IsHumanPlayer = true;
+
             var humanUnit = Instantiate(_humanPrefab, new Vector3(-1.90f, 0.0f, -36.0f), Quaternion.identity);
             humanUnit.GetComponent<Human>().FactionOwner = humanFaction.FactionName;
 
@@ -59,3 +62,18 @@ namespace DefconZ
             zombieFaction.Units.Add(zombieUnit);
 
             _factions.Add(zombieFaction);
+            var clock = Clock.Instance;
+
+            clock.GameCycleElapsed += Clock_GameCycleElapsed;
+        }
+        private void Clock_GameCycleElapsed(object sender, System.EventArgs e)
+        {
+            foreach (var faction in _factions)
+            {
+                Debug.Log($"Gathering resource for {faction.FactionName}");
+                faction.Resource.GatherResource();
+            }
+
+            Debug.Log("Game day elapsed " + Clock.Instance.GameDay);
+        }
+    }
