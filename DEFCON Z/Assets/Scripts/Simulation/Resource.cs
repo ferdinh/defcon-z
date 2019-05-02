@@ -75,7 +75,8 @@ namespace DefconZ.Simulation
             // Base resource replenish resource point from zero to full in
             // 3 years or 1095 days.
             float baseresourcePointIncrease = MaxResourcePoint / 1095.0f;
-            float resourcePointIncrease = baseresourcePointIncrease * Modifiers.Sum(mod => mod.Value);
+            float increaseModifier = 1.0f + Modifiers.Sum(mod => mod.Value);
+            float resourcePointIncrease = baseresourcePointIncrease * increaseModifier;
 
             ResourcePoint += resourcePointIncrease;
 
