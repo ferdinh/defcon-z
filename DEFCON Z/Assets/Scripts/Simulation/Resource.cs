@@ -72,7 +72,10 @@ namespace DefconZ.Simulation
         /// <exception cref="System.NotImplementedException"></exception>
         public void GatherResource()
         {
-            var resourcePointIncrease = MaxResourcePoint / 1095;
+            // Base resource replenish resource point from zero to full in
+            // 3 years or 1095 days.
+            float baseresourcePointIncrease = MaxResourcePoint / 1095.0f;
+            float resourcePointIncrease = baseresourcePointIncrease * Modifiers.Sum(mod => mod.Value);
 
             ResourcePoint += resourcePointIncrease;
 
