@@ -14,6 +14,8 @@ namespace DefconZ
         /// Holds the faction's information of the game.
         /// </summary>
         private List<Faction> _factions;
+        public GameObject _humanPrefab;
+        public GameObject _zombiePrefab;
         private void Awake()
         {
             if (Instance == null)
