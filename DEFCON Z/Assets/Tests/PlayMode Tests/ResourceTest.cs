@@ -62,7 +62,7 @@ namespace Tests
             };
     
             // The additional modifier value will increase the max value
-            // from it's base value by 80 percent.
+            // from its base value by 80 percent.
             resource.Modifiers.Add(mod);
             resource.Modifiers.Add(mod2);
 
