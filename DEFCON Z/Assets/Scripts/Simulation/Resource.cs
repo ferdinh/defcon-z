@@ -3,77 +3,80 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-/// <summary>
-/// A class that contains the available resources.
-/// </summary>
-public class Resource
+namespace DefconZ.Simulation
 {
-    public float BaseResourcePoint { get; }
-    public float MaxResourcePoint { get; set; }
-    public float MaxSciencePoint { get; set; }
-    public float SciencePoint { get; set; }
-    public float ResourcePoint { get; set; }
-
-
-    public IList<Modifier> Modifiers { get; }
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="Resource"/> class.
+    /// A class that contains the available resources.
     /// </summary>
-    public Resource()
+    public class Resource
     {
-        BaseResourcePoint = 10000.0f;
-        Modifiers = new List<Modifier>();
-    }
+        public float BaseResourcePoint { get; }
+        public float MaxResourcePoint { get; set; }
+        public float MaxSciencePoint { get; set; }
+        public float SciencePoint { get; set; }
+        public float ResourcePoint { get; set; }
 
-    /// <summary>
-    /// Computes the starting resource value.
-    /// </summary>
-    public void ComputeStartingValue()
-    {
-        Debug.Log("Calculating starting resources.");
 
-        // Look for the difficulty value.
-        var diffMod = Modifiers.SingleOrDefault(mod => mod.Type.Equals(ModifierType.Difficulty));
-        var diffModValue = 0.0f;
+        public IList<Modifier> Modifiers { get; }
 
-        // TODO: Science point will not be implemented in this sprint 1.
-        SciencePoint = 100;
-
-        // If the case where there is no modifier of type difficulty is found,
-        // then the value will default to zero.
-        if (diffMod != null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Resource"/> class.
+        /// </summary>
+        public Resource()
         {
-            diffModValue = diffMod.Value;
+            BaseResourcePoint = 10000.0f;
+            Modifiers = new List<Modifier>();
         }
 
-        var resourceModValue = 0.3f + diffModValue + UnityEngine.Random.Range(0.05f, 0.1f);
+        /// <summary>
+        /// Computes the starting resource value.
+        /// </summary>
+        public void ComputeStartingValue()
+        {
+            Debug.Log("Calculating starting resources.");
 
-        ResourcePoint = resourceModValue * MaxResourcePoint;
+            // Look for the difficulty value.
+            var diffMod = Modifiers.SingleOrDefault(mod => mod.Type.Equals(ModifierType.Difficulty));
+            var diffModValue = 0.0f;
 
-        Debug.Log("End starting resources.");
-    }
+            // TODO: Science point will not be implemented in this sprint 1.
+            SciencePoint = 100;
 
-    /// <summary>
-    /// Calculates the maximum points available.
-    /// </summary>
-    internal void CalculateMaxPoints()
-    {
-        var modifierValue = 1.0f + Modifiers.Sum(mod => mod.Value);
+            // If the case where there is no modifier of type difficulty is found,
+            // then the value will default to zero.
+            if (diffMod != null)
+            {
+                diffModValue = diffMod.Value;
+            }
 
-        MaxResourcePoint = BaseResourcePoint * modifierValue;
-    }
+            var resourceModValue = 0.3f + diffModValue + UnityEngine.Random.Range(0.05f, 0.1f);
 
-    /// <summary>
-    /// Computes the gain/loss in resources.
-    /// </summary>
-    /// <exception cref="System.NotImplementedException"></exception>
-    internal void GatherResource()
-    {
-        var resourcePointIncrease = MaxResourcePoint / 1095;
+            ResourcePoint = resourceModValue * MaxResourcePoint;
 
-        ResourcePoint += resourcePointIncrease;
+            Debug.Log("End starting resources.");
+        }
 
-        Debug.Log($"Resource point increased by {resourcePointIncrease} to {ResourcePoint}");
+        /// <summary>
+        /// Calculates the maximum points available.
+        /// </summary>
+        internal void CalculateMaxPoints()
+        {
+            var modifierValue = 1.0f + Modifiers.Sum(mod => mod.Value);
+
+            MaxResourcePoint = BaseResourcePoint * modifierValue;
+        }
+
+        /// <summary>
+        /// Computes the gain/loss in resources.
+        /// </summary>
+        /// <exception cref="System.NotImplementedException"></exception>
+        internal void GatherResource()
+        {
+            var resourcePointIncrease = MaxResourcePoint / 1095;
+
+            ResourcePoint += resourcePointIncrease;
+
+            Debug.Log($"Resource point increased by {resourcePointIncrease} to {ResourcePoint}");
+        }
     }
 }
