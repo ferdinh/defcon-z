@@ -39,6 +39,7 @@ namespace Tests
         [TestCase(100, 1)]
         [TestCase(200, 2)]
         [TestCase(50, 0)]
+        [TestCase(150, 1)]
         [TestCase(1000, 10)]
         public void AddXP_Should_Increase_Level_When_XPThreshold_Reached(int xpToAdd, int expectedLevel)
         {
