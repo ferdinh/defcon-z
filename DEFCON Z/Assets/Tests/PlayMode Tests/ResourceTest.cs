@@ -73,5 +73,45 @@ namespace Tests
             // Assert
             Assert.AreEqual(expectedMaxValue, resource.MaxResourcePoint);
         }
+
+        [Test]
+        public void Resource_GatherResource_Should_Follow_Modifiers()
+        {
+            // Arrange
+            Resource resource = new Resource();
+            float margin = 0.001f;
+
+            Modifier mod = new Modifier
+            {
+                Name = "Test Modifier",
+                Type = ModifierType.Event,
+                Value = 0.5f
+            };
+
+            Modifier mod2 = new Modifier
+            {
+                Name = "Test Modifier",
+                Type = ModifierType.Event,
+                Value = 0.3f
+            };
+
+            resource.CalculateMaxPoints();
+            resource.ComputeStartingValue();
+
+            float expectedIncrease = resource.MaxResourcePoint / 1095.0f * 1.8f;
+
+            // The additional modifier value will increase the gathering value
+            // from its base value by 80 percent.
+            resource.Modifiers.Add(mod);
+            resource.Modifiers.Add(mod2);
+
+            // Act
+            float startingResource = resource.ResourcePoint;
+            resource.GatherResource();
+
+            // Assert
+            var actualIncrease = resource.ResourcePoint - startingResource;
+            Assert.That(expectedIncrease, Is.EqualTo(actualIncrease).Within(margin));
+        }
     }
 }
