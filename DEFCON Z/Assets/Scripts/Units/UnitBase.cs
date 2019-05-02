@@ -11,6 +11,7 @@ namespace DefconZ
         private Vector3 targetPosition;
         [SerializeField]
         private NavMeshAgent navMeshAgent;
+        public string FactionOwner { get; set; }
 
         // Start is called before the first frame update
         public void Start()
