@@ -18,14 +18,13 @@ namespace DefconZ.Units
         {
             Units = new List<GameObject>();
             Level = new Level();
-
-            // Reference the faction level to the resource calculation.
-            Resource.Modifiers.Add(Level.LevelModifier);
+            Resource = new Resource();
         }
 
         private void Start()
         {
-            Resource = new Resource();
+            // Reference the faction level to the resource calculation.
+            Resource.Modifiers.Add(Level.LevelModifier);
 
             Resource.CalculateMaxPoints();
             Resource.ComputeStartingValue();
