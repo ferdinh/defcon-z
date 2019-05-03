@@ -19,12 +19,6 @@ namespace DefconZ.Units
             Units = new List<GameObject>();
             Level = new Level();
 
-            // Reference the faction level to the resource calculation.
-            Resource.Modifiers.Add(Level.LevelModifier);
-        }
-
-        private void Start()
-        {
             Resource = new Resource();
 
             Resource.CalculateMaxPoints();
@@ -32,6 +26,12 @@ namespace DefconZ.Units
 
             Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.MaxResourcePoint);
             Debug.Log(FactionName + " faction has Starting Resource Point of " + Resource.ResourcePoint);
+        }
+
+        private void Start()
+        {
+            // Reference the faction level to the resource calculation.
+            Resource.Modifiers.Add(Level.LevelModifier);
         }
     }
 }
