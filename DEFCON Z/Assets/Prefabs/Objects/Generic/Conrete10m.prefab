@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3038345284015561697
+--- !u!1 &6788095282413360156
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3038345284015654849}
-  - component: {fileID: 3038345284012263393}
-  - component: {fileID: 3038345284013360417}
-  - component: {fileID: 3038345284343174052}
+  - component: {fileID: 6788095282413783100}
+  - component: {fileID: 6788095282416650270}
+  - component: {fileID: 6788095282415553246}
+  - component: {fileID: 4804358055038537708}
   m_Layer: 0
-  m_Name: road_straight_10m
+  m_Name: Concrete 10m
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
   m_IsActive: 1
---- !u!4 &3038345284015654849
+--- !u!4 &6788095282413783100
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3038345284015561697}
+  m_GameObject: {fileID: 6788095282413360156}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3038345284015654851}
+  m_Father: {fileID: 6788095282413783102}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3038345284012263393
+--- !u!33 &6788095282416650270
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3038345284015561697}
-  m_Mesh: {fileID: 4300000, guid: 70ca437936303ef47bf234e866671ea9, type: 3}
---- !u!23 &3038345284013360417
+  m_GameObject: {fileID: 6788095282413360156}
+  m_Mesh: {fileID: 4300000, guid: d3c899074198ca544bac871540df5b50, type: 3}
+--- !u!23 &6788095282415553246
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3038345284015561697}
+  m_GameObject: {fileID: 6788095282413360156}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -58,9 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70ca437936303ef47bf234e866671ea9, type: 3}
-  - {fileID: 2100002, guid: 70ca437936303ef47bf234e866671ea9, type: 3}
-  - {fileID: 2100004, guid: 70ca437936303ef47bf234e866671ea9, type: 3}
+  - {fileID: 2100000, guid: d3c899074198ca544bac871540df5b50, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80,21 +78,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &3038345284343174052
+--- !u!64 &4804358055038537708
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3038345284015561697}
+  m_GameObject: {fileID: 6788095282413360156}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 70ca437936303ef47bf234e866671ea9, type: 3}
---- !u!1 &3038345284015561699
+  m_Mesh: {fileID: 4300000, guid: d3c899074198ca544bac871540df5b50, type: 3}
+--- !u!1 &6788095282413360158
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,26 +100,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3038345284015654851}
+  - component: {fileID: 6788095282413783102}
   m_Layer: 0
-  m_Name: Road Straight 10m
-  m_TagString: GameObject
+  m_Name: Conrete10m
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3038345284015654851
+--- !u!4 &6788095282413783102
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3038345284015561699}
+  m_GameObject: {fileID: 6788095282413360158}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3038345284015654849}
+  - {fileID: 6788095282413783100}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
