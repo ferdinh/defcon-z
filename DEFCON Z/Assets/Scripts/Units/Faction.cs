@@ -10,7 +10,7 @@ namespace DefconZ.Units
         public Resource Resource { get; set; }
         public IList<GameObject> Units { get; set; }
         public FactionType FactionType { get; set; }
-        public bool IsHumanPlayer { get; set; } = false;
+        public bool IsPlayerUnit { get; set; } = false;
         public GameObject UnitPrefab { get; internal set; }
         public Level Level { get; set; }
 

@@ -38,7 +38,7 @@ namespace DefconZ
             humanFaction.UnitPrefab = HumanPrefab;
             humanFaction.FactionType = FactionType.Human;
             humanFaction.FactionName = "Human Player";
-            humanFaction.IsHumanPlayer = true;
+            humanFaction.IsPlayerUnit = true;
 
             var humanUnit = Instantiate(HumanPrefab, new Vector3(-1.90f, 0.0f, -36.0f), Quaternion.identity);
             humanUnit.GetComponent<Human>().FactionOwner = humanFaction;
