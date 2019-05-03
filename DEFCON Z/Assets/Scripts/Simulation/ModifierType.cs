@@ -11,7 +11,8 @@ namespace DefconZ.Simulation
     public enum ModifierType
     {
         Event,
-        Difficulty
+        Difficulty,
+        Level
     }
 }
 

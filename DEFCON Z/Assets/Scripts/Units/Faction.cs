@@ -12,10 +12,15 @@ namespace DefconZ.Units
         public FactionType FactionType { get; set; }
         public bool IsHumanPlayer { get; set; } = false;
         public GameObject UnitPrefab { get; internal set; }
+        public Level Level { get; set; }
 
         private void Awake()
         {
             Units = new List<GameObject>();
+            Level = new Level();
+
+            // Reference the faction level to the resource calculation.
+            Resource.Modifiers.Add(Level.LevelModifier);
         }
 
         private void Start()
