@@ -10,7 +10,7 @@ namespace DefconZ.Units
         public Resource Resource { get; set; }
         public IList<GameObject> Units { get; set; }
         public FactionType FactionType { get; set; }
-        public bool IsHumanPlayer { get; set; } = false;
+        public bool IsPlayerUnit { get; set; } = false;
         public GameObject UnitPrefab { get; internal set; }
         public Level Level { get; set; }
 
@@ -18,14 +18,13 @@ namespace DefconZ.Units
         {
             Units = new List<GameObject>();
             Level = new Level();
-
-            // Reference the faction level to the resource calculation.
-            Resource.Modifiers.Add(Level.LevelModifier);
+            Resource = new Resource();
         }
 
         private void Start()
         {
-            Resource = new Resource();
+            // Reference the faction level to the resource calculation.
+            Resource.Modifiers.Add(Level.LevelModifier);
 
             Resource.CalculateMaxPoints();
             Resource.ComputeStartingValue();

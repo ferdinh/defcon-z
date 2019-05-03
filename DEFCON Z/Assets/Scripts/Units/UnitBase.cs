@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DefconZ.Units;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,7 +12,7 @@ namespace DefconZ
 
         private Vector3 targetPosition;
         private NavMeshAgent navMeshAgent;
-        public string FactionOwner { get; set; }
+        public Faction FactionOwner { get; set; }
 
         // Start is called before the first frame update
         public void Start()
@@ -29,7 +30,14 @@ namespace DefconZ
 				targetPosition = gameObject.transform.position;
                 MoveTo(targetPosition);
             }
+
+            InitUnit();
         }
+
+        /// <summary>
+        /// Initialises the unit, called upon the first frame the unit is instantiated
+        /// </summary>
+        public abstract void InitUnit();
 
         public abstract void Update();
 
