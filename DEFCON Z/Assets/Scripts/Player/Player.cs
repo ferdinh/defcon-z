@@ -54,28 +54,39 @@ namespace DefconZ
 
         public void SelectedObjectAction()
         {
+            // Check if the player has selected a unit
             if (selectedObject != null)
             {
+                // Check if the selected object is a unit
                 UnitBase _selectedUnit = selectedObject.GetComponent<UnitBase>();
                 if (_selectedUnit != null)
                 {
-                    // at this point we know the object can accept an order
-                    // raycast for the order location
-                    RaycastHit _rayCastHit = new RaycastHit();
-
-                    // check that the player has clicked somewhere
-                    if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out _rayCastHit))
+                    // Check if the selected unit is owned by the player
+                    if (_selectedUnit.FactionOwner.IsPlayerUnit)
                     {
-                        if (_rayCastHit.transform.gameObject.GetComponent<UnitBase>() != null)
+                        Debug.Log("Selected unit is a player controlled unit");
+                        // at this point we know the object can accept an order
+                        // raycast for the order location
+                        RaycastHit _rayCastHit = new RaycastHit();
+
+                        // check that the player has clicked somewhere
+                        if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out _rayCastHit))
                         {
-                            Debug.Log("Hit another unit");
-							_selectedUnit.StartAttack(_rayCastHit.transform.gameObject);
-                        } else
-                        {
-                            _selectedUnit.MoveTo(_rayCastHit.point);
-                            Debug.Log("Clicked move position");
+                            if (_rayCastHit.transform.gameObject.GetComponent<UnitBase>() != null)
+                            {
+                                Debug.Log("Hit another unit");
+                                _selectedUnit.StartAttack(_rayCastHit.transform.gameObject);
+                            }
+                            else
+                            {
+                                _selectedUnit.MoveTo(_rayCastHit.point);
+                                Debug.Log("Clicked move position");
+                            }
                         }
-                    } 
+                    } else
+                    {
+                        Debug.Log("Selected unit is not player controlled, cannot give orders");
+                    }
                 }
             }
         }
