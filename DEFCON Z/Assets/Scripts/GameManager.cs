@@ -41,7 +41,7 @@ namespace DefconZ
             humanFaction.IsHumanPlayer = true;
 
             var humanUnit = Instantiate(HumanPrefab, new Vector3(-1.90f, 0.0f, -36.0f), Quaternion.identity);
-            humanUnit.GetComponent<Human>().FactionOwner = humanFaction.FactionName;
+            humanUnit.GetComponent<Human>().FactionOwner = humanFaction;
 
             humanFaction.Units.Add(humanUnit);
 
@@ -55,7 +55,7 @@ namespace DefconZ
             zombieFaction.FactionName = "Zombie AI";
 
             var zombieUnit = Instantiate(ZombiePrefab, new Vector3(17.24f, 0.0f, -33.95f), Quaternion.identity);
-            zombieUnit.GetComponent<Human>().FactionOwner = zombieFaction.FactionName;
+            zombieUnit.GetComponent<Human>().FactionOwner = zombieFaction;
 
 
 
