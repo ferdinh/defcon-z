@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DefconZ
 {
@@ -9,13 +7,12 @@ namespace DefconZ
         private Player player;
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
-
             player = gameObject.GetComponent<Player>();
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             // Fire 1 (Left click)
             if (Input.GetButtonDown("Fire1"))
@@ -23,7 +20,6 @@ namespace DefconZ
                 // Raycast and select an object
                 player.SelectObject();
             }
-
 
             // Fire 1 (Right Click)
             if (Input.GetButtonDown("Fire2"))
@@ -45,4 +41,3 @@ namespace DefconZ
         }
     }
 }
-
