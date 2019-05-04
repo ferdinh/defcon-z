@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -16,7 +15,6 @@ namespace DefconZ.Simulation
         public float SciencePoint { get; set; }
         public float ResourcePoint { get; set; }
 
-
         public IList<Modifier> Modifiers { get; }
 
         /// <summary>
@@ -31,7 +29,7 @@ namespace DefconZ.Simulation
         /// <summary>
         /// Computes the starting resource value.
         /// </summary>
-        public void ComputeStartingValue()
+        public Resource ComputeStartingValue()
         {
             Debug.Log("Calculating starting resources.");
 
@@ -54,16 +52,20 @@ namespace DefconZ.Simulation
             ResourcePoint = resourceModValue * MaxResourcePoint;
 
             Debug.Log("End starting resources.");
+
+            return this;
         }
 
         /// <summary>
         /// Calculates the maximum points available.
         /// </summary>
-        public void CalculateMaxPoints()
+        public Resource CalculateMaxPoints()
         {
             var modifierValue = 1.0f + Modifiers.Sum(mod => mod.Value);
 
             MaxResourcePoint = BaseResourcePoint * modifierValue;
+
+            return this;
         }
 
         /// <summary>
@@ -85,7 +87,6 @@ namespace DefconZ.Simulation
             {
                 ResourcePoint = MaxResourcePoint;
             }
-
 
             Debug.Log($"Resource point increased by {resourcePointIncrease} to {ResourcePoint}");
         }
