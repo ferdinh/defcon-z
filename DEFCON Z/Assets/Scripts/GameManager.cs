@@ -1,4 +1,7 @@
-﻿using DefconZ.Units;
+﻿using DefconZ.Simulation;
+using DefconZ.Units;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,13 +11,14 @@ namespace DefconZ
     {
         public static GameManager Instance = null;
 
-
         /// <summary>
         /// Holds the faction's information of the game.
         /// </summary>
         public List<Faction> Factions;
+
         public GameObject HumanPrefab;
         public GameObject ZombiePrefab;
+        public IDictionary<Guid, Combat> ActiveCombats;
 
         private void Awake()
         {
@@ -28,10 +32,11 @@ namespace DefconZ
             }
 
             Factions = new List<Faction>();
+            ActiveCombats = new ConcurrentDictionary<Guid, Combat>();
         }
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             var humanFaction = gameObject.AddComponent<Faction>();
 
@@ -47,7 +52,6 @@ namespace DefconZ
 
             Factions.Add(humanFaction);
 
-
             var zombieFaction = gameObject.AddComponent<Faction>();
 
             zombieFaction.UnitPrefab = ZombiePrefab;
@@ -55,18 +59,33 @@ namespace DefconZ
             zombieFaction.FactionName = "Zombie AI";
 
             var zombieUnit = Instantiate(ZombiePrefab, new Vector3(17.24f, 0.0f, -33.95f), Quaternion.identity);
-            zombieUnit.GetComponent<Human>().FactionOwner = zombieFaction;
-
-
+            var zombieUnit2 = Instantiate(ZombiePrefab, new Vector3(10.24f, 0.0f, -33.95f), Quaternion.identity);
+            zombieUnit.GetComponent<Zombie>().FactionOwner = zombieFaction;
+            zombieUnit2.GetComponent<Zombie>().FactionOwner = zombieFaction;
+            zombieUnit2.GetComponent<Zombie>().objName = "Zombie2";
 
             zombieFaction.Units.Add(zombieUnit);
+            zombieFaction.Units.Add(zombieUnit2);
 
             Factions.Add(zombieFaction);
 
             var clock = Clock.Instance;
 
             clock.GameCycleElapsed += Clock_GameCycleElapsed;
+            clock.GameCycleElapsed += Combat;
+        }
 
+        /// <summary>
+        /// Engage any available combat.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void Combat(object sender, System.EventArgs e)
+        {
+            foreach (var combat in ActiveCombats)
+            {
+                combat.Value.Engage();
+            }
         }
 
         private void Clock_GameCycleElapsed(object sender, System.EventArgs e)

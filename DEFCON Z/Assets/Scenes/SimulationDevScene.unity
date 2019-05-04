@@ -1340,7 +1340,7 @@ MonoBehaviour:
   Factions: []
   HumanPrefab: {fileID: 6112589138305832958, guid: d93bba217fb07e6439ab29855d7ac1af,
     type: 3}
-  ZombiePrefab: {fileID: 6112589138305832958, guid: d93bba217fb07e6439ab29855d7ac1af,
+  ZombiePrefab: {fileID: 6693292440879736205, guid: 963bbb3a5efe1e449a948a22d4b086e1,
     type: 3}
 --- !u!4 &772773001
 Transform:
