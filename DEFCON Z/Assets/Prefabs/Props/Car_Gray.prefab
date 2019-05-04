@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6562723273345494253}
   - component: {fileID: 6920444699630119677}
   - component: {fileID: 3078393678098290386}
+  - component: {fileID: 4972413566349957287}
   m_Layer: 0
   m_Name: Car_Gray
-  m_TagString: Untagged
+  m_TagString: GameObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,6 +63,20 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.5689883, z: -0.3835399}
   m_TimeToStationary: 0.5
+--- !u!114 &4972413566349957287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6562723273345724621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e69e9b30062330438090d8a93b38556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objName: Gray Car
+  health: 100
 --- !u!1 &6562723273345724623
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DefconZ
 {
@@ -11,6 +12,7 @@ namespace DefconZ
         // for testing purposes, show in editor
         [SerializeField]
         private GameObject selectedObject;
+        public InGameUI playerUI;
 
         // Start is called before the first frame update
         void Start()
@@ -43,12 +45,14 @@ namespace DefconZ
                 {
                     _selectable = true;
                     selectedObject = _rayCastHit.transform.gameObject;
+                    playerUI.UpdateObjectSelectionUI(selectedObject.GetComponent<ObjectBase>());
                 }
             }
             // if player has not clicked on a selectable object, make sure the currently selected object is cleared
             if (!_selectable)
             {
                 selectedObject = null;
+                playerUI.UpdateObjectSelectionUI(null);
             }
         }
 
