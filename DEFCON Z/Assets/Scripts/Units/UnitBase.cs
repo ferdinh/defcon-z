@@ -62,7 +62,31 @@ namespace DefconZ
         }
 
         /// <summary>
-        /// 
+        /// Called when unit collide with another rigidbody.
+        /// </summary>
+        /// <param name="collisionInfo">Collision information</param>
+        private void OnCollisionEnter(Collision collisionInfo)
+        {
+            // We expect unit to collide with another unit.
+            var collidedGameObject = collisionInfo.gameObject.GetComponent<UnitBase>();
+
+            if (collidedGameObject != null)
+            {
+                // Engage combat only if the unit collides with a hostile unit.
+                if (collidedGameObject.FactionOwner != this.FactionOwner)
+                {
+                    lock (CurrentCombat)
+                    {
+                        if (CurrentCombat != null)
+                        {
+                            CurrentCombat.IsFighting = true;
+                            Debug.Log("Collided with an enemy unit");
+                        }
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Called when two collided object move away from each other.
         /// </summary>
