@@ -10,12 +10,14 @@ namespace DefconZ
     public abstract class UnitBase : ObjectBase, IDestructible
     {
         public float health = 100;
-
-        private Vector3 targetPosition;
-        private NavMeshAgent navMeshAgent;
         public Faction FactionOwner { get; set; }
+        public Combat CurrentCombat; private Vector3 targetPosition;
+        public AudioClip deathSound;
 
-        public Combat CurrentCombat;
+        [SerializeField]
+        private NavMeshAgent navMeshAgent;
+        [SerializeField]
+        private AudioSource audioSource;
 
         /*
          * All unit has an initial base health of 100 and base damage of 10.
@@ -30,6 +32,7 @@ namespace DefconZ
         public void Start()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
+            audioSource = GetComponent<AudioSource>();
 
             // check if the nav mesh exists
             if (navMeshAgent == null)
@@ -188,7 +191,10 @@ namespace DefconZ
         public virtual void DestroySelf()
         {
             Debug.Log(this.objName + " has reached 0 or less health and has been destroyed");
-            Destroy(gameObject); // Remove the game object this script is attached to
+            audioSource.clip = deathSound; // set the audio source clip to the death sound clip
+            audioSource.Play();
+            //gameObject.transform.eulerAngles = new Vector3(90, gameObject.transform.eulerAngles.y, gameObject.transform.eulerAngles.z); // make the model fall "face down"
+            Destroy(gameObject, deathSound.length); // Remove the game object this script is attached to after the deathsound has finished playing
         }
 
         /// <summary>
