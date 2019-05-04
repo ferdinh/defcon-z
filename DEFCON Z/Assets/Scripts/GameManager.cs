@@ -11,11 +11,11 @@ namespace DefconZ
     {
         public static GameManager Instance = null;
 
-
         /// <summary>
         /// Holds the faction's information of the game.
         /// </summary>
         public List<Faction> Factions;
+
         public GameObject HumanPrefab;
         public GameObject ZombiePrefab;
         public IDictionary<Guid, Combat> ActiveCombats;
@@ -36,7 +36,7 @@ namespace DefconZ
         }
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             var humanFaction = gameObject.AddComponent<Faction>();
 
@@ -52,7 +52,6 @@ namespace DefconZ
 
             Factions.Add(humanFaction);
 
-
             var zombieFaction = gameObject.AddComponent<Faction>();
 
             zombieFaction.UnitPrefab = ZombiePrefab;
@@ -65,8 +64,6 @@ namespace DefconZ
             zombieUnit2.GetComponent<Zombie>().FactionOwner = zombieFaction;
             zombieUnit2.GetComponent<Zombie>().objName = "Zombie2";
 
-
-
             zombieFaction.Units.Add(zombieUnit);
             zombieFaction.Units.Add(zombieUnit2);
 
@@ -76,7 +73,6 @@ namespace DefconZ
 
             clock.GameCycleElapsed += Clock_GameCycleElapsed;
             clock.GameCycleElapsed += Combat;
-
         }
 
         /// <summary>
