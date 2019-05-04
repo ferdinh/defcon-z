@@ -68,6 +68,7 @@ namespace DefconZ
         {
             if (!(CurrentCombat is null))
             {
+                GameManager.Instance.ActiveCombats.Remove(CurrentCombat.CombatId);
                 CurrentCombat.ClearCombat();
             }
 
