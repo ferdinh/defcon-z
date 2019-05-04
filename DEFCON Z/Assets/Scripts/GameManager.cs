@@ -1,4 +1,8 @@
 ﻿using DefconZ.Units;
+﻿using DefconZ.Simulation;
+using DefconZ.Units;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +19,7 @@ namespace DefconZ
         public List<Faction> Factions;
         public GameObject HumanPrefab;
         public GameObject ZombiePrefab;
+        public IDictionary<Guid, Combat> combats;
 
         private void Awake()
         {
@@ -28,6 +33,7 @@ namespace DefconZ
             }
 
             Factions = new List<Faction>();
+            combats = new ConcurrentDictionary<Guid, Combat>();
         }
 
         // Start is called before the first frame update
@@ -66,7 +72,24 @@ namespace DefconZ
             var clock = Clock.Instance;
 
             clock.GameCycleElapsed += Clock_GameCycleElapsed;
+            clock.GameCycleElapsed += Combat;
 
+        }
+
+        /// <summary>
+        /// Engage any available active combat.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void Combat(object sender, System.EventArgs e)
+        {
+            foreach (var combat in combats)
+            {
+                if (combat.Value.IsFighting)
+                {
+                    combat.Value.Fight();
+                }
+            }
         }
 
         private void Clock_GameCycleElapsed(object sender, System.EventArgs e)
