@@ -15,6 +15,16 @@ namespace DefconZ
         public Faction FactionOwner { get; set; }
 
         public Combat CurrentCombat;
+
+        /*
+         * All unit has an initial base health of 100 and base damage of 10.
+         * The most barebone/basic unit takes 10x hit to be defeated.
+         *
+         */
+        protected float baseHealth = 100.0f;
+        protected float baseDamage = 10.0f;
+        public IList<Modifier> Modifiers;
+
         // Start is called before the first frame update
         public void Start()
         {
@@ -32,6 +42,7 @@ namespace DefconZ
                 MoveTo(targetPosition);
             }
 
+            Modifiers = new List<Modifier>();
             InitUnit();
         }
 
@@ -183,6 +194,27 @@ namespace DefconZ
             {
                 DestroySelf();
             }
+        }
+
+        /// <summary>
+        /// Calculates the damage to be inflicted.
+        /// </summary>
+        /// <returns>Damage given.</returns>
+        public float CalculateDamage()
+        {
+            // To adjust different value in a unit,
+            // add more modifier to derived classes
+            float baseModifier = 1.0f;
+            float attackModifier = baseModifier + Modifiers.Sum(mod => mod.Value);
+
+            float variableMultiplier = UnityEngine.Random.Range(0.05f, 0.1f);
+
+            return baseDamage * (attackModifier + variableMultiplier);
+        }
+
+        private bool CombatPresent()
+        {
+            return CurrentCombat != null;
         }
     }
 }
