@@ -8,7 +8,7 @@ namespace DefconZ
 {
     public abstract class UnitBase : ObjectBase, IDestructible
     {
-        public float health;
+        public float health = 100;
 
         private Vector3 targetPosition;
         private NavMeshAgent navMeshAgent;
