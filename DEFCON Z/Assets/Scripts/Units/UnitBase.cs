@@ -86,14 +86,18 @@ namespace DefconZ
                 // Engage combat only if the unit collides with a hostile unit.
                 if (collidedGameObject.FactionOwner != this.FactionOwner)
                 {
-                    lock (CurrentCombat)
+                    if (CombatPresent())
                     {
-                        if (CurrentCombat != null)
+                        lock (CurrentCombat)
                         {
-                            CurrentCombat.IsFighting = true;
-                            Debug.Log("Collided with an enemy unit");
+                            if (CurrentCombat != null)
+                            {
+                                CurrentCombat.IsFighting = true;
+                                Debug.Log("Collided with an enemy unit");
+                            }
                         }
                     }
+                    
                 }
             }
         }
@@ -104,6 +108,7 @@ namespace DefconZ
         /// <param name="collisionInfo">Collision information.</param>
         private void OnCollisionExit(Collision collisionInfo)
         {
+            Debug.Log("Collision exit " + this.objName);
             // We expect unit to depart from another unit.
             var collidedGameObject = collisionInfo.gameObject.GetComponent<UnitBase>();
 
@@ -119,7 +124,7 @@ namespace DefconZ
                             Debug.Log($"Combat with {CurrentCombat.CombatId} removed");
                         }
                     }
-                    
+
                     // Since combat no longer applicable, remove it.
                     this.CurrentCombat = null;
                 }
@@ -147,7 +152,7 @@ namespace DefconZ
                 // If there is no current combat for the unit,
                 // create a new one.
                 // Combat status remain inactive until they collided.
-                if (CurrentCombat == null)
+                if (!CombatPresent())
                 {
                     // Create new combat
                     var combat = new Combat
@@ -188,10 +193,21 @@ namespace DefconZ
         /// <param name="damage"></param>
         public virtual void TakeDamage(float damage)
         {
+            Debug.Log(this.objName + " " + this.health);
+
             health -= damage;
 
+            // When a unit dies, remove the combat from list of combats and
+            // remove the combat from the winning unit whilst destroy the
+            // losing unit.
             if (health <= 0.0f)
             {
+                if (CombatPresent())
+                {
+                    GameManager.Instance.combats.Remove(CurrentCombat.CombatId);
+                    CurrentCombat.ClearCombat();
+                }
+
                 DestroySelf();
             }
         }
