@@ -24,7 +24,7 @@ namespace DefconZ
          */
         protected float baseHealth = 100.0f;
         protected float baseDamage = 10.0f;
-        public IList<Modifier> Modifiers;
+        public IList<Modifier> Modifiers = new List<Modifier>();
 
         // Start is called before the first frame update
         public void Start()
@@ -43,7 +43,6 @@ namespace DefconZ
                 MoveTo(targetPosition);
             }
 
-            Modifiers = new List<Modifier>();
             InitUnit();
         }
 
