@@ -26,8 +26,8 @@ namespace DefconZ.Simulation
                 var damageToFirstCombatant = SecondCombatant.CalculateDamage();
                 var damageToSecondCombatant = FirstCombatant.CalculateDamage();
 
-                FirstCombatant.TakeDamage(damageToFirstCombatant);
                 SecondCombatant.TakeDamage(damageToSecondCombatant);
+                FirstCombatant.TakeDamage(damageToFirstCombatant);
             }
         }
 
