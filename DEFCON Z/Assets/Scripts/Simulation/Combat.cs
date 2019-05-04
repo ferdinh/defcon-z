@@ -12,14 +12,13 @@ namespace DefconZ.Simulation
         public UnitBase SecondCombatant { get; set; }
         public bool IsFighting { get; set; } = false;
 
-
         /// <summary>
         /// Engage each other. The combatant who engage the combat
         /// attacks first.
         /// </summary>
         public void Engage()
         {
-            // Only inflict damage when both are fighting, 
+            // Only inflict damage when both are fighting,
             // this may be false if unit has not reach within range
             // of each other.
             if (IsFighting)
