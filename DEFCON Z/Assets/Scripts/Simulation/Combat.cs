@@ -2,6 +2,9 @@
 
 namespace DefconZ.Simulation
 {
+    /// <summary>
+    /// Represent a combat between two hostile units.
+    /// </summary>
     public class Combat
     {
         public Guid CombatId { get; } = Guid.NewGuid();
@@ -10,13 +13,23 @@ namespace DefconZ.Simulation
         public bool IsFighting { get; set; } = false;
 
 
-        public void Fight()
+        /// <summary>
+        /// Engage each other. The combatant who engage the combat
+        /// attacks first.
+        /// </summary>
+        public void Engage()
         {
-            var damageToFirstCombatant = SecondCombatant.CalculateDamage();
-            var damageToSecondCombatant = FirstCombatant.CalculateDamage();
+            // Only inflict damage when both are fighting, 
+            // this may be false if unit has not reach within range
+            // of each other.
+            if (IsFighting)
+            {
+                var damageToFirstCombatant = SecondCombatant.CalculateDamage();
+                var damageToSecondCombatant = FirstCombatant.CalculateDamage();
 
-            FirstCombatant.TakeDamage(damageToFirstCombatant);
-            SecondCombatant.TakeDamage(damageToSecondCombatant);
+                FirstCombatant.TakeDamage(damageToFirstCombatant);
+                SecondCombatant.TakeDamage(damageToSecondCombatant);
+            }
         }
     }
 }

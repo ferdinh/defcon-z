@@ -77,7 +77,7 @@ namespace DefconZ
         }
 
         /// <summary>
-        /// Engage any available active combat.
+        /// Engage any available combat.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -85,10 +85,7 @@ namespace DefconZ
         {
             foreach (var combat in combats)
             {
-                if (combat.Value.IsFighting)
-                {
-                    combat.Value.Fight();
-                }
+                combat.Value.Engage();
             }
         }
 
