@@ -24,8 +24,7 @@ namespace DefconZ
         public float boostMultiplier;
         public bool boost;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
             mainCamera = camObject.GetComponentInChildren<Camera>();
             boost = false;
