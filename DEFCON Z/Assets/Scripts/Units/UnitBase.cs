@@ -79,13 +79,14 @@ namespace DefconZ
         }
 
         /// <summary>
-        /// Called when unit collide with another rigidbody.
+        /// Called when unit collider collided with each other.
         /// </summary>
-        /// <param name="collisionInfo">Collision information</param>
-        private void OnCollisionEnter(Collision collisionInfo)
+        /// <param name="other">The other collider.</param>
+        private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("Trigger entered");
             // We expect unit to collide with another unit.
-            var collidedGameObject = collisionInfo.gameObject.GetComponent<UnitBase>();
+            var collidedGameObject = other.gameObject.GetComponent<UnitBase>();
 
             if (collidedGameObject != null)
             {
@@ -99,7 +100,7 @@ namespace DefconZ
                             if (CurrentCombat != null)
                             {
                                 CurrentCombat.IsFighting = true;
-                                Debug.Log("Collided with an enemy unit");
+                                Debug.Log("Collided with an enemy unit and starts engaging");
                             }
                         }
                     }
@@ -108,14 +109,14 @@ namespace DefconZ
         }
 
         /// <summary>
-        /// Called when two collided object move away from each other.
+        /// Called when two collider move away from each other.
         /// </summary>
-        /// <param name="collisionInfo">Collision information.</param>
-        private void OnCollisionExit(Collision collisionInfo)
+        /// <param name="other">The other collider.</param>
+        private void OnTriggerExit(Collider other)
         {
-            Debug.Log("Collision exit " + this.objName);
+            Debug.Log("Trigger exit " + this.objName);
             // We expect unit to depart from another unit.
-            var collidedGameObject = collisionInfo.gameObject.GetComponent<UnitBase>();
+            var collidedGameObject = other.gameObject.GetComponent<UnitBase>();
 
             if (collidedGameObject != null)
             {
