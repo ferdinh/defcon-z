@@ -48,9 +48,9 @@ namespace DefconZ
         }
 
         /// <summary>
-        /// 
+        /// Move the unit to target position.
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="target">Target position.</param>
         public void MoveTo(Vector3 target)
         {
             Debug.Log("Moving to:" + target);
