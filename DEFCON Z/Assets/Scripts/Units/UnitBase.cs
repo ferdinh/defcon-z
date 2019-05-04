@@ -1,6 +1,7 @@
-﻿using DefconZ.Units;
-using System.Collections;
+﻿using DefconZ.Simulation;
+using DefconZ.Units;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -37,8 +38,8 @@ namespace DefconZ
             }
             else
             {
-				// First set the target as the current location
-				targetPosition = gameObject.transform.position;
+                // First set the target as the current location
+                targetPosition = gameObject.transform.position;
                 MoveTo(targetPosition);
             }
 
