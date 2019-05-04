@@ -64,6 +64,34 @@ namespace DefconZ
         /// <summary>
         /// 
         /// <summary>
+        /// Called when two collided object move away from each other.
+        /// </summary>
+        /// <param name="collisionInfo">Collision information.</param>
+        private void OnCollisionExit(Collision collisionInfo)
+        {
+            // We expect unit to depart from another unit.
+            var collidedGameObject = collisionInfo.gameObject.GetComponent<UnitBase>();
+
+            if (collidedGameObject != null)
+            {
+                // Remove combat only if it is from another hostile unit.
+                if (collidedGameObject.FactionOwner != this.FactionOwner)
+                {
+                    if (CurrentCombat != null)
+                    {
+                        if (GameManager.Instance.combats.Remove(CurrentCombat.CombatId))
+                        {
+                            Debug.Log($"Combat with {CurrentCombat.CombatId} removed");
+                        }
+                    }
+                    
+                    // Since combat no longer applicable, remove it.
+                    this.CurrentCombat = null;
+                }
+            }
+        }
+
+        /// <summary>
         /// Initiate an attack to hostile unit.
         /// </summary>
         /// <param name="obj"></param>
