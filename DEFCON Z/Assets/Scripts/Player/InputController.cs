@@ -15,7 +15,7 @@ namespace DefconZ
             player = gameObject.GetComponent<Player>();
         }
 
-        void Update()
+        void FixedUpdate()
         {
             // Fire 1 (Left click)
             if (Input.GetButtonDown("Fire1"))
