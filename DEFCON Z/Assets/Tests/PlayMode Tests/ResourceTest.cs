@@ -21,10 +21,15 @@ namespace Tests
             resource.CalculateMaxPoints();
             resource.ComputeStartingValue();
 
+            // Increase resource recovery rate by huge amount.
+            resource.Modifiers.Add(new Modifier
+            {
+                Value = 1000
+            });
+
             // Act
-            // Try adding the resources 1500 times/days. The base
-            // recovery rate to max manpower is at 1095 days/3years.
-            for (int i = 0; i < 1500; i++)
+            // Try adding gather resources.
+            for (int i = 0; i < 5; i++)
             {
                 resource.GatherResource();
             }
