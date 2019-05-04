@@ -1,4 +1,3 @@
-﻿using DefconZ.Units;
 ﻿using DefconZ.Simulation;
 using DefconZ.Units;
 using System;
@@ -61,11 +60,15 @@ namespace DefconZ
             zombieFaction.FactionName = "Zombie AI";
 
             var zombieUnit = Instantiate(ZombiePrefab, new Vector3(17.24f, 0.0f, -33.95f), Quaternion.identity);
-            zombieUnit.GetComponent<Human>().FactionOwner = zombieFaction;
+            var zombieUnit2 = Instantiate(ZombiePrefab, new Vector3(10.24f, 0.0f, -33.95f), Quaternion.identity);
+            zombieUnit.GetComponent<Zombie>().FactionOwner = zombieFaction;
+            zombieUnit2.GetComponent<Zombie>().FactionOwner = zombieFaction;
+            zombieUnit2.GetComponent<Zombie>().objName = "Zombie2";
 
 
 
             zombieFaction.Units.Add(zombieUnit);
+            zombieFaction.Units.Add(zombieUnit2);
 
             Factions.Add(zombieFaction);
 
