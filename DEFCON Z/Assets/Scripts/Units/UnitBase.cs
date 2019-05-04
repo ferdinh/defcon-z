@@ -241,5 +241,13 @@ namespace DefconZ
         {
             return CurrentCombat != null;
         }
+
+        private static bool RemoveCombat(Combat combatToRemove)
+        {
+            var removeResult = GameManager.Instance.ActiveCombats.Remove(combatToRemove.CombatId);
+            combatToRemove.ClearCombat();
+
+            return removeResult;
+        }
     }
 }
