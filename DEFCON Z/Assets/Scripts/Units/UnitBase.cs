@@ -143,7 +143,6 @@ namespace DefconZ
         /// <param name="obj"></param>
         public void StartAttack(GameObject obj)
         {
-            // TODO: Check if the target obj is an enemy unit
             UnitBase _targetUnit = obj.GetComponent<UnitBase>();
             if (_targetUnit != null)
             {
@@ -157,7 +156,7 @@ namespace DefconZ
 
                 // If there is no current combat for the unit,
                 // create a new one.
-                // Combat status remain inactive until they collided.
+                // Combat status remain inactive until they collides.
                 if (!CombatPresent())
                 {
                     // Create new combat
@@ -234,6 +233,10 @@ namespace DefconZ
             return baseDamage * (attackModifier + variableMultiplier);
         }
 
+        /// <summary>
+        /// Checks if this instance currently have a combat.
+        /// </summary>
+        /// <returns>True if combat is present, else, false.</returns>
         private bool CombatPresent()
         {
             return CurrentCombat != null;
