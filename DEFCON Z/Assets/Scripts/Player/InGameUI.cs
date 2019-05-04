@@ -13,6 +13,9 @@ namespace DefconZ
         public Text nameLabel;
         public Text healthLabel;
         public Text factionLabel;
+        public Color defaultColor;
+        public Color friendlyColor;
+        public Color enemyColor;
 
         /// <summary>
         /// Updates the UI Selection area of the UI from the given object
@@ -31,6 +34,9 @@ namespace DefconZ
                 {
                     healthLabel.text = "HP: " + _selectedUnit.health.ToString();
                     factionLabel.text = _selectedUnit.FactionOwner.FactionName;
+
+                    // check if the unit is friendly and set appropriate color
+                    factionLabel.color = (_selectedUnit.FactionOwner.IsPlayerUnit) ? friendlyColor : enemyColor;
                 }
                 else
                 {
@@ -39,10 +45,12 @@ namespace DefconZ
                     if (_selectedProp != null)
                     {
                         healthLabel.text = "HP: " + _selectedProp.health.ToString();
-                        factionLabel.text = "";
+                        factionLabel.text = "World Object";
+                        factionLabel.color = defaultColor;
                     }
                 }
-            } else
+            }
+            else
             {
                 // set the object selection UI to blank state
                 nameLabel.text = "N/A";
@@ -53,4 +61,3 @@ namespace DefconZ
         }
     }
 }
-
