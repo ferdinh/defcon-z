@@ -103,7 +103,6 @@ namespace DefconZ
                             }
                         }
                     }
-                    
                 }
             }
         }
@@ -125,7 +124,7 @@ namespace DefconZ
                 {
                     if (CurrentCombat != null)
                     {
-                        if (GameManager.Instance.combats.Remove(CurrentCombat.CombatId))
+                        if (GameManager.Instance.ActiveCombats.Remove(CurrentCombat.CombatId))
                         {
                             Debug.Log($"Combat with {CurrentCombat.CombatId} removed");
                         }
@@ -175,7 +174,7 @@ namespace DefconZ
                     _targetUnit.CurrentCombat = CurrentCombat;
 
                     // Register the combat to the game manager.
-                    var listOfCombat = GameManager.Instance.combats;
+                    var listOfCombat = GameManager.Instance.ActiveCombats;
                     listOfCombat.Add(CurrentCombat.CombatId, CurrentCombat);
 
                     Debug.Log($"Created new Combat with id {CurrentCombat.CombatId}");
@@ -210,7 +209,7 @@ namespace DefconZ
             {
                 if (CombatPresent())
                 {
-                    GameManager.Instance.combats.Remove(CurrentCombat.CombatId);
+                    GameManager.Instance.ActiveCombats.Remove(CurrentCombat.CombatId);
                     CurrentCombat.ClearCombat();
                 }
 

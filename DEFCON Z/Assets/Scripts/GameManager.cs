@@ -18,7 +18,7 @@ namespace DefconZ
         public List<Faction> Factions;
         public GameObject HumanPrefab;
         public GameObject ZombiePrefab;
-        public IDictionary<Guid, Combat> combats;
+        public IDictionary<Guid, Combat> ActiveCombats;
 
         private void Awake()
         {
@@ -32,7 +32,7 @@ namespace DefconZ
             }
 
             Factions = new List<Faction>();
-            combats = new ConcurrentDictionary<Guid, Combat>();
+            ActiveCombats = new ConcurrentDictionary<Guid, Combat>();
         }
 
         // Start is called before the first frame update
@@ -86,7 +86,7 @@ namespace DefconZ
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Combat(object sender, System.EventArgs e)
         {
-            foreach (var combat in combats)
+            foreach (var combat in ActiveCombats)
             {
                 combat.Value.Engage();
             }
