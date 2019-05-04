@@ -31,5 +31,14 @@ namespace DefconZ.Simulation
                 SecondCombatant.TakeDamage(damageToSecondCombatant);
             }
         }
+
+        /// <summary>
+        /// Clears the combat.
+        /// </summary>
+        public void ClearCombat()
+        {
+            FirstCombatant.CurrentCombat = null;
+            SecondCombatant.CurrentCombat = null;
+        }
     }
 }
