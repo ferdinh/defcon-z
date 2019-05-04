@@ -13,8 +13,8 @@ namespace Tests
         {
             // Arrange
             Resource resource = new Resource();
-            resource.CalculateMaxPoints();
-            resource.ComputeStartingValue();
+            resource.CalculateMaxPoints()
+                    .ComputeStartingValue();
 
             // Increase resource recovery rate by huge amount.
             resource.Modifiers.Add(new Modifier
@@ -92,8 +92,8 @@ namespace Tests
                 Value = 0.3f
             };
 
-            resource.CalculateMaxPoints();
-            resource.ComputeStartingValue();
+            resource.CalculateMaxPoints()
+                    .ComputeStartingValue();
 
             float expectedIncrease = resource.MaxResourcePoint / 1095.0f * 1.8f;
 
