@@ -1,15 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using DefconZ.Simulation;
+﻿using DefconZ.Simulation;
 using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace Tests
 {
     public class ResourceTest
     {
-        
         /// <summary>
         /// Resources should not exceed maximum when being gathered.
         /// </summary>
@@ -18,8 +13,8 @@ namespace Tests
         {
             // Arrange
             Resource resource = new Resource();
-            resource.CalculateMaxPoints();
-            resource.ComputeStartingValue();
+            resource.CalculateMaxPoints()
+                    .ComputeStartingValue();
 
             // Act
             // Try adding the resources 1500 times/days. The base
@@ -31,9 +26,7 @@ namespace Tests
 
             // Assert
             Assert.AreEqual(resource.MaxResourcePoint, resource.ResourcePoint);
-
         }
-
 
         /// <summary>
         /// The test ensure that maximum points for available resources follow
@@ -42,7 +35,7 @@ namespace Tests
         [Test]
         public void Resource_CalculateMaxPoints_Should_Follow_Modifiers()
         {
-            // Arrange 
+            // Arrange
             float expectedMaxValue = 18000.0f;
 
             Resource resource = new Resource();
@@ -60,12 +53,11 @@ namespace Tests
                 Type = ModifierType.Event,
                 Value = 0.3f
             };
-    
+
             // The additional modifier value will increase the max value
             // from its base value by 80 percent.
             resource.Modifiers.Add(mod);
             resource.Modifiers.Add(mod2);
-
 
             // Act
             resource.CalculateMaxPoints();
@@ -95,8 +87,8 @@ namespace Tests
                 Value = 0.3f
             };
 
-            resource.CalculateMaxPoints();
-            resource.ComputeStartingValue();
+            resource.CalculateMaxPoints()
+                    .ComputeStartingValue();
 
             float expectedIncrease = resource.MaxResourcePoint / 1095.0f * 1.8f;
 
