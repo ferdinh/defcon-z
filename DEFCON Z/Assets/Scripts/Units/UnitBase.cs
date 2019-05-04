@@ -14,6 +14,7 @@ namespace DefconZ
         private NavMeshAgent navMeshAgent;
         public Faction FactionOwner { get; set; }
 
+        public Combat CurrentCombat;
         // Start is called before the first frame update
         public void Start()
         {
@@ -62,6 +63,8 @@ namespace DefconZ
 
         /// <summary>
         /// 
+        /// <summary>
+        /// Initiate an attack to hostile unit.
         /// </summary>
         /// <param name="obj"></param>
         public void StartAttack(GameObject obj)
@@ -70,16 +73,39 @@ namespace DefconZ
             UnitBase _targetUnit = obj.GetComponent<UnitBase>();
             if (_targetUnit != null)
             {
-                // move to approproate distance
+                // move to appropriate distance
                 // TODO: calculate appropriate position to move to (Eg, if this unit is a ranged unit, move to maximum/safe firing range?)
                 Vector3 _targetPos = obj.transform.position;
                 MoveTo(_targetPos);
 
                 // attack other unit
-                // TODO: we need to actully wait until the unit is in attack range before attacking
-                // TODO: We need to have a propper damage amount set-up
                 Debug.Log("Attacking unit: " + _targetUnit.objName + "\n" + _targetUnit.name);
-                _targetUnit.TakeDamage(1.0f);
+
+                // If there is no current combat for the unit,
+                // create a new one.
+                // Combat status remain inactive until they collided.
+                if (CurrentCombat == null)
+                {
+                    // Create new combat
+                    var combat = new Combat
+                    {
+                        FirstCombatant = this,
+                        SecondCombatant = _targetUnit
+                    };
+
+                    CurrentCombat = combat;
+
+                    // Set the target unit combat.
+                    // Both this unit and target unit should have the same
+                    // combat.
+                    _targetUnit.CurrentCombat = CurrentCombat;
+
+                    // Register the combat to the game manager.
+                    var listOfCombat = GameManager.Instance.combats;
+                    listOfCombat.Add(CurrentCombat.CombatId, CurrentCombat);
+
+                    Debug.Log($"Created new Combat with id {CurrentCombat.CombatId}");
+                }
             }
         }
 
