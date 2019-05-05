@@ -60,8 +60,8 @@ namespace DefconZ
             clock.GameCycleElapsed += Clock_GameCycleElapsed;
             clock.GameCycleElapsed += Combat;
 
-			// Once the GameManager has finished initialising, tell the in-game UI to initialise
-			GameObject.Find("UI").GetComponent<InGameUI>().InitUI(humanFaction);
+            // Once the GameManager has finished initialising, tell the in-game UI to initialise
+            GameObject.Find("UI").GetComponent<InGameUI>().InitUI(humanFaction);
         }
 
         /// <summary>
@@ -97,6 +97,20 @@ namespace DefconZ
             }
 
             Debug.Log("Game day elapsed " + Clock.Instance.GameDay);
+        }
+
+        /// <summary>
+        /// Sets the game difficulty.
+        /// </summary>
+        /// <param name="difficulty">The difficulty.</param>
+        public void SetDifficulty(Modifier difficulty)
+        {
+            foreach (var faction in Factions)
+            {
+                faction.Difficulty.Name = difficulty.Name;
+                faction.Difficulty.Type = difficulty.Type;
+                faction.Difficulty.Value = difficulty.Value;
+            }
         }
     }
 }
