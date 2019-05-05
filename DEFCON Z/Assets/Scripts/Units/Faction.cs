@@ -32,6 +32,17 @@ namespace DefconZ.Units
 
             Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.MaxResourcePoint);
             Debug.Log(FactionName + " faction has Starting Resource Point of " + Resource.ResourcePoint);
+
+            InitStart();
+        }
+
+        /// <summary>
+        /// Initializes this instance when Start is called or when game object
+        /// is active.
+        /// </summary>
+        protected virtual void InitStart()
+        {
+        }
         }
     }
 }
