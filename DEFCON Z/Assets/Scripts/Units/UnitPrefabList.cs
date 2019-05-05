@@ -1,24 +1,27 @@
 ﻿using UnityEngine;
 
-public class UnitPrefabList : MonoBehaviour
+namespace DefconZ.Units
 {
-    public static UnitPrefabList Instance = null;
-
-    public GameObject Human;
-    public GameObject Zombie;
-
-    /// <summary>
-    /// Awakes this instance.
-    /// </summary>
-    private void Awake()
+    public class UnitPrefabList : MonoBehaviour
     {
-        if (Instance == null)
+        public static UnitPrefabList Instance = null;
+
+        public GameObject Human;
+        public GameObject Zombie;
+
+        /// <summary>
+        /// Awakes this instance.
+        /// </summary>
+        private void Awake()
         {
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
