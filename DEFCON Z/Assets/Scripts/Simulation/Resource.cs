@@ -90,5 +90,14 @@ namespace DefconZ.Simulation
 
             Debug.Log($"Resource point increased by {resourcePointIncrease} to {ResourcePoint}");
         }
+
+        /// <summary>
+        /// Uses the resource.
+        /// </summary>
+        /// <param name="resourceToUse">The amount of resource to use.</param>
+        public void UseResource(float resourceToUse)
+        {
+            ResourcePoint -= resourceToUse;
+        }
     }
 }
