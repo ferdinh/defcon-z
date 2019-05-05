@@ -5,25 +5,20 @@ using UnityEngine.SceneManagement;
 
 namespace DefconZ
 {
+    /// <summary>
+    /// Holds variables for the main menu, and provides onclick methods for menu buttons
+    /// </summary>
     public class MainMenu : MonoBehaviour
     {
         public bool settings;
-        public GameObject settingsPanel, menuPanel;
+        public GameObject settingsPanel;
+        public GameObject menuPanel;
 
-        [SerializeField]
-        private Vector3 panelPosition, panelHiddenPosition;
-
-        // Start is called before the first frame update
-        void Awake()
+        public void Awake()
         {
-            panelPosition = settingsPanel.transform.position;
-            panelHiddenPosition = panelPosition;
-            panelHiddenPosition.x = Screen.width * 2;
-
-            settingsPanel.transform.position = panelHiddenPosition;
-
-            settings = false;
-            //levels = AssetBundle.LoadFromFile("Assets/AssetBundles/Scenes");
+            // Make sure the menu panel is shown and the settings panel is hidden by default
+            menuPanel.SetActive(true);
+            settingsPanel.SetActive(false);
         }
 
         /// <summary>
@@ -36,15 +31,15 @@ namespace DefconZ
 
             if (settings)
             {
-                // Move settings into view, main out of view
-                settingsPanel.transform.position = panelPosition;
-                menuPanel.transform.position = panelHiddenPosition;
+                // Hides menu panel
+                settingsPanel.SetActive(true);
+                menuPanel.SetActive(false);
             }
             else
             {
-                // Hides settings into view position
-                settingsPanel.transform.position = panelHiddenPosition;
-                menuPanel.transform.position = panelPosition;
+                // Hides settings panel
+                settingsPanel.SetActive(false);
+                menuPanel.SetActive(true);
             }
         }
 
