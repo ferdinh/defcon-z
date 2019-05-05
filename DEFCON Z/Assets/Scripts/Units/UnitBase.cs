@@ -193,7 +193,6 @@ namespace DefconZ
             Debug.Log(this.objName + " has reached 0 or less health and has been destroyed");
             audioSource.clip = deathSound; // set the audio source clip to the death sound clip
             audioSource.Play();
-            //gameObject.transform.eulerAngles = new Vector3(90, gameObject.transform.eulerAngles.y, gameObject.transform.eulerAngles.z); // make the model fall "face down"
             Destroy(gameObject, deathSound.length); // Remove the game object this script is attached to after the deathsound has finished playing
         }
 
