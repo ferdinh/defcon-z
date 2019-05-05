@@ -59,6 +59,9 @@ namespace DefconZ
 
             clock.GameCycleElapsed += Clock_GameCycleElapsed;
             clock.GameCycleElapsed += Combat;
+
+			// Once the GameManager has finished initialising, tell the in-game UI to initialise
+			GameObject.Find("UI").GetComponent<InGameUI>().InitUI(humanFaction);
         }
 
         /// <summary>
