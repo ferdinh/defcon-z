@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ObjectSelectionScene.unity
     guid: 47a36c0173f81b0439a179642e786c47
+  - enabled: 1
+    path: Assets/Scenes/Levels/DEFCON City/defcon city.unity
+    guid: 15eb29fd198572e45aa186779d9bbd84
   m_configObjects: {}
