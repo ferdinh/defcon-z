@@ -57,7 +57,6 @@ namespace DefconZ
                 healthLabel.text = "HP: ";
                 factionLabel.text = "";
             }
-            
         }
     }
 }
