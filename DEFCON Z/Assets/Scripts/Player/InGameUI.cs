@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DefconZ.Units;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,18 @@ namespace DefconZ
         public Color defaultColor;
         public Color friendlyColor;
         public Color enemyColor;
+
+		private Faction playerFaction;
+
+		/// <summary>
+		/// Initialises the in game UI
+		/// Must be called after the game manager has finished initialisation
+		/// </summary>
+		public void InitUI(Faction playerFaction)
+		{
+			this.playerFaction = playerFaction;
+			//faction = GameObject.Find("GameManager").GetComponent<HumanFaction>();
+		}
 
         /// <summary>
         /// Updates the UI Selection area of the UI from the given object
@@ -58,5 +71,13 @@ namespace DefconZ
                 factionLabel.text = "";
             }
         }
+
+		/// <summary>
+		/// Action when purchase unit button is pressed
+		/// </summary>
+		public void PurchaseUnitAction()
+		{
+			playerFaction.RecruitUnit();
+		}
     }
 }
