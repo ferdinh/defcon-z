@@ -16,8 +16,6 @@ namespace DefconZ
         /// </summary>
         public List<Faction> Factions;
 
-        public GameObject HumanPrefab;
-        public GameObject ZombiePrefab;
         public IDictionary<Guid, Combat> ActiveCombats;
 
         private void Awake()
@@ -40,12 +38,12 @@ namespace DefconZ
         {
             var humanFaction = gameObject.AddComponent<Faction>();
 
-            humanFaction.UnitPrefab = HumanPrefab;
+            humanFaction.UnitPrefab = UnitPrefabList.Instance.Human;
             humanFaction.FactionType = FactionType.Human;
             humanFaction.FactionName = "Human Player";
             humanFaction.IsPlayerUnit = true;
 
-            var humanUnit = Instantiate(HumanPrefab, new Vector3(-1.90f, 0.0f, -36.0f), Quaternion.identity);
+            var humanUnit = Instantiate(humanFaction.UnitPrefab, new Vector3(-1.90f, 0.0f, -36.0f), Quaternion.identity);
             humanUnit.GetComponent<Human>().FactionOwner = humanFaction;
 
             humanFaction.Units.Add(humanUnit);
@@ -54,12 +52,12 @@ namespace DefconZ
 
             var zombieFaction = gameObject.AddComponent<Faction>();
 
-            zombieFaction.UnitPrefab = ZombiePrefab;
+            zombieFaction.UnitPrefab = UnitPrefabList.Instance.Zombie;
             zombieFaction.FactionType = FactionType.Zombie;
             zombieFaction.FactionName = "Zombie AI";
 
-            var zombieUnit = Instantiate(ZombiePrefab, new Vector3(17.24f, 0.0f, -33.95f), Quaternion.identity);
-            var zombieUnit2 = Instantiate(ZombiePrefab, new Vector3(10.24f, 0.0f, -33.95f), Quaternion.identity);
+            var zombieUnit = Instantiate(zombieFaction.UnitPrefab, new Vector3(17.24f, 0.0f, -33.95f), Quaternion.identity);
+            var zombieUnit2 = Instantiate(zombieFaction.UnitPrefab, new Vector3(10.24f, 0.0f, -33.95f), Quaternion.identity);
             zombieUnit.GetComponent<Zombie>().FactionOwner = zombieFaction;
             zombieUnit2.GetComponent<Zombie>().FactionOwner = zombieFaction;
             zombieUnit2.GetComponent<Zombie>().objName = "Zombie2";
