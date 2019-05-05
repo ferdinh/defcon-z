@@ -97,7 +97,13 @@ namespace DefconZ
             foreach (var faction in Factions)
             {
                 Debug.Log($"Gathering resource for {faction.FactionName}");
-                faction.Resource.GatherResource();
+                var resourceGathered = faction.Resource.GatherResource();
+                var maintenanceCost = faction.MaintainUnit();
+
+                Debug.Log($"Gathered {resourceGathered} amount of resource.");
+                Debug.Log($"Maintenance cost at {maintenanceCost}");
+
+                Debug.Log($"{faction.FactionName} has {faction.Resource.ResourcePoint} amount of resources.");
             }
 
             Debug.Log("Game day elapsed " + Clock.Instance.GameDay);
