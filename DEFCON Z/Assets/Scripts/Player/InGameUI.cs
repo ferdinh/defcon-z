@@ -14,26 +14,45 @@ namespace DefconZ
         public Text nameLabel;
         public Text healthLabel;
         public Text factionLabel;
+        public Text pointStatusLabel;
+
+        public SliderBar pointStatus;
+
+        public Text levelStatusLabel;
+
         public Color defaultColor;
         public Color friendlyColor;
         public Color enemyColor;
 
 		private Faction playerFaction;
 
-		/// <summary>
-		/// Initialises the in game UI
-		/// Must be called after the game manager has finished initialisation
-		/// </summary>
-		public void InitUI(Faction playerFaction)
+        public void FixedUpdate()
+        {
+            UpdateResourcePoint();
+        }
+
+        /// <summary>
+        /// Initialises the in game UI
+        /// Must be called after the game manager has finished initialisation
+        /// </summary>
+        public void InitUI(Faction playerFaction)
 		{
 			this.playerFaction = playerFaction;
-			//faction = GameObject.Find("GameManager").GetComponent<HumanFaction>();
+            pointStatus.InitSliderBar(playerFaction.Resource.MaxResourcePoint, 0.0f);
 		}
 
         /// <summary>
         /// Updates the UI Selection area of the UI from the given object
         /// </summary>
         /// <param name="obj"></param>
+        /// 
+        public void UpdateResourcePoint()
+        {
+            if (playerFaction != null)
+            {
+                pointStatus.UpdateSlider(playerFaction.Resource.ResourcePoint);
+            }
+        }
         public void UpdateObjectSelectionUI(ObjectBase obj)
         {
             // check if we have an object
