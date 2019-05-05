@@ -43,30 +43,17 @@ namespace DefconZ
             humanFaction.FactionName = "Human Player";
             humanFaction.IsPlayerUnit = true;
 
-            var humanUnit = Instantiate(humanFaction.UnitPrefab, new Vector3(-1.90f, 0.0f, -36.0f), Quaternion.identity);
-            humanUnit.GetComponent<Human>().FactionOwner = humanFaction;
-
-            humanFaction.Units.Add(humanUnit);
-
-            Factions.Add(humanFaction);
-
-            var zombieFaction = gameObject.AddComponent<Faction>();
             var zombieFaction = gameObject.AddComponent<ZombieFaction>();
 
             zombieFaction.UnitPrefab = UnitPrefabList.Instance.Zombie;
             zombieFaction.FactionType = FactionType.Zombie;
             zombieFaction.FactionName = "Zombie AI";
 
-            var zombieUnit = Instantiate(zombieFaction.UnitPrefab, new Vector3(17.24f, 0.0f, -33.95f), Quaternion.identity);
-            var zombieUnit2 = Instantiate(zombieFaction.UnitPrefab, new Vector3(10.24f, 0.0f, -33.95f), Quaternion.identity);
-            zombieUnit.GetComponent<Zombie>().FactionOwner = zombieFaction;
-            zombieUnit2.GetComponent<Zombie>().FactionOwner = zombieFaction;
-            zombieUnit2.GetComponent<Zombie>().objName = "Zombie2";
-
-            zombieFaction.Units.Add(zombieUnit);
-            zombieFaction.Units.Add(zombieUnit2);
-
+            Factions.Add(humanFaction);
             Factions.Add(zombieFaction);
+
+            humanFaction.RecruitUnit();
+            zombieFaction.RecruitUnit();
 
             var clock = Clock.Instance;
 
