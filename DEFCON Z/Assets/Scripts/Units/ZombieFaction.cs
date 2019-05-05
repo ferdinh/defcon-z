@@ -4,9 +4,9 @@ namespace DefconZ.Units
 {
     public class ZombieFaction : Faction
     {
-        protected override void InitStart()
+        protected override void InitAwake()
         {
-            base.InitStart();
+            base.InitAwake();
 
             UnitSpawnPoint = GameObject.Find("ZombieSpawnPoint");
         }
