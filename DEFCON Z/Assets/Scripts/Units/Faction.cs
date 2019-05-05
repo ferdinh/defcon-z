@@ -20,6 +20,7 @@ namespace DefconZ.Units
             Units = new List<GameObject>();
             Level = new Level();
             Resource = new Resource();
+            InitAwake();
         }
 
         private void Start()
@@ -34,6 +35,13 @@ namespace DefconZ.Units
             Debug.Log(FactionName + " faction has Starting Resource Point of " + Resource.ResourcePoint);
 
             InitStart();
+        }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        protected virtual void InitAwake()
+        {
         }
 
         /// <summary>
