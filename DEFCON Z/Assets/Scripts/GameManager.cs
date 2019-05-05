@@ -16,8 +16,6 @@ namespace DefconZ
         /// </summary>
         public List<Faction> Factions;
 
-        public GameObject HumanPrefab;
-        public GameObject ZombiePrefab;
         public IDictionary<Guid, Combat> ActiveCombats;
 
         private void Awake()
@@ -38,36 +36,24 @@ namespace DefconZ
         // Start is called before the first frame update
         private void Start()
         {
-            var humanFaction = gameObject.AddComponent<Faction>();
+            var humanFaction = gameObject.AddComponent<HumanFaction>();
 
-            humanFaction.UnitPrefab = HumanPrefab;
+            humanFaction.UnitPrefab = UnitPrefabList.Instance.Human;
             humanFaction.FactionType = FactionType.Human;
             humanFaction.FactionName = "Human Player";
             humanFaction.IsPlayerUnit = true;
 
-            var humanUnit = Instantiate(HumanPrefab, new Vector3(-1.90f, 0.0f, -36.0f), Quaternion.identity);
-            humanUnit.GetComponent<Human>().FactionOwner = humanFaction;
+            var zombieFaction = gameObject.AddComponent<ZombieFaction>();
 
-            humanFaction.Units.Add(humanUnit);
-
-            Factions.Add(humanFaction);
-
-            var zombieFaction = gameObject.AddComponent<Faction>();
-
-            zombieFaction.UnitPrefab = ZombiePrefab;
+            zombieFaction.UnitPrefab = UnitPrefabList.Instance.Zombie;
             zombieFaction.FactionType = FactionType.Zombie;
             zombieFaction.FactionName = "Zombie AI";
 
-            var zombieUnit = Instantiate(ZombiePrefab, new Vector3(17.24f, 0.0f, -33.95f), Quaternion.identity);
-            var zombieUnit2 = Instantiate(ZombiePrefab, new Vector3(10.24f, 0.0f, -33.95f), Quaternion.identity);
-            zombieUnit.GetComponent<Zombie>().FactionOwner = zombieFaction;
-            zombieUnit2.GetComponent<Zombie>().FactionOwner = zombieFaction;
-            zombieUnit2.GetComponent<Zombie>().objName = "Zombie2";
-
-            zombieFaction.Units.Add(zombieUnit);
-            zombieFaction.Units.Add(zombieUnit2);
-
+            Factions.Add(humanFaction);
             Factions.Add(zombieFaction);
+
+            humanFaction.RecruitUnit();
+            zombieFaction.RecruitUnit();
 
             var clock = Clock.Instance;
 
@@ -88,12 +74,23 @@ namespace DefconZ
             }
         }
 
+        /// <summary>
+        /// Occurs when a game day has passed.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Clock_GameCycleElapsed(object sender, System.EventArgs e)
         {
             foreach (var faction in Factions)
             {
                 Debug.Log($"Gathering resource for {faction.FactionName}");
-                faction.Resource.GatherResource();
+                var resourceGathered = faction.Resource.GatherResource();
+                var maintenanceCost = faction.MaintainUnit();
+
+                Debug.Log($"Gathered {resourceGathered} amount of resource.");
+                Debug.Log($"Maintenance cost at {maintenanceCost}");
+
+                Debug.Log($"{faction.FactionName} has {faction.Resource.ResourcePoint} amount of resources.");
             }
 
             Debug.Log("Game day elapsed " + Clock.Instance.GameDay);

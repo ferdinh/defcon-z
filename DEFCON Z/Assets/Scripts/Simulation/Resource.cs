@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -71,8 +72,8 @@ namespace DefconZ.Simulation
         /// <summary>
         /// Computes the gain/loss in resources.
         /// </summary>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public void GatherResource()
+        /// <returns>Resource gathered</returns>
+        public float GatherResource()
         {
             // Base resource replenish resource point from zero to full in
             // 3 years or 1095 days.
@@ -88,7 +89,16 @@ namespace DefconZ.Simulation
                 ResourcePoint = MaxResourcePoint;
             }
 
-            Debug.Log($"Resource point increased by {resourcePointIncrease} to {ResourcePoint}");
+            return resourcePointIncrease;
+        }
+
+        /// <summary>
+        /// Uses the resource.
+        /// </summary>
+        /// <param name="resourceToUse">The amount of resource to use.</param>
+        public void UseResource(float resourceToUse)
+        {
+            ResourcePoint -= resourceToUse;
         }
     }
 }

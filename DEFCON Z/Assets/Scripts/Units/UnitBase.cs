@@ -11,11 +11,15 @@ namespace DefconZ
     {
         public float health = 100;
         public Faction FactionOwner { get; set; }
-        public Combat CurrentCombat; private Vector3 targetPosition;
+        public Combat CurrentCombat;
+        private Vector3 targetPosition;
         public AudioClip deathSound;
+        public float RecruitCost;
+        public float Upkeep;
 
         [SerializeField]
         private NavMeshAgent navMeshAgent;
+
         [SerializeField]
         private AudioSource audioSource;
 
