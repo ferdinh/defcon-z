@@ -43,6 +43,27 @@ namespace DefconZ.Units
         protected virtual void InitStart()
         {
         }
+        /// <summary>
+        /// Determines whether this faction has enough resource point to
+        /// recruit a unit.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this faction [can recruit unit]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool CanRecruitUnit()
+        {
+            bool canRecruitUnit = UnitPrefab.GetComponent<UnitBase>().RecruitCost <= Resource.ResourcePoint;
+
+            if (canRecruitUnit)
+            {
+                Debug.Log(this.FactionName + " have enough point to recruit new unit");
+            }
+            else
+            {
+                Debug.Log(FactionName + " don't have enough point to recruit new unit");
+            }
+
+            return canRecruitUnit;
         }
     }
 }
