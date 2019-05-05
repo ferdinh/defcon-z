@@ -51,6 +51,7 @@ MonoBehaviour:
   objName: Zombie
   health: 100
   deathSound: {fileID: 8300000, guid: beca4447c7e7c5e4f994c4c88a5e04f9, type: 3}
+  Upkeep: 5
   navMeshAgent: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!136 &6693292440879736203
