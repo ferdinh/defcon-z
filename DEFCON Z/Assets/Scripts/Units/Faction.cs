@@ -43,6 +43,26 @@ namespace DefconZ.Units
         protected virtual void InitStart()
         {
         }
+
+        /// <summary>
+        /// Recruits a new unit when there is enough resource for the
+        /// faction.
+        /// </summary>
+        public void RecruitUnit()
+        {
+            if (CanRecruitUnit())
+            {
+                // Create the unit.
+                var newUnit = Instantiate(UnitPrefab, UnitSpawnPoint.transform.position, Quaternion.identity);
+                newUnit.GetComponent<UnitBase>().FactionOwner = this;
+
+                // Consume the resource when creating.
+                Resource.UseResource(newUnit.GetComponent<UnitBase>().RecruitCost);
+
+                Units.Add(newUnit);
+            }
+        }
+
         /// <summary>
         /// Determines whether this faction has enough resource point to
         /// recruit a unit.
