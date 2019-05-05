@@ -87,6 +87,11 @@ namespace DefconZ
             }
         }
 
+        /// <summary>
+        /// Occurs when a game day has passed.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Clock_GameCycleElapsed(object sender, System.EventArgs e)
         {
             foreach (var faction in Factions)
