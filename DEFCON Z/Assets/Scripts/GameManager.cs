@@ -36,7 +36,7 @@ namespace DefconZ
         // Start is called before the first frame update
         private void Start()
         {
-            var humanFaction = gameObject.AddComponent<Faction>();
+            var humanFaction = gameObject.AddComponent<HumanFaction>();
 
             humanFaction.UnitPrefab = UnitPrefabList.Instance.Human;
             humanFaction.FactionType = FactionType.Human;
@@ -51,6 +51,7 @@ namespace DefconZ
             Factions.Add(humanFaction);
 
             var zombieFaction = gameObject.AddComponent<Faction>();
+            var zombieFaction = gameObject.AddComponent<ZombieFaction>();
 
             zombieFaction.UnitPrefab = UnitPrefabList.Instance.Zombie;
             zombieFaction.FactionType = FactionType.Zombie;
