@@ -7,15 +7,14 @@ namespace DefconZ
 {
     public class MainMenu : MonoBehaviour
     {
-        public Scene testLevel;
         public bool settings;
         public GameObject settingsPanel, menuPanel;
+
         [SerializeField]
         private Vector3 panelPosition, panelHiddenPosition;
-        //private AssetBundle levels;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             panelPosition = settingsPanel.transform.position;
             panelHiddenPosition = panelPosition;
@@ -30,7 +29,7 @@ namespace DefconZ
         /// <summary>
         /// Toggles the display of the settings menu
         /// </summary>
-        public void toggleSettings()
+        public void ToggleSettings()
         {
             // Flip the settings bool state
             settings = (settings) ? false : true;
@@ -50,20 +49,14 @@ namespace DefconZ
         }
 
         /// <summary>
-        /// On click method for settings button 
-        /// </summary>
-        public void SettingsButton()
-        {
-            SceneManager.LoadScene("ObjectSelectionScene");
-        }
-        /// <summary>
         /// On click method for play button 
         /// </summary>
         public void PlayGame()
         {
             // Scene must be added to build settings to be loaded
-            SceneManager.LoadScene("ObjectSelectionScene");
+            SceneManager.LoadScene("defcon city");
         }
+
         /// <summary>
         /// On click method for Quit button 
         /// </summary>
