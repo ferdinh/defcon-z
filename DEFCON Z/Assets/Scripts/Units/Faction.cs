@@ -93,5 +93,23 @@ namespace DefconZ.Units
 
             return canRecruitUnit;
         }
+
+        /// <summary>
+        /// Maintains the unit.
+        /// </summary>
+        /// <returns></returns>
+        public float MaintainUnit()
+        {
+            var cost = 0.0f;
+
+            foreach (var unitObj in Units)
+            {
+                var upkeep = unitObj.GetComponent<UnitBase>().Upkeep;
+                Resource.UseResource(upkeep);
+                cost += upkeep;
+            }
+
+            return cost;
+        }
     }
 }
