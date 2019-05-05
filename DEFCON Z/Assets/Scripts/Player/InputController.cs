@@ -1,22 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DefconZ
 {
     public class InputController : MonoBehaviour
     {
-
         private Player player;
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
-
             player = gameObject.GetComponent<Player>();
         }
 
-        void Update()
+        private void FixedUpdate()
         {
             // Fire 1 (Left click)
             if (Input.GetButtonDown("Fire1"))
@@ -24,7 +20,6 @@ namespace DefconZ
                 // Raycast and select an object
                 player.SelectObject();
             }
-
 
             // Fire 1 (Right Click)
             if (Input.GetButtonDown("Fire2"))
@@ -36,14 +31,13 @@ namespace DefconZ
             // if the key is pressed, set the boost status to true
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                player.cam.boost = true;
+                player.camController.boost = true;
             }
             // if the key is released set the boost status to false
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                player.cam.boost = false;
+                player.camController.boost = false;
             }
         }
     }
 }
-

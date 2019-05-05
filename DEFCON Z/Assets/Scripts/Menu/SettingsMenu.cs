@@ -3,33 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class SettingsMenu : MonoBehaviour
+namespace DefconZ
 {
-    public AudioMixer audiomixer;
-
-    // Start is called before the first frame update
-    // Still need to complete volume bar within Unity scene
-    public void SetVolume(float volume)
+    /// <summary>
+    /// Audio Settings not implemented
+    /// </summary>
+    public class SettingsMenu : MonoBehaviour
     {
-        audiomixer.SetFloat("Volume", volume);
-    }
+        public AudioMixer audiomixer;
 
-    public void setQuality(int QualityIndex)
-    {
-        QualitySettings.SetQualityLevel(QualityIndex);
-    }
+        // Start is called before the first frame update
+        // Still need to complete volume bar within Unity scene
+        public void SetVolume(float volume)
+        {
+            audiomixer.SetFloat("Volume", volume);
+        }
 
-
-
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void setQuality(int QualityIndex)
+        {
+            QualitySettings.SetQualityLevel(QualityIndex);
+        }
     }
 }

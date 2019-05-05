@@ -6,6 +6,9 @@ namespace DefconZ
 {
     public class CameraController : MonoBehaviour
     {
+        public GameObject camObject;
+        public Camera mainCamera;
+
         [Header("Camera Movement")]
         public float minSpeed;
         public float maxSpeed;
@@ -20,11 +23,10 @@ namespace DefconZ
         [Header("Other Settings")]
         public float boostMultiplier;
         public bool boost;
-        public Camera mainCamera;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
+            mainCamera = camObject.GetComponentInChildren<Camera>();
             boost = false;
         }
 
@@ -51,11 +53,12 @@ namespace DefconZ
         private void RotateCamera()
         {
 
-            if (Input.GetKey(KeyCode.Mouse2))
+            if (Input.GetAxis("CameraRotation") != 0)
             {
                 Vector3 rotation = new Vector3(0, 0, 0);
 
                 rotation.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+
                 rotation.x += -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime; // inverted value for rotation, negative rotation is "up"
 
                 rotation.x = Mathf.Clamp(rotation.x, minRotX, maxRotX);
@@ -65,7 +68,7 @@ namespace DefconZ
                     rotation.y = 0.0f;
                 }
 
-                mainCamera.transform.eulerAngles = mainCamera.transform.eulerAngles + rotation;
+                camObject.transform.eulerAngles = camObject.transform.eulerAngles + rotation;
             }
         }
 
@@ -75,15 +78,15 @@ namespace DefconZ
         private void MoveCamera()
         {
             Vector3 _target = Vector3.zero;
-            float _intialY = mainCamera.transform.position.y;
+            float _intialY = camObject.transform.position.y;
 
             if (Input.GetAxis("Vertical") != 0)
             {
-                _target += mainCamera.transform.forward * (minSpeed * Input.GetAxis("Vertical")) * Time.deltaTime;
+                _target += camObject.transform.forward * (minSpeed * Input.GetAxis("Vertical")) * Time.deltaTime;
             }
             if (Input.GetAxis("Horizontal") != 0)
             {
-                _target += mainCamera.transform.right * (minSpeed * Input.GetAxis("Horizontal")) * Time.deltaTime;
+                _target += camObject.transform.right * (minSpeed * Input.GetAxis("Horizontal")) * Time.deltaTime;
             }
 
             _target.y = 0; // reset the y transformation to 0 so that panning does not effect height
@@ -93,9 +96,13 @@ namespace DefconZ
                 _target.y += minSpeed * Input.GetAxis("YMovementAxis") * Time.deltaTime;
             }
 
-            mainCamera.transform.position += _target;
+            if (boost)
+            {
+                _target *= boostMultiplier;
+            }
+
+            camObject.transform.position += _target;
         }
     }
-
 }
 

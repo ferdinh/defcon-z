@@ -4,38 +4,24 @@ using UnityEngine;
 
 namespace DefconZ
 {
-    public class Prop : ObjectBase
+    public class Prop : ObjectBase, IDestructible
     {
+        public float health;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            DamageObject(0f);
-        }
-
-        public override void DamageObject(float damage)
-        {
-            if (destructible)
-            {
-                health -= damage;
-
-                if (health <= 0.0f)
-                {
-                    DestroySelf();
-                }
-            }
-        }
-
-        public override void DestroySelf()
+        public void DestroySelf()
         {
             Debug.Log(this.objName + " has reached 0 or less health and has been destroyed");
             Destroy(gameObject); // Remove the game object this script is attached to
+        }
+
+        public void TakeDamage(float damage)
+        {
+            health -= damage;
+
+            if (health <= 0.0f)
+            {
+                DestroySelf();
+            }
         }
     }
 }

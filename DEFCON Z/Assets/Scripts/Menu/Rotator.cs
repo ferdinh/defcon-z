@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Defconz
+namespace DefconZ
 {
     public class Rotator : MonoBehaviour
     {
@@ -24,4 +24,3 @@ namespace Defconz
         }
     }
 }
-

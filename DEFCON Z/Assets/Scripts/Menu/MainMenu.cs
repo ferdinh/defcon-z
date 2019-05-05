@@ -3,68 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+namespace DefconZ
 {
-    public Scene testLevel;
-    public bool settings;
-    public GameObject settingsPanel, menuPanel;
-    [SerializeField]
-    private Vector3 panelPosition, panelHiddenPosition;
-    //private AssetBundle levels;
-
-    // Start is called before the first frame update
-    void Start()
+    public class MainMenu : MonoBehaviour
     {
-        panelPosition = settingsPanel.transform.position;
-        panelHiddenPosition = panelPosition;
-        // TODO: CALCULATE REAL POSITION 
-        panelHiddenPosition.x = 100000;
+        public bool settings;
+        public GameObject settingsPanel, menuPanel;
 
-        settingsPanel.transform.position = panelHiddenPosition;
+        [SerializeField]
+        private Vector3 panelPosition, panelHiddenPosition;
 
-        settings = false;
-        //levels = AssetBundle.LoadFromFile("Assets/AssetBundles/Scenes");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void toggleSettings()
-    {
-        // Flip the settings bool.
-        settings = (settings) ? false : true;
-
-        if (settings)
+        // Start is called before the first frame update
+        void Awake()
         {
-            settingsPanel.transform.position = panelPosition;
-            menuPanel.transform.position = panelHiddenPosition;
-        }
-        else
-        {
+            panelPosition = settingsPanel.transform.position;
+            panelHiddenPosition = panelPosition;
+            panelHiddenPosition.x = Screen.width * 2;
+
             settingsPanel.transform.position = panelHiddenPosition;
-            menuPanel.transform.position = panelPosition;
+
+            settings = false;
+            //levels = AssetBundle.LoadFromFile("Assets/AssetBundles/Scenes");
         }
-    }
 
-    public void SettingsButton()
-    {
-        SceneManager.LoadScene("ObjectSelectionScene");
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    public void PlayGame()
-    {
-        // Scene must be added to build settings to be loaded
-        SceneManager.LoadScene("ObjectSelectionScene");
-    }
+        /// <summary>
+        /// Toggles the display of the settings menu
+        /// </summary>
+        public void ToggleSettings()
+        {
+            // Flip the settings bool state
+            settings = (settings) ? false : true;
 
-    public void QuitGame()
-    {
-        Debug.Log("Quitting game!");
-        Application.Quit();
+            if (settings)
+            {
+                // Move settings into view, main out of view
+                settingsPanel.transform.position = panelPosition;
+                menuPanel.transform.position = panelHiddenPosition;
+            }
+            else
+            {
+                // Hides settings into view position
+                settingsPanel.transform.position = panelHiddenPosition;
+                menuPanel.transform.position = panelPosition;
+            }
+        }
+
+        /// <summary>
+        /// On click method for play button 
+        /// </summary>
+        public void PlayGame()
+        {
+            // Scene must be added to build settings to be loaded
+            SceneManager.LoadScene("defcon city");
+        }
+
+        /// <summary>
+        /// On click method for Quit button 
+        /// </summary>
+        public void QuitGame()
+        {
+            Debug.Log("Quitting game!");
+            Application.Quit();
+        }
     }
 }

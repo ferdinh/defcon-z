@@ -9,20 +9,6 @@ namespace DefconZ
     /// </summary>
     public abstract class ObjectBase : MonoBehaviour
     {
-        public bool destructible;
-        public float health;
         public string objName;
-
-        /// <summary>
-        /// Damages the object
-        /// </summary>
-        /// <param name="damage"> float representing the amount of damage being delt to the object</param>
-        public abstract void DamageObject(float damage);
-
-        /// <summary>
-        /// Destroys the object
-        /// </summary>
-        public abstract void DestroySelf();
-
     }
 }
