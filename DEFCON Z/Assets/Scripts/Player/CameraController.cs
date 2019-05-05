@@ -24,8 +24,7 @@ namespace DefconZ
         public float boostMultiplier;
         public bool boost;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
             mainCamera = camObject.GetComponentInChildren<Camera>();
             boost = false;
@@ -54,7 +53,7 @@ namespace DefconZ
         private void RotateCamera()
         {
 
-            if (Input.GetKey(KeyCode.Mouse2))
+            if (Input.GetAxis("CameraRotation") != 0)
             {
                 Vector3 rotation = new Vector3(0, 0, 0);
 
