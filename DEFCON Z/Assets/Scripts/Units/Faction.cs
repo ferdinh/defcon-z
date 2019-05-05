@@ -13,6 +13,7 @@ namespace DefconZ.Units
         public bool IsPlayerUnit { get; set; } = false;
         public GameObject UnitPrefab { get; internal set; }
         public Level Level { get; set; }
+        public GameObject UnitSpawnPoint;
 
         private void Awake()
         {
