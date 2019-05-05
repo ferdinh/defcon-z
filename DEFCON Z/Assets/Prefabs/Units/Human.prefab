@@ -52,8 +52,8 @@ MonoBehaviour:
   objName: Survivor
   health: 100
   deathSound: {fileID: 8300000, guid: beca4447c7e7c5e4f994c4c88a5e04f9, type: 3}
-  RecruitCost: 1000
-  Upkeep: 5
+  RecruitCost: 500
+  Upkeep: 0.5
   navMeshAgent: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!136 &6112589138305832952
