@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using DefconZ.Simulation;
+﻿using DefconZ.Simulation;
 using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace Tests
 {
+    /// <summary>
+    /// Test suite for Level.
+    /// </summary>
     public class LevelTest
     {
-
         /// <summary>
         /// Tests if XP Earned is increased when added.
         /// </summary>
@@ -24,11 +22,9 @@ namespace Tests
             // Act
             level.AddXP(xpToAdd);
 
-
             // Assert
-            Assert.AreEqual(expectedXp, level.TotalXPEarned);
+            Assert.That(expectedXp, Is.EqualTo(level.TotalXPEarned));
         }
-
 
         /// <summary>
         /// This tests whether the level is incremented when XP threshold
@@ -48,7 +44,6 @@ namespace Tests
 
             // Act
             level.AddXP(xpToAdd);
-
 
             // Assert
             Assert.That(expectedLevel, Is.EqualTo(level.CurrentLevel));

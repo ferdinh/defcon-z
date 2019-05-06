@@ -30,7 +30,7 @@ namespace Tests
             }
 
             // Assert
-            Assert.AreEqual(resource.MaxResourcePoint, resource.ResourcePoint);
+            Assert.That(resource.MaxResourcePoint, Is.EqualTo(resource.ResourcePoint));
         }
 
         /// <summary>
@@ -69,6 +69,7 @@ namespace Tests
 
             // Assert
             Assert.AreEqual(expectedMaxValue, resource.MaxResourcePoint);
+            Assert.That(expectedMaxValue, Is.EqualTo(resource.MaxResourcePoint));
         }
 
         [Test]
