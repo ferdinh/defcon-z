@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
-namespace DefconZ.Simulation
+﻿namespace DefconZ.Simulation
 {
     /// <summary>
     /// Type of modifier.
@@ -15,4 +10,3 @@ namespace DefconZ.Simulation
         Level
     }
 }
-
