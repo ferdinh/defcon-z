@@ -2,16 +2,14 @@
 using System.Collections;
 using UnityEngine;
 
-
 /// <summary>
 /// This class keep tracks in-game time (Game Cycle).
-/// 
+///
 /// Game time will notify subscribers when a cycle has passes.
 /// </summary>
 public class Clock : MonoBehaviour
 {
     public static Clock Instance = null;
-
 
     /// <summary>
     /// Occurs when [a game cycle passes].
@@ -27,6 +25,7 @@ public class Clock : MonoBehaviour
     public int GameDay { get; private set; }
 
     private float _timeScale;
+
     /// <summary>
     /// Gets or sets the time scale.
     /// Time scale is in real time seconds.
@@ -68,18 +67,17 @@ public class Clock : MonoBehaviour
     /// <summary>
     /// Starts this instance.
     /// </summary>
-    void Start()
+    private void Start()
     {
         TimeScale = 2.0f;
         StartCoroutine(UpdateTime());
     }
 
-
     /// <summary>
     /// Update the game cycle based on specified real time interval (Time scale
     /// in seconds).
     /// </summary>
-    IEnumerator UpdateTime()
+    private IEnumerator UpdateTime()
     {
         yield return new WaitForSeconds(TimeScale);
         while (true)
@@ -96,7 +94,6 @@ public class Clock : MonoBehaviour
         {
             GameDay++;
         }
-
     }
 
     /// <summary>
