@@ -30,5 +30,7 @@ namespace DefconZ.Simulation
             Type = ModifierType.Difficulty,
             Value = -0.5f
         };
+
+        public static Modifier SelectedDifficulty; 
     }
 }

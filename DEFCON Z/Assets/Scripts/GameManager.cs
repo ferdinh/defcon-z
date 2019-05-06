@@ -62,6 +62,7 @@ namespace DefconZ
 
             // Once the GameManager has finished initialising, tell the in-game UI to initialise
             GameObject.Find("UI").GetComponent<InGameUI>().InitUI(humanFaction);
+            SetDifficulty(Difficulty.SelectedDifficulty);
         }
 
         /// <summary>
