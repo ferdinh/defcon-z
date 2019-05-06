@@ -20,7 +20,6 @@ namespace DefconZ
             {
                 case 1:
                     Debug.Log("Difficulty set to Easy");
-                    //gameManager.SetDifficulty(Difficulty.Easy);
                     Difficulty.SelectedDifficulty = Difficulty.Easy;
                     
                     break;
@@ -30,7 +29,6 @@ namespace DefconZ
                     break;
                 case 3:
                     Debug.Log("Difficulty set to Hard");
-                    //gameManager.SetDifficulty(Difficulty.Hard);
                     Difficulty.SelectedDifficulty = Difficulty.Hard;
                     break;
                 default:
