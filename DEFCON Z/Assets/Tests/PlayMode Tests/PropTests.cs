@@ -72,7 +72,6 @@ namespace Tests
 			LogAssert.Expect(LogType.Log, "TEST PROP has reached 0 or less health and has been destroyed");
 		}
 
-
 		/// <summary>
 		/// Prop should destroy itself when DestroySelf() is called.
 		/// </summary>

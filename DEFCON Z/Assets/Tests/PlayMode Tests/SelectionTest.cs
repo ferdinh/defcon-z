@@ -10,7 +10,6 @@ namespace Tests
 {
     public class SelectionTest
     {
-
 		[Test]
 		public void TestMenuSettingsButton()
 		{
