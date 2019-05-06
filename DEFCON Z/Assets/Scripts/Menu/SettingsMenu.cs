@@ -14,7 +14,6 @@ namespace DefconZ
         /// Sets the difficulty by the provided level amount
         /// </summary>
         /// <param name="difficulty">Int from 1-3, higher the number, harder the difficulty</param>
-     
         public void SetDifficulty(int difficulty)
         {
             switch (difficulty)
