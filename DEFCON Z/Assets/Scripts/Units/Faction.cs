@@ -15,6 +15,8 @@ namespace DefconZ.Units
         public Level Level { get; set; }
         public GameObject UnitSpawnPoint;
 
+        public Modifier Difficulty = Simulation.Difficulty.Normal;
+
         private void Awake()
         {
             Units = new List<GameObject>();
@@ -23,6 +25,9 @@ namespace DefconZ.Units
 
             // Reference the faction level to the resource calculation.
             Resource.Modifiers.Add(Level.LevelModifier);
+
+            // Reference difficulty modifier.
+            Resource.Modifiers.Add(Difficulty);
 
             Resource.CalculateMaxPoints()
                     .ComputeStartingValue();
