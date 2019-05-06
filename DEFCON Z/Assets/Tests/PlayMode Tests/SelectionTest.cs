@@ -10,23 +10,6 @@ namespace Tests
 {
     public class SelectionTest
     {
-		[Test]
-		public void TestMenuSettingsButton()
-		{
-			// Arange
-			MainMenu menuTest = new MainMenu();
-			menuTest.settingsPanel = new GameObject();
-			menuTest.menuPanel = new GameObject();
-			menuTest.settings = false;
-
-			// Act
-			// Toggle the settings panel
-			menuTest.ToggleSettings();
-
-			// Assert
-			Assert.That(menuTest.menuPanel.activeSelf, Is.EqualTo(false));
-		}
-
         /// <summary>
 		/// Selected props should be able to be accessed for information
 		/// </summary>
