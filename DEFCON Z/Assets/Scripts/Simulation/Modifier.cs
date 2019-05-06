@@ -10,4 +10,3 @@
         public ModifierType Type { get; set; }
     }
 }
-

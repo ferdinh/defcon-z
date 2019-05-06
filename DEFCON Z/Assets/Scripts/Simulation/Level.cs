@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace DefconZ.Simulation
+﻿namespace DefconZ.Simulation
 {
     /// <summary>
     /// The faction's level. This represents how capable the factions are.
-    /// 
+    ///
     /// There are two ways in the game to increase level.
-    /// 
+    ///
     /// 1. By gaining xp points.
     /// 2. Trading science for Level.
-    /// 
+    ///
     /// Player increase level by gaining 100 experience point.
     /// </summary>
     public class Level
@@ -71,7 +67,8 @@ namespace DefconZ.Simulation
             if (CurrentLevel < 5)
             {
                 modToIncrease = 0.01f;
-            } else
+            }
+            else
             {
                 modToIncrease = 0.005f;
             }
@@ -81,4 +78,3 @@ namespace DefconZ.Simulation
         }
     }
 }
-
