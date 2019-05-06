@@ -24,6 +24,7 @@ namespace Tests
 			// Toggle the settings panel
 			menuTest.ToggleSettings();
 
+			// Assert
 			Assert.That(menuTest.menuPanel.activeSelf, Is.EqualTo(false));
 		}
 
@@ -87,7 +88,6 @@ namespace Tests
 			{
 				Assert.Fail(); // If an exception was caught, the test has failed
 			}
-		
 		}
 
 		/// <summary>
@@ -100,6 +100,8 @@ namespace Tests
 			player.selectedObject = new GameObject();
 			player.selectedObject.AddComponent<Zombie>();
 
+			// Act
+			// Assert
 			try
 			{
 				player.SelectedObjectAction();
