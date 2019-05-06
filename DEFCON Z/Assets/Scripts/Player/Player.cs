@@ -22,10 +22,7 @@ namespace DefconZ
         }
 
         // Update is called once per frame
-        void Update()
-        {
-
-        }
+        void Update() { }
 
         /// <summary>
         /// RayCasts to the first object the rayhit returns and if the object is selectable, the object is selected
@@ -96,4 +93,3 @@ namespace DefconZ
         }
     }
 }
-
