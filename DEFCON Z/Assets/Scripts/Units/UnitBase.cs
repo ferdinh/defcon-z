@@ -72,12 +72,6 @@ namespace DefconZ
         /// <param name="target">Target position.</param>
         public void MoveTo(Vector3 target)
         {
-            //if (CombatPresent())
-            //{
-            //    GameManager.Instance.ActiveCombats.Remove(CurrentCombat.CombatId);
-            //    CurrentCombat.ClearCombat();
-            //}
-
             Debug.Log("Moving to:" + target);
             if (target != null)
             {
