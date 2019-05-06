@@ -52,7 +52,6 @@ namespace DefconZ
         /// </summary>
         private void RotateCamera()
         {
-
             if (Input.GetAxis("CameraRotation") != 0)
             {
                 Vector3 rotation = new Vector3(0, 0, 0);
@@ -105,4 +104,3 @@ namespace DefconZ
         }
     }
 }
-
