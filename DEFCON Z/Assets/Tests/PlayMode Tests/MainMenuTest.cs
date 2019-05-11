@@ -43,21 +43,33 @@ namespace Tests
         }
 
         /// <summary>
-        /// Tests that ensure MainMenu initializes panels state correctly.
+        /// Main Menu should set Settings Panel to True.
         /// </summary>
         [Test]
-        public void MainMenu_Should_InitializePanels_Correctly()
+        public void MainMenu_Should_Initialize_SettingsPanel_To_False()
         {
             // Arrange
-            bool expectedMenuPanelState = true;
             bool expectedSettingsPanelState = false;
 
             // Act
             // This part has been initiated in the Setup process.
 
             // Assert
-            Assert.That(MainMenu.menuPanel.activeSelf, Is.EqualTo(expectedMenuPanelState));
             Assert.That(MainMenu.settingsPanel.activeSelf, Is.EqualTo(expectedSettingsPanelState));
+        }
+
+        /// <summary>
+        /// Main Menu should set Menu Panel to True on first init.
+        /// </summary>
+        [Test]
+        public void MainMenu_Should_Initialize_MenuPanel_To_True()
+        {
+            // Arrange
+            bool expectedMenuPanelState = true;
+
+            // Act
+            // This part has been initiated in the Setup process.
+            Assert.That(MainMenu.menuPanel.activeSelf, Is.EqualTo(expectedMenuPanelState));
         }
 
         /// <summary>
