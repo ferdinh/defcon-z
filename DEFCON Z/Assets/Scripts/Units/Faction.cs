@@ -64,7 +64,7 @@ namespace DefconZ.Units
         /// </summary>
         public void RecruitUnit()
         {
-            if (CanRecruitUnit())
+            if (CanRecruitUnit(UnitPrefab.GetComponent<UnitBase>().RecruitCost))
             {
                 // Create the unit.
                 var newUnit = Instantiate(UnitPrefab, UnitSpawnPoint.transform.position, Quaternion.identity);
@@ -84,9 +84,9 @@ namespace DefconZ.Units
         /// <returns>
         ///   <c>true</c> if this faction [can recruit unit]; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanRecruitUnit()
+        public bool CanRecruitUnit(float UnitCost)
         {
-            bool canRecruitUnit = UnitPrefab.GetComponent<UnitBase>().RecruitCost <= Resource.ResourcePoint;
+            bool canRecruitUnit = UnitCost <= Resource.ResourcePoint;
 
             if (canRecruitUnit)
             {
