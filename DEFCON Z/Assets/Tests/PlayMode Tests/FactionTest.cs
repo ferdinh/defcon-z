@@ -1,7 +1,6 @@
 ﻿using DefconZ;
 using DefconZ.Units;
 using NUnit.Framework;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Tests
@@ -60,7 +59,7 @@ namespace Tests
             // Arrange
             bool expected = false;
 
-            // Using a high number of unit cost to ensure that faction don't 
+            // Using a high number of unit cost to ensure that faction don't
             // have enough resource to recruit one hypothetical unit.
             float unitCost = 10000000.0f;
 
@@ -71,12 +70,14 @@ namespace Tests
             Assert.That(actual, Is.EqualTo(expected));
         }
 
+        /// <summary>
+        /// This test whether unit maintenance calculation is correct.
+        /// </summary>
         [Test]
         public void MaintainUnit_Should_Consume_Resource_BasedOnNumberOfUnits()
         {
             // Arrange
             float baseUpkeep = 100.0f;
-
 
             // Create two units each
             var zombie = new GameObject();
