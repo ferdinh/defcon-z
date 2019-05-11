@@ -43,19 +43,23 @@ namespace Tests
             MainMenuGameObject = null;
             MainMenu = null;
         }
-        [Test]
-        public void TestMenuSettingsPanel()
-        {
-            // Arrange 
-            MainMenu menuTest = new MainMenu();
-            menuTest.settingsPanel = new GameObject();
-            menuTest.menuPanel = new GameObject();
-            menuTest.settings = false;
 
-            //Act
-            menuTest.ToggleSettings();
-            Assert.That(menuTest.menuPanel.activeSelf, Is.EqualTo(false));
-            Assert.That(menuTest.menuPanel.activeSelf, Is.EqualTo(true));
+        /// <summary>
+        /// Tests that ensure MainMenu initializes panels state correctly.
+        /// </summary>
+        [Test]
+        public void MainMenu_Should_InitializePanels_Correctly()
+        {
+            // Arrange
+            bool expectedMenuPanelState = true;
+            bool expectedSettingsPanelState = false;
+
+            // Act
+            // This part has been initiated in the Setup process.
+
+            // Assert
+            Assert.That(MainMenu.menuPanel.activeSelf, Is.EqualTo(expectedMenuPanelState));
+            Assert.That(MainMenu.settingsPanel.activeSelf, Is.EqualTo(expectedSettingsPanelState));
         }
 
         public void TestMenuSettingsButtonPanelActive()
