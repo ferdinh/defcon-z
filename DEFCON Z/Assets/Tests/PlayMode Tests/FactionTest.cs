@@ -12,7 +12,7 @@ namespace Tests
         private Faction Faction;
 
         /// <summary>
-        /// Setup test data.
+        /// Setup test data for each test.
         /// </summary>
         [SetUp]
         public void TestInit()
@@ -21,6 +21,9 @@ namespace Tests
             Faction = FactionObject.AddComponent<Faction>();
         }
 
+        /// <summary>
+        /// Clean up after each test.
+        /// </summary>
         [TearDown]
         public void TestCleanup()
         {
