@@ -62,17 +62,40 @@ namespace Tests
             Assert.That(MainMenu.settingsPanel.activeSelf, Is.EqualTo(expectedSettingsPanelState));
         }
 
-        public void TestMenuSettingsButtonPanelActive()
+        /// <summary>
+        /// Test ensures that main menu toggle as it should.
+        /// </summary>
+        /// <param name="initialSettingsState">Initial settings bool.</param>
+        /// <param name="expectedMenuPanelState">Expected Menu Panel state after toggling.</param>
+        /// <param name="expectedSettingsPanelState">Expected Settings Panel state after toggling.</param>
+        /// <param name="expectedSettingsState">Expected Main Menu settings state after toggling.</param>
+        [TestCase(false, false, true, true)]
+        [TestCase(true, true, false, false)]
+        public void MainMenu_Should_ToggleSettings(bool initialSettingsState, bool expectedMenuPanelState, bool expectedSettingsPanelState, bool expectedSettingsState)
         {
-            // Arrange 
-            MainMenu  testButton= new MainMenu();
-            testButton.settingsPanel = new GameObject();
-            testButton.menuPanel = new GameObject();
-            testButton.settings = false;
+            // Arrange
+            MainMenu.settings = initialSettingsState;
 
-            //Act
-            testButton.ToggleSettings();
-            Assert.That(testButton.settingsPanel.activeSelf, Is.EqualTo(true));
+            // Act
+            MainMenu.ToggleSettings();
+
+            // Assert
+            Debug.Log($"Initial setting state: {initialSettingsState}");
+
+            // Assert Menu Panel state.
+            bool actualMenuPanelState = MainMenu.menuPanel.activeSelf;
+            Debug.Log($"Menu panel state: {actualMenuPanelState}, expected: {expectedMenuPanelState}");
+            Assert.That(actualMenuPanelState, Is.EqualTo(expectedMenuPanelState));
+
+            // Assert Settings Panel state.
+            bool actualSettingsPanelState = MainMenu.settingsPanel.activeSelf;
+            Debug.Log($"Settings panel state: {actualSettingsPanelState}, expected: {expectedSettingsPanelState}");
+            Assert.That(actualSettingsPanelState, Is.EqualTo(expectedSettingsPanelState));
+
+            // Assert Settings state.
+            bool actualSettingsState = MainMenu.settings;
+            Debug.Log($"Settings panel state: {actualSettingsState}, expected: {expectedSettingsState}");
+            Assert.That(actualSettingsState, Is.EqualTo(expectedSettingsState));
         }
 
         [Test]
