@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using DefconZ;
 using NUnit.Framework;
 using UnityEngine;
-//using UnityEngine.TestTools;
-using DefconZ.Simulation;
-using DefconZ;
-using UnityEngine.UI;
 
 namespace Tests
 {
+    /// <summary>
+    /// Test Suite for Main Menu.
+    /// </summary>
     public class MainMenuTest
     {
         private GameObject MainMenuGameObject = new GameObject();
@@ -64,6 +62,12 @@ namespace Tests
 
         /// <summary>
         /// Test ensures that main menu toggle as it should.
+        /// 
+        /// In general, it expects main menu to show menu panel and hide settings
+        /// panel when first initialized and flipping which panel to show when
+        /// it is toggled, if menu panel = active, settings menu panel = inactive,
+        /// toggle setting will swap the value to menu panel = inactive and
+        /// settings menu panel = active.
         /// </summary>
         /// <param name="initialSettingsState">Initial settings bool.</param>
         /// <param name="expectedMenuPanelState">Expected Menu Panel state after toggling.</param>
@@ -99,10 +103,10 @@ namespace Tests
         }
 
         [Test]
-        // checks if quits 
+        // checks if quits
         public void QuitGameTest()
         {
-            // Arranges 
+            // Arrange
             MainMenu mainMenu = new MainMenu();
 
             // Act
