@@ -106,12 +106,9 @@ namespace Tests
         // checks if quits
         public void QuitGameTest()
         {
-            // Arrange
-            MainMenu mainMenu = new MainMenu();
-
             // Act
             // press the quit button
-            mainMenu.QuitGame();
+            MainMenu.QuitGame();
 
             UnityEngine.TestTools.LogAssert.Expect(LogType.Log, "Quitting game!");
         }
