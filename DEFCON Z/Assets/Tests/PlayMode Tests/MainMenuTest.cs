@@ -11,6 +11,38 @@ namespace Tests
 {
     public class MainMenuTest
     {
+        private GameObject MainMenuGameObject = new GameObject();
+        private MainMenu MainMenu;
+
+        /// <summary>
+        /// Setup test data for each test.
+        /// </summary>
+        [SetUp]
+        public void TestInit()
+        {
+            MainMenuGameObject = new GameObject();
+
+            // Object is disabled to prevent init code being called.
+            MainMenuGameObject.SetActive(false);
+
+            // Set up the components.
+            MainMenu = MainMenuGameObject.AddComponent<MainMenu>();
+            MainMenu.settingsPanel = new GameObject();
+            MainMenu.menuPanel = new GameObject();
+
+            // Reactivate the object to init the components.
+            MainMenuGameObject.SetActive(true);
+        }
+
+        /// <summary>
+        /// Clean up data for each test.
+        /// </summary>
+        [TearDown]
+        public void TestCleanup()
+        {
+            MainMenuGameObject = null;
+            MainMenu = null;
+        }
         [Test]
         public void TestMenuSettingsPanel()
         {
