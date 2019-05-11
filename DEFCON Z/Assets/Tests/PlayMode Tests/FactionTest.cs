@@ -95,7 +95,7 @@ namespace Tests
 
             // Expected end resource is dependent on how many units there are,
             // upkeep of each unit is sum together.
-            float expectedEndResource = startResource - (baseUpkeep * Faction.Units.Count * 10);
+            float expectedEndResource = startResource - (baseUpkeep * Faction.Units.Count);
 
             // Act
             Faction.MaintainUnit();
