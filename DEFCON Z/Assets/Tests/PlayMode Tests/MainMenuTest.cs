@@ -73,8 +73,28 @@ namespace Tests
         }
 
         /// <summary>
+        /// Test ensures that Settings state and Main Menu Panel state is different.
+        ///
+        /// Toggling is not tested here as it is already tested in another test.
+        /// </summary>
+        [Test]
+        public void MainMenu_Should_Have_DifferentState_Of_MenuPanels_And_Settings()
+        {
+            // Arrange
+            bool expectedMainMenuPanelState = true;
+            bool expectedSettingsState = false;
+
+            // Act
+            // This part has been initiated in the Setup process.
+
+            // Assert
+            Assert.That(MainMenu.menuPanel.activeSelf, Is.EqualTo(expectedMainMenuPanelState));
+            Assert.That(MainMenu.settings, Is.EqualTo(expectedSettingsState));
+        }
+
+        /// <summary>
         /// Test ensures that main menu toggle as it should.
-        /// 
+        ///
         /// In general, it expects main menu to show menu panel and hide settings
         /// panel when first initialized and flipping which panel to show when
         /// it is toggled, if menu panel = active, settings menu panel = inactive,
