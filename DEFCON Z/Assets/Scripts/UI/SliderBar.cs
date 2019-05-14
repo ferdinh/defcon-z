@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DefconZ
+namespace DefconZ.UI
 {
     public class SliderBar : MonoBehaviour
     {

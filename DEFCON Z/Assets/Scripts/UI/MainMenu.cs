@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace DefconZ
+namespace DefconZ.UI
 {
     /// <summary>
     /// Holds variables for the main menu, and provides onclick methods for menu buttons
@@ -58,6 +59,11 @@ namespace DefconZ
         public void QuitGame()
         {
             Debug.Log("Quitting game!");
+
+            if (Application.isEditor)
+            {
+                UnityEditor.EditorApplication.isPlaying = false;
+            }
             Application.Quit();
         }
     }

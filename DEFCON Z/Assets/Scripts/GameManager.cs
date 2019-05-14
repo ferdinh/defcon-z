@@ -1,4 +1,5 @@
 ﻿using DefconZ.Simulation;
+using DefconZ.UI;
 using DefconZ.Units;
 using System;
 using System.Collections.Concurrent;
@@ -61,8 +62,17 @@ namespace DefconZ
             clock.GameCycleElapsed += Combat;
 
             // Once the GameManager has finished initialising, tell the in-game UI to initialise
-            GameObject.Find("UI").GetComponent<InGameUI>().InitUI(humanFaction);
-            SetDifficulty(Difficulty.SelectedDifficulty);
+            GameObject.Find("InGameUI").GetComponent<InGameUI>().InitUI(humanFaction);
+
+            if (Difficulty.SelectedDifficulty != null)
+            {
+                SetDifficulty(Difficulty.SelectedDifficulty);
+            }
+            else
+            {
+                // If a difficulty has not been selected, default to normal difficulty
+                SetDifficulty(Difficulty.Normal);
+            }
         }
 
         /// <summary>
