@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DefconZ
+namespace DefconZ.UI
 {
     /// <summary>
     /// Stores reference to accescible UI elements

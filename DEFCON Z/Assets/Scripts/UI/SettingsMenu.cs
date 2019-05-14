@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DefconZ
+namespace DefconZ.UI
 {
     /// <summary>
     /// Class for the settings menu, containing methods for applying settings

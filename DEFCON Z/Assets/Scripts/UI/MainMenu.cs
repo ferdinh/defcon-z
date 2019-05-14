@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace DefconZ
+namespace DefconZ.UI
 {
     /// <summary>
     /// Holds variables for the main menu, and provides onclick methods for menu buttons

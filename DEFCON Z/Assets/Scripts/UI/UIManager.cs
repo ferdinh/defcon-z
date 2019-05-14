@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DefconZ.Menu
+namespace DefconZ.UI
 {
     public class UIManager : MonoBehaviour
     {
@@ -20,10 +20,8 @@ namespace DefconZ.Menu
         void Update()
         {
             if (Input.GetKeyDown(key)) {
-
                 UIActive = (UIActive) ? false : true;
                 UIObject.SetActive(UIActive);
-                
             }
         }
     }
