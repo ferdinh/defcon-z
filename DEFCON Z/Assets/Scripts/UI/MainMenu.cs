@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -58,6 +59,11 @@ namespace DefconZ
         public void QuitGame()
         {
             Debug.Log("Quitting game!");
+
+            if (Application.isEditor)
+            {
+                UnityEditor.EditorApplication.isPlaying = false;
+            }
             Application.Quit();
         }
     }
