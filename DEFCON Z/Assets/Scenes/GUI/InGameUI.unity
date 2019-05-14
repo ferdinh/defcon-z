@@ -1170,15 +1170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUI: {fileID: 1842608139}
   pauseUI: {fileID: 852593948}
-  nameLabel: {fileID: 1748784063}
-  healthLabel: {fileID: 1675004998}
-  factionLabel: {fileID: 936320804}
-  pointStatusLabel: {fileID: 1071361096}
-  pointStatus: {fileID: 2063786499}
-  levelStatusLabel: {fileID: 0}
-  defaultColor: {r: 0.196, g: 0.196, b: 0.196, a: 1}
-  friendlyColor: {r: 0.14947058, g: 0.3882353, b: 0.18580437, a: 1}
-  enemyColor: {r: 0.67058825, g: 0.2816471, b: 0.2816471, a: 1}
 --- !u!4 &1307565347
 Transform:
   m_ObjectHideFlags: 0
@@ -1594,8 +1585,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 41.48, y: 20}
-  m_SizeDelta: {x: 73.16, y: 40}
+  m_AnchoredPosition: {x: 165.45, y: 20}
+  m_SizeDelta: {x: 320, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1675004997
 CanvasRenderer:

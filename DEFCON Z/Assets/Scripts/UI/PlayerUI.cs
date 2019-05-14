@@ -22,22 +22,20 @@ namespace DefconZ.UI
         public Color enemyColor;
 
         private Faction playerFaction;
+        [SerializeField]
+        private Player player;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
-
+            player = GameObject.Find("Player").GetComponent<Player>();
+            player.selectedObject = null;
         }
 
-        // Update is called once per frame
-        void Update()
+        public void GameClockSubscribe()
         {
-
-        }
-
-        public void FixedUpdate()
-        {
-            UpdateResourcePoint();
+            var clock = Clock.Instance;
+            clock.GameCycleElapsed += UpdateResourcePoint;
+            clock.GameCycleElapsed += UpdateSelectionDisplayEvent;
         }
 
         /// <summary>
@@ -55,7 +53,7 @@ namespace DefconZ.UI
         /// </summary>
         /// <param name="obj"></param>
         /// 
-        public void UpdateResourcePoint()
+        public void UpdateResourcePoint(object sender, System.EventArgs e)
         {
             if (playerFaction != null)
             {
@@ -63,17 +61,31 @@ namespace DefconZ.UI
             }
         }
 
+        public void UpdateSelectionDisplayEvent(object sender, System.EventArgs e)
+        {
+            UpdateObjectSelectionUI();
+        }
+
         
 
-        public void UpdateObjectSelectionUI(ObjectBase obj)
+        public void UpdateObjectSelectionUI()
         {
-            // check if we have an object
-            if (obj != null)
+
+            GameObject _gameObject = player.selectedObject;
+            ObjectBase _object = null;
+
+            if (_gameObject != null)
             {
-                nameLabel.text = obj.objName;
+                _object = _gameObject.GetComponent<ObjectBase>();
+            }
+
+            // check if we have an object
+            if (_object != null)
+            {
+                nameLabel.text = _object.objName;
 
                 // check if the object is a unit
-                UnitBase _selectedUnit = obj.GetComponent<UnitBase>();
+                UnitBase _selectedUnit = _object.GetComponent<UnitBase>();
                 if (_selectedUnit != null)
                 {
                     healthLabel.text = "HP: " + _selectedUnit.health.ToString();
@@ -85,10 +97,10 @@ namespace DefconZ.UI
                 else
                 {
                     // check if the object is a prop
-                    Prop _selectedProp = obj.GetComponent<Prop>();
+                    Prop _selectedProp = _object.GetComponent<Prop>();
                     if (_selectedProp != null)
                     {
-                        healthLabel.text = "HP: " + _selectedProp.health.ToString();
+                        healthLabel.text = "HP: " + _selectedProp.health.ToString("n0");
                         factionLabel.text = "World Object";
                         factionLabel.color = defaultColor;
                     }

@@ -43,15 +43,15 @@ namespace DefconZ
                 {
                     _selectable = true;
                     selectedObject = _rayCastHit.transform.gameObject;
-                    playerUI.UpdateObjectSelectionUI(selectedObject.GetComponent<ObjectBase>());
                 }
             }
             // if player has not clicked on a selectable object, make sure the currently selected object is cleared
             if (!_selectable)
             {
                 selectedObject = null;
-                playerUI.UpdateObjectSelectionUI(null);
             }
+
+            playerUI.UpdateObjectSelectionUI();
         }
 
         public void SelectedObjectAction()

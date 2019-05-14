@@ -67,6 +67,7 @@ namespace DefconZ.GameLevel
             if (inGameUI != null)
             {
                 player.playerUI = inGameUI;
+                inGameUI.GameClockSubscribe();
             }
             else
             {
