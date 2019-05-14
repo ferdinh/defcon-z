@@ -77,6 +77,11 @@ namespace DefconZ.UI
             UpdateObjectSelectionUI();
         }
 
+        /// <summary>
+        /// Updates Game Day label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void UpdateGameDayLabelEvent(object sender, System.EventArgs e)
         {
             gameDayLabel.text = Clock.Instance.GameDay.ToString();
