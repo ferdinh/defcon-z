@@ -334,7 +334,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1307565346}
+      - m_Target: {fileID: 1842608144}
         m_MethodName: PurchaseUnitAction
         m_Mode: 1
         m_Arguments:
@@ -1168,6 +1168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5b154bee5d3774eb7f61eeb012e21f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerUI: {fileID: 1842608139}
+  pauseUI: {fileID: 852593948}
   nameLabel: {fileID: 1748784063}
   healthLabel: {fileID: 1675004998}
   factionLabel: {fileID: 936320804}
@@ -1951,6 +1953,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1842608140}
+  - component: {fileID: 1842608144}
   - component: {fileID: 1842608143}
   - component: {fileID: 1842608142}
   - component: {fileID: 1842608141}
@@ -2043,6 +2046,27 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1842608144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842608139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6395cfcf4c907ab41ab75d2cc5b357a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameLabel: {fileID: 1748784063}
+  healthLabel: {fileID: 1675004998}
+  factionLabel: {fileID: 936320804}
+  pointStatusLabel: {fileID: 1071361096}
+  pointStatus: {fileID: 2063786499}
+  levelStatusLabel: {fileID: 0}
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}
+  friendlyColor: {r: 0.14947058, g: 0.3882353, b: 0.18580437, a: 1}
+  enemyColor: {r: 0.67058825, g: 0.2816471, b: 0.2816471, a: 1}
 --- !u!1 &1859222186
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,7 +2269,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 218.3, y: -51.8}
+  m_AnchoredPosition: {x: 218.3, y: -51.80005}
   m_SizeDelta: {x: 420, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2063786501

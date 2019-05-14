@@ -13,7 +13,7 @@ namespace DefconZ
         [SerializeField]
         public GameObject selectedObject; // Field is public for tests
 
-        public InGameUI playerUI;
+        public PlayerUI playerUI;
 
         // Start is called before the first frame update
         void Start()

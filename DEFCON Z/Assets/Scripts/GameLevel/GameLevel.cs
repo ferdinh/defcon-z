@@ -11,7 +11,7 @@ namespace DefconZ.GameLevel
         public string inGameUIScene;
         public Player player;
         public GameManager gameManager;
-        public InGameUI inGameUI;
+        public PlayerUI inGameUI;
 
         private Scene loadedUIScene;
 
@@ -62,7 +62,7 @@ namespace DefconZ.GameLevel
         private void UpdatePlayerUIReference()
         {
             Debug.Log("UI Scene has loaded now!");
-            inGameUI = GameObject.Find("InGameUI").GetComponent<InGameUI>();
+            inGameUI = GameObject.Find("InGameUI").GetComponentInChildren<PlayerUI>();
 
             if (inGameUI != null)
             {
