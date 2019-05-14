@@ -134,16 +134,5 @@ namespace Tests
             Debug.Log($"Settings panel state: {actualSettingsState}, expected: {expectedSettingsState}");
             Assert.That(actualSettingsState, Is.EqualTo(expectedSettingsState));
         }
-
-        [Test]
-        // checks if quits
-        public void QuitGameTest()
-        {
-            // Act
-            // press the quit button
-            MainMenu.QuitGame();
-
-            UnityEngine.TestTools.LogAssert.Expect(LogType.Log, "Quitting game!");
-        }
     }
 }
