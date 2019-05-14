@@ -17,6 +17,8 @@ namespace DefconZ.UI
 
         public Text levelStatusLabel;
 
+        public Text gameDayLabel;
+
         public Color defaultColor;
         public Color friendlyColor;
         public Color enemyColor;
@@ -39,6 +41,7 @@ namespace DefconZ.UI
             var clock = Clock.Instance;
             clock.GameCycleElapsed += UpdateResourcePoint;
             clock.GameCycleElapsed += UpdateSelectionDisplayEvent;
+            clock.GameCycleElapsed += UpdateGameDayLabelEvent;
         }
 
         /// <summary>
@@ -72,6 +75,11 @@ namespace DefconZ.UI
         public void UpdateSelectionDisplayEvent(object sender, System.EventArgs e)
         {
             UpdateObjectSelectionUI();
+        }
+
+        public void UpdateGameDayLabelEvent(object sender, System.EventArgs e)
+        {
+            gameDayLabel.text = Clock.Instance.GameDay.ToString();
         }
 
         /// <summary>
