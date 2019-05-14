@@ -18,6 +18,5 @@ namespace DefconZ.UI
         {
             playerUI.GetComponent<PlayerUI>().InitUI(faction);
         }
-
     }
 }

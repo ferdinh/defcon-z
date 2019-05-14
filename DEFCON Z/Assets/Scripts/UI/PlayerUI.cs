@@ -31,6 +31,9 @@ namespace DefconZ.UI
             player.selectedObject = null;
         }
 
+        /// <summary>
+        /// Subscribes the player UI to the game clock for updates.
+        /// </summary>
         public void GameClockSubscribe()
         {
             var clock = Clock.Instance;
@@ -61,16 +64,21 @@ namespace DefconZ.UI
             }
         }
 
+        /// <summary>
+        /// Updates the object selection via event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void UpdateSelectionDisplayEvent(object sender, System.EventArgs e)
         {
             UpdateObjectSelectionUI();
         }
 
-        
-
+        /// <summary>
+        /// Updates the object selection panel information display.
+        /// </summary>
         public void UpdateObjectSelectionUI()
         {
-
             GameObject _gameObject = player.selectedObject;
             ObjectBase _object = null;
 
