@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3774,6 +3774,11 @@ PrefabInstance:
       propertyPath: camObject
       value: 
       objectReference: {fileID: 336987419}
+    - target: {fileID: 2236229889046659882, guid: 2501a28f187da884dac09869c1d24e56,
+        type: 3}
+      propertyPath: boost
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8731220371253252657, guid: 2501a28f187da884dac09869c1d24e56,
         type: 3}
       propertyPath: labelSelectedObjectName
@@ -8535,7 +8540,7 @@ GameObject:
   - component: {fileID: 1196489416}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
