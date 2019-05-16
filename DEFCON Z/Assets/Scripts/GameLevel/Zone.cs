@@ -41,6 +41,40 @@ namespace DefconZ.GameLevel
         /// </summary>
         private void UpdateZone()
         {
+            Faction _owner = null;
+            bool _multipleFactions = false;
+            
+            // Calculate the current owner of the zone
+            foreach (UnitBase _unit in unitsInZone)
+            {
+                if (_owner == null)
+                {
+                    _owner = _unit.FactionOwner;
+                }
+                else
+                {
+                    // Check if the current calculated owner is different to the unit
+                    if (_unit.FactionOwner != _owner)
+                    {
+                        _multipleFactions = true;
+                    }
+                    else if (_owner == null)
+                    {
+                        _owner = _unit.FactionOwner;
+                    }
+                }
+            }
+
+            // Set the zones owner
+            // If multiple factions are present, there is no owner of the zone
+            if (_multipleFactions)
+            {
+                SetZoneOwner(null);
+            }
+            else
+            {
+                SetZoneOwner(_owner);
+            }
 
         }
 
@@ -54,7 +88,9 @@ namespace DefconZ.GameLevel
             if (_unit != null)
             {
                 Debug.LogError(_unit.objName + " entered zone");
-                SetZoneOwner(_unit.FactionOwner);
+                unitsInZone.Add(_unit);
+                _unit.currentZone = this;
+                UpdateZone();
             }
         }
 
@@ -68,9 +104,18 @@ namespace DefconZ.GameLevel
             if (_unit != null)
             {
                 Debug.LogError(_unit.objName + " exited zone");
+
+                // Remove the unit from the zone
+                RemoveFromZone(_unit);
+
+                UpdateZone();
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected Faction GetZoneOwner()
         {
             return zoneOwner;
@@ -97,17 +142,28 @@ namespace DefconZ.GameLevel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
         public bool IsInsideZone(UnitBase unit)
         {
             return unitsInZone.Contains(unit);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="unit"></param>
         public void RemoveFromZone(UnitBase unit)
         {
             if (unitsInZone.Contains(unit))
             {
                 unitsInZone.Remove(unit);
             }
+
+            UpdateZone();
         }
     }
 }
