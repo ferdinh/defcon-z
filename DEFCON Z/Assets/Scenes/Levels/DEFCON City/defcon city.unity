@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -96,7 +96,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: f36c8329d942ac448a149b790e3d7a7b,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -987,6 +988,7 @@ Transform:
   - {fileID: 584486911}
   - {fileID: 1513979558}
   - {fileID: 1123705457}
+  - {fileID: 694409672}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3783,6 +3785,11 @@ PrefabInstance:
       propertyPath: playerUI
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 784628555139685445, guid: 2501a28f187da884dac09869c1d24e56,
+        type: 3}
+      propertyPath: zoneManager
+      value: 
+      objectReference: {fileID: 694409671}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2501a28f187da884dac09869c1d24e56, type: 3}
 --- !u!1001 &551163212
@@ -4807,6 +4814,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b8815ffbeb42454d83df4020534dca7, type: 3}
+--- !u!1 &694409670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 694409672}
+  - component: {fileID: 694409671}
+  m_Layer: 2
+  m_Name: ZoneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &694409671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694409670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f1bd2702c22bc448a31699732fb7b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zonePrefab: {fileID: 7334471905579142739, guid: 7c1b88f58e0eadf4da1212399575f6d9,
+    type: 3}
+  worldWidth: 5
+  worldHeight: 5
+  zoneSpacing: 10
+  neutralColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 0.11764706}
+  friendlyColor: {r: 0.011764706, g: 1, b: 0, a: 0.11764706}
+  enemyColor: {r: 1, g: 0, b: 0.029075146, a: 0.11764706}
+  managedZones: []
+  zoneDisplayActive: 0
+--- !u!4 &694409672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694409670}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 138724530}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &696124711 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5805956175417019269, guid: 89c64b4332d51b94eabe8fb36ac1044e,
