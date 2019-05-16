@@ -22,7 +22,7 @@ namespace DefconZ.GameLevel
         }
 
         /// <summary>
-        /// 
+        /// Initialises the zone
         /// </summary>
         /// <param name="zoneManager"></param>
         /// <param name="faction"></param>
@@ -37,12 +37,14 @@ namespace DefconZ.GameLevel
         }
 
         /// <summary>
-        /// 
+        /// Updates the current zone
+        /// Itterates through units inside zone and calculates the correct owner of the zone
         /// </summary>
         private void UpdateZone()
         {
             Faction _owner = null;
             bool _multipleFactions = false;
+            int _unitCount = 0;
             
             // Calculate the current owner of the zone
             foreach (UnitBase _unit in unitsInZone)
@@ -63,47 +65,44 @@ namespace DefconZ.GameLevel
                         _owner = _unit.FactionOwner;
                     }
                 }
+
+                _unitCount++;
             }
 
             // Set the zones owner
-            // If multiple factions are present, there is no owner of the zone
-            if (_multipleFactions)
+            // If no units are in the zone, do not change the owner
+            if (_unitCount > 0)
             {
-                SetZoneOwner(null);
+                // If multiple factions are present, there is no owner of the zone
+                if (_multipleFactions)
+                {
+                    SetZoneOwner(null);
+                }
+                else
+                {
+                    SetZoneOwner(_owner);
+                }
             }
-            else
-            {
-                SetZoneOwner(_owner);
-            }
-
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
         private void OnTriggerEnter(Collider other)
         {
             UnitBase _unit = other.GetComponent<UnitBase>();
             if (_unit != null)
             {
-                Debug.LogError(_unit.objName + " entered zone");
+                Debug.Log(_unit.objName + " entered zone");
                 unitsInZone.Add(_unit);
                 _unit.currentZone = this;
                 UpdateZone();
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
         private void OnTriggerExit(Collider other)
         {
             UnitBase _unit = other.GetComponent<UnitBase>();
             if (_unit != null)
             {
-                Debug.LogError(_unit.objName + " exited zone");
+                Debug.Log(_unit.objName + " exited zone");
 
                 // Remove the unit from the zone
                 RemoveFromZone(_unit);
@@ -113,7 +112,7 @@ namespace DefconZ.GameLevel
         }
 
         /// <summary>
-        /// 
+        /// Returns the faction that controls the zone
         /// </summary>
         /// <returns></returns>
         protected Faction GetZoneOwner()
@@ -122,7 +121,8 @@ namespace DefconZ.GameLevel
         }
 
         /// <summary>
-        /// 
+        /// Sets the owner of the zone.
+        /// Updates the visual display of the zone.
         /// </summary>
         /// <param name="faction"></param>
         public void SetZoneOwner(Faction faction)
@@ -143,17 +143,17 @@ namespace DefconZ.GameLevel
         }
 
         /// <summary>
-        /// 
+        /// Checks if the given unit is inside the zone
         /// </summary>
         /// <param name="unit"></param>
-        /// <returns></returns>
+        /// <returns>True if the given unit is inside the zone</returns>
         public bool IsInsideZone(UnitBase unit)
         {
             return unitsInZone.Contains(unit);
         }
 
         /// <summary>
-        /// 
+        /// Removes the given unit from the zone list
         /// </summary>
         /// <param name="unit"></param>
         public void RemoveFromZone(UnitBase unit)

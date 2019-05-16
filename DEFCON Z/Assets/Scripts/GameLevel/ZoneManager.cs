@@ -30,6 +30,9 @@ namespace DefconZ.GameLevel
             GenerateLevelZones();
         }
 
+        /// <summary>
+        /// Generates the managed zones for the zone manager
+        /// </summary>
         private void GenerateLevelZones()
         {
             ZoneManager _zoneManager = this;
@@ -51,6 +54,10 @@ namespace DefconZ.GameLevel
             }
         }
 
+        /// <summary>
+        /// Toggles the display of the zones to the player
+        /// Does not effect simulation
+        /// </summary>
         public void ToggleZoneDisplay ()
         {
             zoneDisplayActive = (zoneDisplayActive) ? false : true;
