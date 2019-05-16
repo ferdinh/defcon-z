@@ -123,9 +123,9 @@ namespace DefconZ.UI
         }
 
         /// <summary>
-		/// Action when purchase unit button is pressed
-		/// </summary>
-		public void PurchaseUnitAction()
+        /// Action when purchase unit button is pressed
+        /// </summary>
+        public void PurchaseUnitAction()
         {
             playerFaction.RecruitUnit();
         }
