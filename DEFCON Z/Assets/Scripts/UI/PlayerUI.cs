@@ -1,6 +1,4 @@
 ﻿using DefconZ.Units;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +20,7 @@ namespace DefconZ.UI
         public Color enemyColor;
 
         private Faction playerFaction;
+
         [SerializeField]
         private Player player;
 
@@ -36,7 +35,7 @@ namespace DefconZ.UI
         /// </summary>
         public void GameClockSubscribe()
         {
-            var clock = Clock.Instance;
+            var clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
             clock.GameCycleElapsed += UpdateResourcePoint;
             clock.GameCycleElapsed += UpdateSelectionDisplayEvent;
         }
@@ -55,7 +54,7 @@ namespace DefconZ.UI
         /// Updates the UI Selection area of the UI from the given object
         /// </summary>
         /// <param name="obj"></param>
-        /// 
+        ///
         public void UpdateResourcePoint(object sender, System.EventArgs e)
         {
             if (playerFaction != null)
@@ -124,9 +123,9 @@ namespace DefconZ.UI
         }
 
         /// <summary>
-		/// Action when purchase unit button is pressed
-		/// </summary>
-		public void PurchaseUnitAction()
+        /// Action when purchase unit button is pressed
+        /// </summary>
+        public void PurchaseUnitAction()
         {
             playerFaction.RecruitUnit();
         }

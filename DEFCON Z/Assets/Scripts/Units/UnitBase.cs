@@ -23,6 +23,8 @@ namespace DefconZ
         [SerializeField]
         private AudioSource audioSource;
 
+        private GameManager _gameManager;
+
         /*
          * All unit has an initial base health of 100 and base damage of 10.
          * The most barebone/basic unit takes 10x hit to be defeated.
@@ -35,6 +37,7 @@ namespace DefconZ
         // Start is called before the first frame update
         public void Start()
         {
+            _gameManager = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<GameManager>();
             navMeshAgent = GetComponent<NavMeshAgent>();
             audioSource = GetComponent<AudioSource>();
 
@@ -126,7 +129,7 @@ namespace DefconZ
                 {
                     if (CurrentCombat != null)
                     {
-                        if (GameManager.Instance.ActiveCombats.Remove(CurrentCombat.CombatId))
+                        if (_gameManager.ActiveCombats.Remove(CurrentCombat.CombatId))
                         {
                             Debug.Log($"Combat with {CurrentCombat.CombatId} removed");
                         }
@@ -175,7 +178,7 @@ namespace DefconZ
                     _targetUnit.CurrentCombat = CurrentCombat;
 
                     // Register the combat to the game manager.
-                    var listOfCombat = GameManager.Instance.ActiveCombats;
+                    var listOfCombat = _gameManager.ActiveCombats;
                     listOfCombat.Add(CurrentCombat.CombatId, CurrentCombat);
 
                     Debug.Log($"Created new Combat with id {CurrentCombat.CombatId}");
@@ -244,9 +247,9 @@ namespace DefconZ
             return CurrentCombat != null;
         }
 
-        private static bool RemoveCombat(Combat combatToRemove)
+        private bool RemoveCombat(Combat combatToRemove)
         {
-            var removeResult = GameManager.Instance.ActiveCombats.Remove(combatToRemove.CombatId);
+            var removeResult = _gameManager.ActiveCombats.Remove(combatToRemove.CombatId);
             combatToRemove.ClearCombat();
 
             return removeResult;
