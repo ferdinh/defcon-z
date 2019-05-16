@@ -1,0 +1,12 @@
+pull_request_rules:
+  - name: Automatic Merge to staging branch after approval.
+    conditions:
+      - "#approved-reviews-by>=1"
+      - label=ready to merge
+      - label!=work in progress
+      - status-success=CodeFactor
+      - status-success=WIP
+      - base~=sprint[0-9]*-staging
+    actions:
+      merge:
+        method: merge
