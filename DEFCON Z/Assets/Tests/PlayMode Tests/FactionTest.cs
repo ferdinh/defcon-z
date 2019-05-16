@@ -1,7 +1,6 @@
 ﻿using DefconZ;
 using DefconZ.Units;
 using NUnit.Framework;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Tests
@@ -109,7 +108,7 @@ namespace Tests
         public void MaintainUnit_Should_Remove_Destroyed_Unit_From_List()
         {
             // Arrange
-            int maxUnitToGenerate = 11;
+            int maxUnitToGenerate = 10;
 
             for (int i = 0; i < maxUnitToGenerate; i++)
             {
@@ -147,8 +146,6 @@ namespace Tests
             // Act
             // Destroy units that is even in the index position
             Object.DestroyImmediate(Faction.Units[0].gameObject);
-
-
 
             // Assert
             Assert.DoesNotThrow(() => Faction.MaintainUnit());
