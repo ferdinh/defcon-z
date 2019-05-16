@@ -6,9 +6,8 @@ using UnityEngine;
 namespace Tests
 {
     [TestFixture]
-    public class FactionTest
+    public class FactionTest : BaseTest
     {
-        private GameObject FactionObject;
         private Faction Faction;
 
         /// <summary>
@@ -17,8 +16,7 @@ namespace Tests
         [SetUp]
         public void TestInit()
         {
-            FactionObject = new GameObject();
-            Faction = FactionObject.AddComponent<Faction>();
+            Faction = _gameObject.AddComponent<Faction>();
         }
 
         /// <summary>
@@ -27,7 +25,6 @@ namespace Tests
         [TearDown]
         public void TestCleanup()
         {
-            FactionObject = null;
             Faction = null;
         }
 
