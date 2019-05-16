@@ -2,6 +2,9 @@ pull_request_rules:
   - name: Automatic Merge to staging branch after approval.
     conditions:
       - "#approved-reviews-by>=1"
+      - "#review-requested=0"
+      - "#changes-requested-reviews-by=0"
+      - "#commented-reviews-by=0"
       - label=ready to merge
       - label!=work in progress
       - status-success=CodeFactor
