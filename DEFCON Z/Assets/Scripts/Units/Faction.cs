@@ -108,11 +108,18 @@ namespace DefconZ.Units
         {
             var cost = 0.0f;
 
-            foreach (var unitObj in Units)
+            for (int i = Units.Count - 1; i >= 0; i--)
             {
-                var upkeep = unitObj.GetComponent<UnitBase>().Upkeep;
-                Resource.UseResource(upkeep);
-                cost += upkeep;
+                if (Units[i] == null)
+                {
+                    Units.RemoveAt(i);
+                }
+                else
+                {
+                    var upkeep = Units[i].GetComponent<UnitBase>().Upkeep;
+                    Resource.UseResource(upkeep);
+                    cost += upkeep;
+                }
             }
 
             return cost;
