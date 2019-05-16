@@ -7,6 +7,7 @@ namespace DefconZ.GameLevel
     public class ZoneManager : MonoBehaviour
     {
         public GameObject zonePrefab;
+        public bool generateZones;
 
         public int worldWidth;
         public int worldHeight;
@@ -27,7 +28,11 @@ namespace DefconZ.GameLevel
         // Start is called before the first frame update
         void Start()
         {
-            GenerateLevelZones();
+            // Generate zones if the manager is flagged to
+            if (generateZones)
+            {
+                GenerateLevelZones();
+            }
         }
 
         /// <summary>
