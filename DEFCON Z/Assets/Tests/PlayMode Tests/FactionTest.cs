@@ -6,9 +6,8 @@ using UnityEngine;
 namespace Tests
 {
     [TestFixture]
-    public class FactionTest
+    public class FactionTest : BaseTest
     {
-        private GameObject FactionObject;
         private Faction Faction;
 
         /// <summary>
@@ -17,8 +16,7 @@ namespace Tests
         [SetUp]
         public void TestInit()
         {
-            FactionObject = new GameObject();
-            Faction = FactionObject.AddComponent<Faction>();
+            Faction = _gameObject.AddComponent<Faction>();
         }
 
         /// <summary>
@@ -27,7 +25,6 @@ namespace Tests
         [TearDown]
         public void TestCleanup()
         {
-            FactionObject = null;
             Faction = null;
         }
 
@@ -105,6 +102,61 @@ namespace Tests
 
             // Assert
             Assert.That(Faction.Resource.ResourcePoint, Is.EqualTo(expectedEndResource));
+        }
+
+        /// <summary>
+        /// This tests that MaintainUnit should remove destroyed/dead unit from
+        /// faction's list.
+        /// </summary>
+        [Test]
+        public void MaintainUnit_Should_Remove_Destroyed_Unit_From_List()
+        {
+            // Arrange
+            int maxUnitToGenerate = 10;
+
+            for (int i = 0; i < maxUnitToGenerate; i++)
+            {
+                var unit = new GameObject();
+                unit.AddComponent<Human>();
+
+                Faction.Units.Add(unit);
+            }
+
+            // Act
+            // Destroy units that is even in the index position
+            for (int i = 0; i < maxUnitToGenerate; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    Object.DestroyImmediate(Faction.Units[i].gameObject);
+                }
+            }
+
+            Faction.MaintainUnit();
+
+            // Assert
+            Assert.That(Faction.Units.Count, Is.EqualTo(maxUnitToGenerate / 2));
+        }
+
+        /// <summary>
+        /// This test ensure that MaintainUnit does not throw null when accessing
+        /// 'Unit' object.
+        /// </summary>
+        [Test]
+        public void MaintainUnit_Should_Not_Throw_Null()
+        {
+            // Arrange
+            var unit = new GameObject();
+            unit.AddComponent<Human>();
+
+            Faction.Units.Add(unit);
+
+            // Act
+            // Destroy units that is even in the index position
+            Object.DestroyImmediate(Faction.Units[0].gameObject);
+
+            // Assert
+            Assert.DoesNotThrow(() => Faction.MaintainUnit());
         }
     }
 }
