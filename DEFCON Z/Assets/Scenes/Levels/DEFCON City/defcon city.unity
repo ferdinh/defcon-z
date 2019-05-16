@@ -4855,12 +4855,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zonePrefab: {fileID: 7334471905579142739, guid: 7c1b88f58e0eadf4da1212399575f6d9,
     type: 3}
+  generateZones: 0
   worldWidth: 20
   worldHeight: 20
   zoneSpacing: 10
-  neutralColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 0.11764706}
-  friendlyColor: {r: 0.011764706, g: 1, b: 0, a: 0.11764706}
-  enemyColor: {r: 1, g: 0, b: 0.029075146, a: 0.11764706}
+  neutralColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 0.3529412}
+  friendlyColor: {r: 0.011764706, g: 1, b: 0, a: 0.3529412}
+  enemyColor: {r: 1, g: 0, b: 0.029075146, a: 0.3529412}
   managedZones: []
   zoneDisplayActive: 0
 --- !u!4 &694409672
