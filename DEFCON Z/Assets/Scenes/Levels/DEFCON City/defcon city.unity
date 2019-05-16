@@ -3777,13 +3777,8 @@ PrefabInstance:
       objectReference: {fileID: 336987419}
     - target: {fileID: 2236229889046659882, guid: 2501a28f187da884dac09869c1d24e56,
         type: 3}
-      propertyPath: minSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2236229889046659882, guid: 2501a28f187da884dac09869c1d24e56,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 20
+      propertyPath: boost
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8731220371253252657, guid: 2501a28f187da884dac09869c1d24e56,
         type: 3}
@@ -8605,7 +8600,7 @@ GameObject:
   - component: {fileID: 1196489416}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

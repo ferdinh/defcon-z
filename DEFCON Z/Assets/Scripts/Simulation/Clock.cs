@@ -9,8 +9,6 @@ using UnityEngine;
 /// </summary>
 public class Clock : MonoBehaviour
 {
-    public static Clock Instance = null;
-
     /// <summary>
     /// Occurs when [a game cycle passes].
     /// </summary>
@@ -54,14 +52,6 @@ public class Clock : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
-        }
     }
 
     /// <summary>
