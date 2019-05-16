@@ -103,7 +103,7 @@ namespace DefconZ.Units
         /// <summary>
         /// Maintains the unit.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Total cost of maintaining the unit(s).</returns>
         public float MaintainUnit()
         {
             var cost = 0.0f;

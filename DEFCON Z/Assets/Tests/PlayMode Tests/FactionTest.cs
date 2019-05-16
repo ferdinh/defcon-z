@@ -104,6 +104,10 @@ namespace Tests
             Assert.That(Faction.Resource.ResourcePoint, Is.EqualTo(expectedEndResource));
         }
 
+        /// <summary>
+        /// This tests that MaintainUnit should remove destroyed/dead unit from
+        /// faction's list.
+        /// </summary>
         [Test]
         public void MaintainUnit_Should_Remove_Destroyed_Unit_From_List()
         {
@@ -134,6 +138,10 @@ namespace Tests
             Assert.That(Faction.Units.Count, Is.EqualTo(maxUnitToGenerate / 2));
         }
 
+        /// <summary>
+        /// This test ensure that MaintainUnit does not throw null when accessing
+        /// 'Unit' object.
+        /// </summary>
         [Test]
         public void MaintainUnit_Should_Not_Throw_Null()
         {
