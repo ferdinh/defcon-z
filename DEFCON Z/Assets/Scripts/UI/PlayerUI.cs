@@ -1,4 +1,6 @@
 ﻿using DefconZ.Units;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,9 +24,10 @@ namespace DefconZ.UI
         public Color enemyColor;
 
         private Faction playerFaction;
-
         [SerializeField]
         private Player player;
+
+        private Clock clock;
 
         private void Awake()
         {
@@ -37,7 +40,7 @@ namespace DefconZ.UI
         /// </summary>
         public void GameClockSubscribe()
         {
-            var clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
+            clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
             clock.GameCycleElapsed += UpdateResourcePoint;
             clock.GameCycleElapsed += UpdateSelectionDisplayEvent;
             clock.GameCycleElapsed += UpdateGameDayLabelEvent;
@@ -57,7 +60,7 @@ namespace DefconZ.UI
         /// Updates the UI Selection area of the UI from the given object
         /// </summary>
         /// <param name="obj"></param>
-        ///
+        /// 
         public void UpdateResourcePoint(object sender, System.EventArgs e)
         {
             if (playerFaction != null)
@@ -83,7 +86,7 @@ namespace DefconZ.UI
         /// <param name="e"></param>
         public void UpdateGameDayLabelEvent(object sender, System.EventArgs e)
         {
-            gameDayLabel.text = Clock.Instance.GameDay.ToString();
+            gameDayLabel.text = clock.GameDay.ToString();
         }
 
         /// <summary>
@@ -136,9 +139,9 @@ namespace DefconZ.UI
         }
 
         /// <summary>
-        /// Action when purchase unit button is pressed
-        /// </summary>
-        public void PurchaseUnitAction()
+		/// Action when purchase unit button is pressed
+		/// </summary>
+		public void PurchaseUnitAction()
         {
             playerFaction.RecruitUnit();
         }
