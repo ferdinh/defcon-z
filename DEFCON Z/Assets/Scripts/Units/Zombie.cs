@@ -1,4 +1,4 @@
-﻿namespace DefconZ
+﻿namespace DefconZ.Units
 {
     public class Zombie : UnitBase
     {
