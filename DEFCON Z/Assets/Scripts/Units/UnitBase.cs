@@ -1,6 +1,7 @@
 ﻿using DefconZ.GameLevel;
 using DefconZ.Simulation;
 using DefconZ.Units;
+using DefconZ.Units.Actions;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,7 +15,6 @@ namespace DefconZ
         public Faction FactionOwner { get; set; }
         public Zone currentZone;
         public Combat CurrentCombat;
-        private Vector3 targetPosition;
         public AudioClip deathSound;
         public float RecruitCost;
         public float Upkeep;
@@ -120,6 +120,7 @@ namespace DefconZ
                 // move to appropriate distance
                 // TODO: calculate appropriate position to move to (Eg, if this unit is a ranged unit, move to maximum/safe firing range?)
                 Vector3 _targetPos = obj.transform.position;
+                GetComponent<IMoveable>().MoveTo(_targetPos);
 
                 // attack other unit
                 Debug.Log("Attacking unit: " + _targetUnit.objName + "\n" + _targetUnit.name);
