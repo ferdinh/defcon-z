@@ -11,3 +11,9 @@ pull_request_rules:
     actions:
       merge:
         method: merge
+  - name: Dimiss Review when PR changes.
+    conditions: []
+    actions:
+      dismiss_review:
+        approved: true
+        changes_requested: false
