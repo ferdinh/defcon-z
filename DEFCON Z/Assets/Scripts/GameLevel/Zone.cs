@@ -134,7 +134,6 @@ namespace DefconZ.GameLevel
                 // Check if the current zone is owned
                 if (zoneOwner != null)
                 {
-                    //Debug.LogError(faction + " " + zoneOwner);
                     // Remove the resource cap boost for the owner of the zone
                     zoneOwner.Resource.MaxResourcePoint -= zoneResourceValue;
                 }
