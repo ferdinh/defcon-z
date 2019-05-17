@@ -19,6 +19,8 @@ namespace DefconZ
         public float RecruitCost;
         public float Upkeep;
 
+        public GameObject unitModel;
+
         [SerializeField]
         private NavMeshAgent navMeshAgent;
 
@@ -193,13 +195,22 @@ namespace DefconZ
         /// </summary>
         public virtual void DestroySelf()
         {
-            // Ask the unit to remove itself the current zone
-            currentZone.RemoveFromZone(this);
+            Debug.Log(this.objName + " has reached 0 or less health and has died");
 
-            Debug.Log(this.objName + " has reached 0 or less health and has been destroyed");
-            audioSource.clip = deathSound; // set the audio source clip to the death sound clip
+            // Ask the unit to remove itself the current zone
+            if (currentZone != null)
+            {
+                currentZone.RemoveFromZone(this);
+            }
+            
+            // Rotate the model 
+            unitModel.transform.eulerAngles = new Vector3(90, unitModel.transform.rotation.y, unitModel.transform.rotation.z);
+
+            // set the audio source clip to the death sound clip
+            audioSource.clip = deathSound; 
             audioSource.Play();
-            Destroy(gameObject, deathSound.length); // Remove the game object this script is attached to after the deathsound has finished playing
+
+            _gameManager.RemoveUnit(this, deathSound.length);
         }
 
         /// <summary>
