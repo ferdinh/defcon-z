@@ -82,7 +82,6 @@ namespace DefconZ.GameLevel
                 else
                 {
                     SetZoneOwner(_owner);
-
                 }
             }
         }
