@@ -14,7 +14,7 @@ pull_request_rules:
   - name: Dimiss Review when PR changes
     conditions: []
     actions:
-      dismiss_review:
+      dismiss_reviews:
         approved: true
         changes_requested: false
   - name: Delete head branch with "safe to delete branch" label after merge
