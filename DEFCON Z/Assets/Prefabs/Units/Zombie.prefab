@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6693292440879736311}
   - component: {fileID: 1581249274220424531}
+  - component: {fileID: 5216359969117066730}
   - component: {fileID: 6693292440879736203}
   - component: {fileID: 6693292440879736202}
   - component: {fileID: 4709239624639122175}
@@ -50,11 +51,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objName: Zombie
   health: 100
+  currentZone: {fileID: 0}
   deathSound: {fileID: 8300000, guid: beca4447c7e7c5e4f994c4c88a5e04f9, type: 3}
   RecruitCost: 500
   Upkeep: 0.5
-  navMeshAgent: {fileID: 0}
   audioSource: {fileID: 0}
+--- !u!114 &5216359969117066730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693292440879736205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c1fe97b75c9b744b4be087fe65d4bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _navMeshAgent: {fileID: 0}
 --- !u!136 &6693292440879736203
 CapsuleCollider:
   m_ObjectHideFlags: 0
