@@ -39,74 +39,67 @@ namespace DefconZ.GameLevel
 
         /// <summary>
         /// Updates the current zone
-        /// Itterates through units inside zone and calculates the correct owner of the zone
+        /// Iterates through units inside zone and calculates the correct owner of the zone
         /// </summary>
         private void UpdateZone()
         {
-            Faction _owner = null;
-            bool _multipleFactions = false;
-            int _unitCount = 0;
+            Faction owner = null;
+            bool multipleFactions = false;
             
             // Calculate the current owner of the zone
-            foreach (UnitBase _unit in unitsInZone)
+            foreach (UnitBase unit in unitsInZone)
             {
-                if (_owner == null)
+                if (owner == null)
                 {
-                    _owner = _unit.FactionOwner;
+                    owner = unit.FactionOwner;
                 }
                 else
                 {
                     // Check if the current calculated owner is different to the unit
-                    if (_unit.FactionOwner != _owner)
+                    if (unit.FactionOwner != owner)
                     {
-                        _multipleFactions = true;
-                    }
-                    else if (_owner == null)
-                    {
-                        _owner = _unit.FactionOwner;
+                        multipleFactions = true;
                     }
                 }
-
-                _unitCount++;
             }
 
             // Set the zones owner
             // If no units are in the zone, do not change the owner
-            if (_unitCount > 0)
+            if (unitsInZone.Count > 0)
             {
                 // If multiple factions are present, there is no owner of the zone
-                if (_multipleFactions)
+                if (multipleFactions)
                 {
                     SetZoneOwner(null);
                 }
                 else
                 {
-                    SetZoneOwner(_owner);
+                    SetZoneOwner(owner);
                 }
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            UnitBase _unit = other.GetComponent<UnitBase>();
-            if (_unit != null)
+            UnitBase unit = other.GetComponent<UnitBase>();
+            if (unit != null)
             {
-                Debug.Log(_unit.objName + " entered zone");
-                unitsInZone.Add(_unit);
-                _unit.currentZone = this;
+                Debug.Log(unit.objName + " entered zone");
+                unitsInZone.Add(unit);
+                unit.currentZone = this;
                 UpdateZone();
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            UnitBase _unit = other.GetComponent<UnitBase>();
-            if (_unit != null)
+            UnitBase unit = other.GetComponent<UnitBase>();
+            if (unit != null)
             {
-                Debug.Log(_unit.objName + " exited zone");
+                Debug.Log(unit.objName + " exited zone");
 
                 // Remove the unit from the zone
-                RemoveFromZone(_unit);
+                RemoveFromZone(unit);
 
                 UpdateZone();
             }
@@ -149,18 +142,27 @@ namespace DefconZ.GameLevel
                 }
 
                 // Update the display color of the zone
-                if (faction == null)
-                {
-                    zoneMaterial.color = zoneManager.neutralColor;
-                }
-                else if (faction.IsPlayerUnit)
-                {
-                    zoneMaterial.color = zoneManager.friendlyColor;
-                }
-                else
-                {
-                    zoneMaterial.color = zoneManager.enemyColor;
-                }
+                UpdateZoneColor(zoneOwner);
+            }
+        }
+
+        /// <summary>
+        /// Updates the display color for the zone
+        /// </summary>
+        /// <param name="faction"></param>
+        private void UpdateZoneColor(Faction faction)
+        {
+            if (faction == null)
+            {
+                zoneMaterial.color = zoneManager.neutralColor;
+            }
+            else if (faction.IsPlayerUnit)
+            {
+                zoneMaterial.color = zoneManager.friendlyColor;
+            }
+            else
+            {
+                zoneMaterial.color = zoneManager.enemyColor;
             }
         }
 

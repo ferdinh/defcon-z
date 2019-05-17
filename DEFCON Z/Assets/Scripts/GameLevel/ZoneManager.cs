@@ -40,21 +40,21 @@ namespace DefconZ.GameLevel
         /// </summary>
         private void GenerateLevelZones()
         {
-            ZoneManager _zoneManager = this;
+            ZoneManager zoneManager = this;
             // generate rows
             for (int i = 0; i < worldWidth; i++)
             {
                 // generate columns
                 for (int j = 0; j < worldHeight; j++)
                 {
-                    float _xPos = zoneSpacing * i;
-                    float _zPos = zoneSpacing * j;
+                    float xPos = zoneSpacing * i;
+                    float zPos = zoneSpacing * j;
 
-                    GameObject _zoneObject = Instantiate(zonePrefab, new Vector3(_xPos, 0, _zPos), Quaternion.identity); // Create the zone
-                    Zone _zone = _zoneObject.GetComponent<Zone>();
-                    _zone.Init(_zoneManager, null); // Initialise the zone
-                    _zone.transform.parent = gameObject.transform; // Set the zones parent to be the zone manager, this stops the game heierachy being clogged
-                    managedZones.Add(_zone); // Add the generated zone to the managed zones list
+                    GameObject zoneObject = Instantiate(zonePrefab, new Vector3(xPos, 0, zPos), Quaternion.identity); // Create the zone
+                    Zone zone = zoneObject.GetComponent<Zone>();
+                    zone.Init(zoneManager, null); // Initialise the zone
+                    zone.transform.parent = gameObject.transform; // Set the zones parent to be the zone manager, this stops the game heierachy being clogged
+                    managedZones.Add(zone); // Add the generated zone to the managed zones list
                 }
             }
         }
@@ -67,9 +67,9 @@ namespace DefconZ.GameLevel
         {
             zoneDisplayActive = (zoneDisplayActive) ? false : true;
 
-            foreach (Zone _zone in managedZones)
+            foreach (Zone zone in managedZones)
             {
-                _zone.GetComponentInChildren<MeshRenderer>().enabled = zoneDisplayActive;
+                zone.GetComponentInChildren<MeshRenderer>().enabled = zoneDisplayActive;
             }
         }
     }
