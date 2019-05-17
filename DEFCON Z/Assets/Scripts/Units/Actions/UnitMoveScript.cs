@@ -4,6 +4,11 @@ using UnityEngine.AI;
 
 namespace DefconZ.Units.Actions
 {
+    /// <summary>
+    /// Define the behavior to move a unit.
+    /// </summary>
+    /// <seealso cref="UnityEngine.MonoBehaviour" />
+    /// <seealso cref="DefconZ.Entity.Action.IMoveable" />
     public class UnitMoveScript : MonoBehaviour, IMoveable
     {
         [SerializeField]
