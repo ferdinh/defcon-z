@@ -65,7 +65,7 @@ namespace DefconZ.UI
         {
             if (playerFaction != null)
             {
-                pointStatus.UpdateSlider(playerFaction.Resource.ResourcePoint);
+                pointStatus.UpdateSlider(playerFaction.Resource.ResourcePoint, playerFaction.Resource.MaxResourcePoint);
             }
         }
 

@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using DefconZ.GameLevel;
+using UnityEngine;
 
 namespace DefconZ
 {
     public class InputController : MonoBehaviour
     {
         private Player player;
+        public ZoneManager zoneManager;
 
         // Start is called before the first frame update
         private void Start()
@@ -12,7 +14,7 @@ namespace DefconZ
             player = gameObject.GetComponent<Player>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             // Fire 1 (Left click)
             if (Input.GetButtonDown("Fire1"))
@@ -37,6 +39,12 @@ namespace DefconZ
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 player.camController.boost = false;
+            }
+
+            // zone display
+            if (Input.GetButtonDown("ZoneDisplay"))
+            {
+                zoneManager.ToggleZoneDisplay();
             }
         }
     }

@@ -33,8 +33,11 @@ namespace DefconZ.UI
         /// Updates The Slider Bar
         /// </summary>
         /// <param name="currentValue"></param>
-        public void UpdateSlider(float currentValue)
+        public void UpdateSlider(float currentValue, float valueMax)
         {
+            // update the stored values
+            this.valueMax = valueMax;
+
             // Update the label text
             sliderLabel.text = currentValue.ToString("n0") + "/" + valueMax.ToString("n0");
 
