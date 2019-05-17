@@ -1,4 +1,6 @@
-﻿using DefconZ.UI;
+﻿using DefconZ.Entity.Action;
+using DefconZ.UI;
+using DefconZ.Units.Actions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -81,7 +83,7 @@ namespace DefconZ
                             }
                             else
                             {
-                                _selectedUnit.MoveTo(_rayCastHit.point);
+                                _selectedUnit.GetComponent<IMoveable>().MoveTo(_rayCastHit.point);
                                 Debug.Log("Clicked move position");
                             }
                         }
