@@ -12,9 +12,11 @@ namespace DefconZ.Units.Actions
     public class UnitMoveScript : MonoBehaviour, IMoveable
     {
         [SerializeField]
+        [HideInInspector]
         private NavMeshAgent _navMeshAgent;
 
         private UnitBase unit;
+        public bool log;
 
         // Start is called before the first frame update
         private void Start()
@@ -43,6 +45,11 @@ namespace DefconZ.Units.Actions
             if (target != null)
             {
                 _navMeshAgent.SetDestination(target);
+
+                if (log)
+                {
+                    Debug.Log($"Moving {unit.objName} to {target}");
+                }
             }
         }
     }
