@@ -134,14 +134,20 @@ namespace DefconZ.GameLevel
                 // Check if the current zone is owned
                 if (zoneOwner != null)
                 {
+                    //Debug.LogError(faction + " " + zoneOwner);
                     // Remove the resource cap boost for the owner of the zone
                     zoneOwner.Resource.MaxResourcePoint -= zoneResourceValue;
                 }
 
                 // Assign the new zone owner
                 zoneOwner = faction;
-                // Add the resource cap boost to the new owner
-                zoneOwner.Resource.MaxResourcePoint += zoneResourceValue;
+
+                // Check if a new faction owner is present
+                if (zoneOwner != null)
+                {
+                    // Add the resource cap boost to the new owner
+                    zoneOwner.Resource.MaxResourcePoint += zoneResourceValue;
+                }
 
                 // Update the display color of the zone
                 if (faction == null)
