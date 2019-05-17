@@ -1,10 +1,10 @@
-﻿using DefconZ.GameLevel;
+﻿using DefconZ.Entity.Action;
+using DefconZ.GameLevel;
 using DefconZ.Simulation;
 using DefconZ.Units;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace DefconZ
 {
@@ -14,15 +14,11 @@ namespace DefconZ
         public Faction FactionOwner { get; set; }
         public Zone currentZone;
         public Combat CurrentCombat;
-        private Vector3 targetPosition;
         public AudioClip deathSound;
         public float RecruitCost;
         public float Upkeep;
 
         public GameObject unitModel;
-
-        [SerializeField]
-        private NavMeshAgent navMeshAgent;
 
         [SerializeField]
         private AudioSource audioSource;
@@ -42,20 +38,7 @@ namespace DefconZ
         public void Start()
         {
             _gameManager = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<GameManager>();
-            navMeshAgent = GetComponent<NavMeshAgent>();
             audioSource = GetComponent<AudioSource>();
-
-            // check if the nav mesh exists
-            if (navMeshAgent == null)
-            {
-                Debug.Log("Nav Mesh Agent not correctly configured for: " + gameObject.name);
-            }
-            else
-            {
-                // First set the target as the current location
-                targetPosition = gameObject.transform.position;
-                MoveTo(targetPosition);
-            }
 
             InitUnit();
         }
@@ -66,25 +49,6 @@ namespace DefconZ
         public abstract void InitUnit();
 
         public abstract void Update();
-
-        public void DoCurrentAction(Vector3 position)
-        {
-            Debug.Log(position);
-            MoveTo(position);
-        }
-
-        /// <summary>
-        /// Move the unit to target position.
-        /// </summary>
-        /// <param name="target">Target position.</param>
-        public void MoveTo(Vector3 target)
-        {
-            Debug.Log("Moving to:" + target);
-            if (target != null)
-            {
-                navMeshAgent.SetDestination(target);
-            }
-        }
 
         /// <summary>
         /// Called when unit collider collided with each other.
@@ -157,7 +121,7 @@ namespace DefconZ
                 // move to appropriate distance
                 // TODO: calculate appropriate position to move to (Eg, if this unit is a ranged unit, move to maximum/safe firing range?)
                 Vector3 _targetPos = obj.transform.position;
-                MoveTo(_targetPos);
+                GetComponent<IMoveable>().MoveTo(_targetPos);
 
                 // attack other unit
                 Debug.Log("Attacking unit: " + _targetUnit.objName + "\n" + _targetUnit.name);
