@@ -1,11 +1,10 @@
-﻿using DefconZ.GameLevel;
+﻿using DefconZ.Entity.Action;
+using DefconZ.GameLevel;
 using DefconZ.Simulation;
 using DefconZ.Units;
-using DefconZ.Units.Actions;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace DefconZ
 {

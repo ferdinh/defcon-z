@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DefconZ.Units.Actions
+namespace DefconZ.Entity.Action
 {
     public interface IMoveable
     {

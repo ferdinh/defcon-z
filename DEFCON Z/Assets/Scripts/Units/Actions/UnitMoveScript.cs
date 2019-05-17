@@ -1,6 +1,4 @@
-﻿using DefconZ;
-using System.Collections;
-using System.Collections.Generic;
+﻿using DefconZ.Entity.Action;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,7 +12,7 @@ namespace DefconZ.Units.Actions
         private UnitBase unit;
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             unit = GetComponent<UnitBase>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -42,5 +40,5 @@ namespace DefconZ.Units.Actions
                 _navMeshAgent.SetDestination(target);
             }
         }
-    } 
+    }
 }
