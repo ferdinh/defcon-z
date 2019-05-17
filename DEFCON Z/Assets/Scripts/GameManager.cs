@@ -113,5 +113,18 @@ namespace DefconZ
                 faction.Difficulty.Value = difficulty.Value;
             }
         }
+
+        /// <summary>
+        /// Removes a unit from active state before deleting.
+        /// </summary>
+        /// <param name="unit"></param>
+        public void RemoveUnit(UnitBase unit, float delay)
+        {
+            GameObject unitGameObject = unit.gameObject;
+            // Remove the unit gamescript from the unit
+            Destroy(unit);
+
+            Destroy(unitGameObject, delay);
+        }
     }
 }
