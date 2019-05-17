@@ -196,7 +196,6 @@ namespace DefconZ
             // Ask the unit to remove itself the current zone
             currentZone.RemoveFromZone(this);
 
-
             Debug.Log(this.objName + " has reached 0 or less health and has been destroyed");
             audioSource.clip = deathSound; // set the audio source clip to the death sound clip
             audioSource.Play();

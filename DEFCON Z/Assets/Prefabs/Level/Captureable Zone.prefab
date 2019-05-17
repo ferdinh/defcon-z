@@ -47,7 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneManager: {fileID: 0}
   zoneOwner: {fileID: 0}
+  zoneResourceValue: 500
   zoneMaterial: {fileID: 0}
+  unitsInZone: []
 --- !u!65 &1165005109150998190
 BoxCollider:
   m_ObjectHideFlags: 0

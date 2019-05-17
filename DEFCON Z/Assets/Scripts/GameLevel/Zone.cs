@@ -9,6 +9,7 @@ namespace DefconZ.GameLevel
     {
         public ZoneManager zoneManager;
         public Faction zoneOwner;
+        public float zoneResourceValue;
 
         [SerializeField]
         private Material zoneMaterial;
@@ -30,7 +31,7 @@ namespace DefconZ.GameLevel
         {
             this.zoneManager = zoneManager;
             zoneMaterial = gameObject.transform.GetComponentInChildren<MeshRenderer>().material;
-
+            zoneMaterial.color = zoneManager.neutralColor;
             SetZoneOwner(faction);
 
             gameObject.layer = 2; // Sets the gameobject layer to ignore raycasts
@@ -81,6 +82,7 @@ namespace DefconZ.GameLevel
                 else
                 {
                     SetZoneOwner(_owner);
+
                 }
             }
         }
@@ -127,18 +129,34 @@ namespace DefconZ.GameLevel
         /// <param name="faction"></param>
         public void SetZoneOwner(Faction faction)
         {
-            zoneOwner = faction;
-            if (faction == null)
+            // Check that the current owner is not the same as the new owner
+            if (zoneOwner != faction)
             {
-                zoneMaterial.color = zoneManager.neutralColor;
-            }
-            else if (faction.IsPlayerUnit)
-            {
-                zoneMaterial.color = zoneManager.friendlyColor;
-            }
-            else
-            {
-                zoneMaterial.color = zoneManager.enemyColor;
+                // Check if the current zone is owned
+                if (zoneOwner != null)
+                {
+                    // Remove the resource cap boost for the owner of the zone
+                    zoneOwner.Resource.MaxResourcePoint -= zoneResourceValue;
+                }
+
+                // Assign the new zone owner
+                zoneOwner = faction;
+                // Add the resource cap boost to the new owner
+                zoneOwner.Resource.MaxResourcePoint += zoneResourceValue;
+
+                // Update the display color of the zone
+                if (faction == null)
+                {
+                    zoneMaterial.color = zoneManager.neutralColor;
+                }
+                else if (faction.IsPlayerUnit)
+                {
+                    zoneMaterial.color = zoneManager.friendlyColor;
+                }
+                else
+                {
+                    zoneMaterial.color = zoneManager.enemyColor;
+                }
             }
         }
 
@@ -163,6 +181,7 @@ namespace DefconZ.GameLevel
                 unitsInZone.Remove(unit);
             }
 
+            // Call an update to the zone
             UpdateZone();
         }
     }

@@ -14,8 +14,8 @@ namespace DefconZ.GameLevel
         public float zoneSpacing;
         public Color neutralColor, friendlyColor, enemyColor;
 
-        [SerializeField]
-        private List<Zone> managedZones;
+        public List<Zone> managedZones;
+
         [SerializeField]
         private bool zoneDisplayActive;
 
