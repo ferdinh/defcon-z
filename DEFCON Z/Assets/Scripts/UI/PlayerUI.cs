@@ -53,7 +53,7 @@ namespace DefconZ.UI
         public void InitUI(Faction playerFaction)
         {
             this.playerFaction = playerFaction;
-            pointStatus.InitSliderBar(playerFaction.Resource.MaxResourcePoint, 0.0f);
+            pointStatus.InitSliderBar(playerFaction.Resource.GetMaxResourcePoint, 0.0f);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace DefconZ.UI
         {
             if (playerFaction != null)
             {
-                pointStatus.UpdateSlider(playerFaction.Resource.ResourcePoint, playerFaction.Resource.MaxResourcePoint);
+                pointStatus.UpdateSlider(playerFaction.Resource.ResourcePoint, playerFaction.Resource.GetMaxResourcePoint);
             }
         }
 

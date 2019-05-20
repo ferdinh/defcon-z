@@ -18,7 +18,7 @@ namespace DefconZ.Simulation
         /// <value>
         /// The maximum resource point.
         /// </value>
-        public float MaxResourcePoint
+        public float GetMaxResourcePoint
         {
             get
             {
@@ -66,7 +66,7 @@ namespace DefconZ.Simulation
 
             var resourceModValue = 0.3f + diffModValue + UnityEngine.Random.Range(0.05f, 0.1f);
 
-            ResourcePoint = resourceModValue * MaxResourcePoint;
+            ResourcePoint = resourceModValue * GetMaxResourcePoint;
 
             Debug.Log("End starting resources.");
 
@@ -92,16 +92,16 @@ namespace DefconZ.Simulation
         {
             // Base resource replenish resource point from zero to full in
             // 3 years or 1095 days.
-            float baseresourcePointIncrease = MaxResourcePoint / 1095.0f;
+            float baseresourcePointIncrease = GetMaxResourcePoint / 1095.0f;
             float increaseModifier = 1.0f + Modifiers.Sum(mod => mod.Value);
             float resourcePointIncrease = baseresourcePointIncrease * increaseModifier;
 
             ResourcePoint += resourcePointIncrease;
 
             // Limit the available resource point to MaxResourcePoint.
-            if (ResourcePoint > MaxResourcePoint)
+            if (ResourcePoint > GetMaxResourcePoint)
             {
-                ResourcePoint = MaxResourcePoint;
+                ResourcePoint = GetMaxResourcePoint;
             }
 
             return resourcePointIncrease;

@@ -28,7 +28,7 @@ namespace DefconZ.Units
             // Reference difficulty modifier.
             Modifiers.Add(Difficulty);
 
-            Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.MaxResourcePoint);
+            Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.GetMaxResourcePoint);
             Debug.Log(FactionName + " faction has Starting Resource Point of " + Resource.ResourcePoint);
 
             InitAwake();

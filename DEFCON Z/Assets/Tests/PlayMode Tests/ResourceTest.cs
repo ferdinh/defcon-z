@@ -59,7 +59,7 @@ namespace Tests
             }
 
             // Assert
-            Assert.That(resource.MaxResourcePoint, Is.EqualTo(resource.ResourcePoint));
+            Assert.That(resource.GetMaxResourcePoint, Is.EqualTo(resource.ResourcePoint));
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Tests
             Modifiers.Add(mod2);
 
             // Act
-            float actualMaxResourcePoint = resource.MaxResourcePoint;
+            float actualMaxResourcePoint = resource.GetMaxResourcePoint;
 
             // Assert
             Assert.That(expectedMaxValue, Is.EqualTo(actualMaxResourcePoint));
@@ -123,7 +123,7 @@ namespace Tests
             Modifiers.Add(mod);
             Modifiers.Add(mod2);
 
-            float expectedIncrease = resource.MaxResourcePoint / 1095.0f * 1.8f;
+            float expectedIncrease = resource.GetMaxResourcePoint / 1095.0f * 1.8f;
 
             // Act
             float startingResource = resource.ResourcePoint;
