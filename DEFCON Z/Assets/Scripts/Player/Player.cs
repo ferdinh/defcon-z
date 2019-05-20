@@ -15,6 +15,10 @@ namespace DefconZ
         public PlayerUI playerUI;
         public ObjectSelection objectSelector;
         public List<GameObject> selectedObjects;
+        public GameObject indicatorPrefab;
+
+        public Material friendlyMaterial;
+        public Material enemyMaterial;
 
         private void Awake()
         {
@@ -50,16 +54,22 @@ namespace DefconZ
                             // check that the player has clicked somewhere
                             if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit _rayCastHit))
                             {
+                                GameObject orderLocationIndicator = Instantiate(indicatorPrefab, _rayCastHit.point, Quaternion.identity);
+                                MeshRenderer orderLocationIndicatorMaterial = orderLocationIndicator.GetComponentInChildren<MeshRenderer>();
+
                                 if (_rayCastHit.transform.gameObject.GetComponent<UnitBase>() != null)
                                 {
                                     Debug.Log("Hit another unit");
                                     selectedUnit.StartAttack(_rayCastHit.transform.gameObject);
+                                    orderLocationIndicatorMaterial.material = enemyMaterial;
                                 }
                                 else
                                 {
-                                    selectedUnit.GetComponent<IMoveable>().MoveTo(_rayCastHit.point);
                                     Debug.Log("Clicked move position");
+                                    selectedUnit.GetComponent<IMoveable>().MoveTo(_rayCastHit.point);
+                                    orderLocationIndicatorMaterial.material = friendlyMaterial;
                                 }
+                                Destroy(orderLocationIndicator, 4);
                             }
                         }
                         else

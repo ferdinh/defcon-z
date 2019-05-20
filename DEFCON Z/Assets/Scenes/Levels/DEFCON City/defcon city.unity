@@ -3790,6 +3790,22 @@ PrefabInstance:
       propertyPath: playerUI
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8731220371253252657, guid: 2501a28f187da884dac09869c1d24e56,
+        type: 3}
+      propertyPath: indicatorPrefab
+      value: 
+      objectReference: {fileID: 7914330046533959532, guid: ca56aa3cddf405548ae62d38208af6d4,
+        type: 3}
+    - target: {fileID: 8731220371253252657, guid: 2501a28f187da884dac09869c1d24e56,
+        type: 3}
+      propertyPath: friendlyMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 756921a3276ea5248b18511cd4e2e7d2, type: 2}
+    - target: {fileID: 8731220371253252657, guid: 2501a28f187da884dac09869c1d24e56,
+        type: 3}
+      propertyPath: enemyMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: fea9990c5cb0d7a41902e2b9a72e4d32, type: 2}
     - target: {fileID: 784628555139685445, guid: 2501a28f187da884dac09869c1d24e56,
         type: 3}
       propertyPath: zoneManager
