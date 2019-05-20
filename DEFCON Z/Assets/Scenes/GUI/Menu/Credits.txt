@@ -1,0 +1,13 @@
+DEFCON-Z
+COMP602 Software Development Practice Project
+
+DEFCON Z is a top down zombie simulation/strategy game developed using Unity3D.
+
+DEFCON Z Development Team
+-Jordan - Product Owner, Developer
+-Neil - SCRUM Master, Developer
+-Ferdin - Developer
+
+Development Environment
+-Unity 2019.1.1f1
+-Visual Studio 2017
