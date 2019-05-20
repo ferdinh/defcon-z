@@ -13,8 +13,7 @@ namespace Tests
         {
             // Arrange
             Resource resource = new Resource();
-            resource.CalculateMaxPoints()
-                    .ComputeStartingValue();
+            resource.ComputeStartingValue();
 
             // Increase resource recovery rate by huge amount.
             resource.Modifiers.Add(new Modifier
@@ -65,10 +64,10 @@ namespace Tests
             resource.Modifiers.Add(mod2);
 
             // Act
-            resource.CalculateMaxPoints();
+            float actualMaxResourcePoint = resource.MaxResourcePoint;
 
             // Assert
-            Assert.That(expectedMaxValue, Is.EqualTo(resource.MaxResourcePoint));
+            Assert.That(expectedMaxValue, Is.EqualTo(actualMaxResourcePoint));
         }
 
         [Test]
@@ -92,22 +91,20 @@ namespace Tests
                 Value = 0.3f
             };
 
-            resource.CalculateMaxPoints()
-                    .ComputeStartingValue();
-
-            float expectedIncrease = resource.MaxResourcePoint / 1095.0f * 1.8f;
-
             // The additional modifier value will increase the gathering value
             // from its base value by 80 percent.
             resource.Modifiers.Add(mod);
             resource.Modifiers.Add(mod2);
 
+            resource.ComputeStartingValue();
+
+            float expectedIncrease = resource.MaxResourcePoint / 1095.0f * 1.8f;
+
             // Act
             float startingResource = resource.ResourcePoint;
-            resource.GatherResource();
+            var actualIncrease = resource.GatherResource();
 
             // Assert
-            var actualIncrease = resource.ResourcePoint - startingResource;
             Assert.That(expectedIncrease, Is.EqualTo(actualIncrease).Within(margin));
         }
     }
