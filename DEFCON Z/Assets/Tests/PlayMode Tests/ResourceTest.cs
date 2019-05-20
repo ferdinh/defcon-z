@@ -68,7 +68,6 @@ namespace Tests
             resource.CalculateMaxPoints();
 
             // Assert
-            Assert.AreEqual(expectedMaxValue, resource.MaxResourcePoint);
             Assert.That(expectedMaxValue, Is.EqualTo(resource.MaxResourcePoint));
         }
 
