@@ -128,7 +128,7 @@ namespace DefconZ.GameLevel
                 if (zoneOwner != null)
                 {
                     // Remove the resource cap boost for the owner of the zone
-                    zoneOwner.Resource.MaxResourcePoint -= zoneResourceValue;
+                    zoneOwner.Resource.OwnedZones.Remove(this);
                 }
 
                 // Assign the new zone owner
@@ -138,7 +138,7 @@ namespace DefconZ.GameLevel
                 if (zoneOwner != null)
                 {
                     // Add the resource cap boost to the new owner
-                    zoneOwner.Resource.MaxResourcePoint += zoneResourceValue;
+                    zoneOwner.Resource.OwnedZones.Add(this);
                 }
 
                 // Update the display color of the zone

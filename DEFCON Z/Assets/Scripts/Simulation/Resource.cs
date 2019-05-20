@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DefconZ.GameLevel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,7 +12,6 @@ namespace DefconZ.Simulation
     public class Resource
     {
         public float BaseResourcePoint { get; }
-        public float MaxResourcePoint { get; set; }
 
         public float MaxResourcePoint
         {
@@ -25,21 +25,27 @@ namespace DefconZ.Simulation
         public float SciencePoint { get; set; }
         public float ResourcePoint { get; set; }
 
-        public IList<Modifier> Modifiers { get; }
         public ICollection<Modifier> Modifiers { get; }
+
+        public ICollection<Zone> OwnedZones { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Resource"/> class.
         /// </summary>
+        [Obsolete("Use Resource(ICollection) for Constructor or the game breaks.")]
         public Resource()
         {
             BaseResourcePoint = 10000.0f;
             Modifiers = new List<Modifier>();
+            OwnedZones = new List<Zone>();
         }
+
         public Resource(ICollection<Modifier> modifiers)
         {
             BaseResourcePoint = 10000.0f;
             Modifiers = modifiers;
+            OwnedZones = new List<Zone>();
+
             ComputeStartingValue();
         }
 
