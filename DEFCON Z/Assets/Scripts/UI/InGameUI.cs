@@ -11,12 +11,17 @@ namespace DefconZ.UI
     /// </summary>
     public class InGameUI : MonoBehaviour
     {
-        public GameObject playerUI;
-        public GameObject pauseUI;
+        public PlayerUI playerUI;
+        public PauseMenu pauseUI;
+        public SelectionUI selectionUI;
 
         public void InitUI(Faction faction)
         {
-            playerUI.GetComponent<PlayerUI>().InitUI(faction);
+            Player player = GameObject.Find("Player").GetComponent<Player>();
+            playerUI.InitUI(faction);
+            player.objectSelector.player = player;
+            player.objectSelector.cam = player.cam;
+            player.objectSelector.selectionUI = selectionUI;
         }
     }
 }
