@@ -12,6 +12,15 @@ namespace DefconZ.Simulation
     {
         public float BaseResourcePoint { get; }
         public float MaxResourcePoint { get; set; }
+
+        public float MaxResourcePoint
+        {
+            get
+            {
+                return CalculateMaxPoints();
+            }
+        }
+
         public float MaxSciencePoint { get; set; }
         public float SciencePoint { get; set; }
         public float ResourcePoint { get; set; }
@@ -37,7 +46,6 @@ namespace DefconZ.Simulation
         /// <summary>
         /// Computes the starting resource value.
         /// </summary>
-        public Resource ComputeStartingValue()
         private Resource ComputeStartingValue()
         {
             Debug.Log("Calculating starting resources.");
@@ -68,13 +76,12 @@ namespace DefconZ.Simulation
         /// <summary>
         /// Calculates the maximum points available.
         /// </summary>
-        public Resource CalculateMaxPoints()
+        private float CalculateMaxPoints()
         {
             var modifierValue = 1.0f + Modifiers.Sum(mod => mod.Value);
+            var totalOwnedZones = OwnedZones.Sum(v => v.zoneResourceValue);
 
-            MaxResourcePoint = BaseResourcePoint * modifierValue;
-
-            return this;
+            return (BaseResourcePoint * modifierValue) + totalOwnedZones;
         }
 
         /// <summary>
