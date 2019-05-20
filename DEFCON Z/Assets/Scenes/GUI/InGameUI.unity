@@ -1010,7 +1010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &852593951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1615,6 +1615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draw: 0
+  initialMousePosition: {x: 0, y: 0, z: 0}
   selectionColor: {r: 0.699, g: 0.699, b: 0.699, a: 0.5372549}
   selectionBorderColor: {r: 0.538, g: 0.538, b: 0.538, a: 0.7764706}
   borderThickness: 2
