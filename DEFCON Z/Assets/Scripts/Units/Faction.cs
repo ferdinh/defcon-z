@@ -1,4 +1,6 @@
 ﻿using DefconZ.Simulation;
+using DefconZ.Simulation.UnitBuilder;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,11 +19,14 @@ namespace DefconZ.Units
 
         public Modifier Difficulty = Simulation.Difficulty.Normal;
 
+        public UnitBuilder unitBuilder;
+
         private void Awake()
         {
             Units = new List<GameObject>();
             Level = new Level();
             Resource = new Resource();
+            unitBuilder = gameObject.AddComponent<UnitBuilder>();
 
             // Reference the faction level to the resource calculation.
             Resource.Modifiers.Add(Level.LevelModifier);
@@ -35,7 +40,24 @@ namespace DefconZ.Units
             Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.MaxResourcePoint);
             Debug.Log(FactionName + " faction has Starting Resource Point of " + Resource.ResourcePoint);
 
+            unitBuilder.OnBuildStart += StartBuild;
+            unitBuilder.OnBuildFinish += AfterBuild;
+
             InitAwake();
+        }
+
+        private void AfterBuild(object sender, BuildFinishedEventArgs e)
+        {
+            var newUnit = e.createdUnit;
+            newUnit.GetComponent<UnitBase>().FactionOwner = this;
+            Units.Add(newUnit);
+
+            Debug.LogError("Finish building " + newUnit.GetComponent<UnitBase>().objName);
+        }
+
+        private void StartBuild(object sender, EventArgs e)
+        {
+            Debug.LogError("Start building unit");
         }
 
         private void Start()
@@ -59,22 +81,35 @@ namespace DefconZ.Units
         }
 
         /// <summary>
-        /// Recruits a new unit when there is enough resource for the
-        /// faction.
+        /// Recruits the unit at the target position when there is enough
+        /// resources.
         /// </summary>
-        public void RecruitUnit()
+        /// <param name="spawnPoint">The spawn point.</param>
+        public void RecruitUnitAt(Vector3 spawnPoint)
         {
             if (CanRecruitUnit(UnitPrefab.GetComponent<UnitBase>().RecruitCost))
             {
-                // Create the unit.
-                var newUnit = Instantiate(UnitPrefab, UnitSpawnPoint.transform.position, Quaternion.identity);
-                newUnit.GetComponent<UnitBase>().FactionOwner = this;
+                unitBuilder.AddToBuildQueue(new UnitOrder(UnitPrefab, spawnPoint));
+
+                // Create the new unit.
+                //var newUnit = Instantiate(UnitPrefab, spawnPoint, Quaternion.identity);
+                //newUnit.GetComponent<UnitBase>().FactionOwner = this;
 
                 // Consume the resource when creating.
-                Resource.UseResource(newUnit.GetComponent<UnitBase>().RecruitCost);
+                Resource.UseResource(UnitPrefab.GetComponent<UnitBase>().RecruitCost);
 
-                Units.Add(newUnit);
+                //Units.Add(newUnit);
             }
+        }
+
+        /// <summary>
+        /// Recruits a new unit when there is enough resource for the
+        /// faction.
+        /// </summary>
+        [Obsolete("This method will be deprecated, use RecruitUnitAt(Vector3)")]
+        public void RecruitUnit()
+        {
+            RecruitUnitAt(UnitSpawnPoint.transform.position);
         }
 
         /// <summary>
