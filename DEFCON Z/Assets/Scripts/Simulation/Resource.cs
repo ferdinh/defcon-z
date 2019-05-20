@@ -30,7 +30,7 @@ namespace DefconZ.Simulation
         public float SciencePoint { get; set; }
         public float ResourcePoint { get; set; }
 
-        public ICollection<Modifier> Modifiers { get; }
+        private ICollection<Modifier> Modifiers { get; }
 
         public ICollection<Zone> OwnedZones { get; }
 
