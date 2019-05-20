@@ -11,85 +11,71 @@ namespace DefconZ
     {
         public CameraController camController;
         public Camera cam;
-        // for testing purposes, show in editor
-        [SerializeField]
-        public GameObject selectedObject; // Field is public for tests
-
+        private InGameUI inGameUI;
         public PlayerUI playerUI;
+        public ObjectSelection objectSelector;
+        public List<GameObject> selectedObjects;
+        public GameObject indicatorPrefab;
 
-        // Start is called before the first frame update
-        void Start()
+        public Material friendlyMaterial;
+        public Material enemyMaterial;
+
+        private void Awake()
         {
             camController = GetComponent<CameraController>();
             cam = camController.mainCamera;
+
+            objectSelector = gameObject.GetComponent<ObjectSelection>();
+            objectSelector.cam = cam;
+
+            selectedObjects = new List<GameObject>();
         }
 
         // Update is called once per frame
         void Update() { }
 
-        /// <summary>
-        /// RayCasts to the first object the rayhit returns and if the object is selectable, the object is selected
-        /// </summary>
-        public void SelectObject()
-        {
-            RaycastHit _rayCastHit = new RaycastHit();
-
-            bool _selectable = false;
-
-            // check if the raycast hit anything
-            if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out _rayCastHit))
-            {
-                Debug.Log("Hit: " + _rayCastHit.transform.name);
-                // check if the object hit is tagged as a game object
-                if (_rayCastHit.transform.gameObject.tag == "GameObject")
-                {
-                    _selectable = true;
-                    selectedObject = _rayCastHit.transform.gameObject;
-                }
-            }
-            // if player has not clicked on a selectable object, make sure the currently selected object is cleared
-            if (!_selectable)
-            {
-                selectedObject = null;
-            }
-
-            playerUI.UpdateObjectSelectionUI();
-        }
-
         public void SelectedObjectAction()
         {
             // Check if the player has selected a unit
-            if (selectedObject != null)
+            if (selectedObjects.Count > 0)
             {
-                // Check if the selected object is a unit
-                UnitBase _selectedUnit = selectedObject.GetComponent<UnitBase>();
-                if (_selectedUnit != null)
+                // For every object selected, give it an order
+                foreach (GameObject obj in selectedObjects)
                 {
-                    // Check if the selected unit is owned by the player
-                    if (_selectedUnit.FactionOwner.IsPlayerUnit)
+                    // Check if the selected object is a unit
+                    UnitBase selectedUnit = obj.GetComponent<UnitBase>();
+                    if (selectedUnit != null)
                     {
-                        Debug.Log("Selected unit is a player controlled unit");
-                        // at this point we know the object can accept an order
-                        // raycast for the order location
-                        RaycastHit _rayCastHit = new RaycastHit();
-
-                        // check that the player has clicked somewhere
-                        if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out _rayCastHit))
+                        // Check if the selected unit is owned by the player
+                        if (selectedUnit.FactionOwner.IsPlayerUnit)
                         {
-                            if (_rayCastHit.transform.gameObject.GetComponent<UnitBase>() != null)
+                            Debug.Log("Selected unit is a player controlled unit");
+
+                            // check that the player has clicked somewhere
+                            if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit _rayCastHit))
                             {
-                                Debug.Log("Hit another unit");
-                                _selectedUnit.StartAttack(_rayCastHit.transform.gameObject);
-                            }
-                            else
-                            {
-                                _selectedUnit.GetComponent<IMoveable>().MoveTo(_rayCastHit.point);
-                                Debug.Log("Clicked move position");
+                                GameObject orderLocationIndicator = Instantiate(indicatorPrefab, _rayCastHit.point, Quaternion.identity);
+                                MeshRenderer orderLocationIndicatorMaterial = orderLocationIndicator.GetComponentInChildren<MeshRenderer>();
+
+                                if (_rayCastHit.transform.gameObject.GetComponent<UnitBase>() != null)
+                                {
+                                    Debug.Log("Hit another unit");
+                                    selectedUnit.StartAttack(_rayCastHit.transform.gameObject);
+                                    orderLocationIndicatorMaterial.material = enemyMaterial;
+                                }
+                                else
+                                {
+                                    Debug.Log("Clicked move position");
+                                    selectedUnit.GetComponent<IMoveable>().MoveTo(_rayCastHit.point);
+                                    orderLocationIndicatorMaterial.material = friendlyMaterial;
+                                }
+                                Destroy(orderLocationIndicator, 4);
                             }
                         }
-                    } else
-                    {
-                        Debug.Log("Selected unit is not player controlled, cannot give orders");
+                        else
+                        {
+                            Debug.Log("Selected unit is not player controlled, cannot give orders");
+                        }
                     }
                 }
             }

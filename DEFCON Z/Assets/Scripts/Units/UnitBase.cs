@@ -1,4 +1,5 @@
-﻿using DefconZ.Entity.Action;
+﻿using DefconZ.Entity;
+using DefconZ.Entity.Action;
 using DefconZ.GameLevel;
 using DefconZ.Simulation;
 using DefconZ.Units;
@@ -11,6 +12,7 @@ namespace DefconZ
     public abstract class UnitBase : ObjectBase, IDestructible
     {
         public float health = 100;
+        public float maxHealth = 100;
         public Faction FactionOwner { get; set; }
         public Zone currentZone;
         public Combat CurrentCombat;
