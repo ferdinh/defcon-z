@@ -29,17 +29,6 @@ namespace DefconZ.Simulation
 
         public ICollection<Zone> OwnedZones { get; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Resource"/> class.
-        /// </summary>
-        [Obsolete("Use Resource(ICollection) for Constructor or the game breaks.")]
-        public Resource()
-        {
-            BaseResourcePoint = 10000.0f;
-            Modifiers = new List<Modifier>();
-            OwnedZones = new List<Zone>();
-        }
-
         public Resource(ICollection<Modifier> modifiers)
         {
             BaseResourcePoint = 10000.0f;
