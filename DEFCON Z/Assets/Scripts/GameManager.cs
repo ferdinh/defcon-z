@@ -108,9 +108,20 @@ namespace DefconZ
         {
             foreach (var faction in Factions)
             {
+                var modValue = difficulty.Value;
+
+                // If it is not player's faction, negate the modifier value
+                // so it has an opposite effect. For example on easy
+                // difficulty with modifier value of 0.5f will make player's
+                // faction stronger but will cripple the AI's Faction.
+                if (!faction.IsPlayerUnit)
+                {
+                    modValue *= -1;
+                }
+
                 faction.Difficulty.Name = difficulty.Name;
                 faction.Difficulty.Type = difficulty.Type;
-                faction.Difficulty.Value = difficulty.Value;
+                faction.Difficulty.Value = modValue;
             }
         }
 
