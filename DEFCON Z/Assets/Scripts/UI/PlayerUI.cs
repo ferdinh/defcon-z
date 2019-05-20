@@ -12,6 +12,8 @@ namespace DefconZ.UI
         public Text healthLabel;
         public Text factionLabel;
         public Text pointStatusLabel;
+        public Text resourceGainLabel;
+        public float previousResourcePoints;
 
         public SliderBar pointStatus;
 
@@ -54,18 +56,25 @@ namespace DefconZ.UI
         {
             this.playerFaction = playerFaction;
             pointStatus.InitSliderBar(playerFaction.Resource.GetMaxResourcePoint, 0.0f);
+            previousResourcePoints = playerFaction.Resource.ResourcePoint;
         }
 
         /// <summary>
         /// Updates the UI Selection area of the UI from the given object
         /// </summary>
-        /// <param name="obj"></param>
-        /// 
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void UpdateResourcePoint(object sender, System.EventArgs e)
         {
             if (playerFaction != null)
             {
                 pointStatus.UpdateSlider(playerFaction.Resource.ResourcePoint, playerFaction.Resource.GetMaxResourcePoint);
+                float netGain = playerFaction.Resource.ResourcePoint - previousResourcePoints;
+                previousResourcePoints = playerFaction.Resource.ResourcePoint;
+                resourceGainLabel.text = netGain.ToString("+#;-#;+0");
+
+                // setting the colour based on the value of netGain.
+                resourceGainLabel.color = (netGain >= 0) ? friendlyColor : enemyColor;
             }
         }
 
