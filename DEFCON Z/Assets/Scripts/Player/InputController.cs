@@ -1,24 +1,33 @@
-﻿using UnityEngine;
+﻿using DefconZ.GameLevel;
+using UnityEngine;
 
 namespace DefconZ
 {
     public class InputController : MonoBehaviour
     {
         private Player player;
+        private ObjectSelection objectSelector;
+        public ZoneManager zoneManager;
 
         // Start is called before the first frame update
         private void Start()
         {
             player = gameObject.GetComponent<Player>();
+            objectSelector = player.objectSelector;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            // Fire 1 (Left click)
+            // Fire 1 (Left click) DOWN
             if (Input.GetButtonDown("Fire1"))
             {
-                // Raycast and select an object
-                player.SelectObject();
+                objectSelector.SelectionStart();
+            }
+
+            // Fire 1 (Left Click) UP
+            if (Input.GetButtonUp("Fire1"))
+            {
+                objectSelector.SelectionEnd();
             }
 
             // Fire 1 (Right Click)
@@ -37,6 +46,12 @@ namespace DefconZ
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 player.camController.boost = false;
+            }
+
+            // zone display
+            if (Input.GetButtonDown("ZoneDisplay"))
+            {
+                zoneManager.ToggleZoneDisplay();
             }
         }
     }

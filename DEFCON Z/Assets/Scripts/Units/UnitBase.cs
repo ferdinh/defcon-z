@@ -1,27 +1,31 @@
-﻿using DefconZ.Simulation;
+﻿using DefconZ.Entity;
+using DefconZ.Entity.Action;
+using DefconZ.GameLevel;
+using DefconZ.Simulation;
 using DefconZ.Units;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace DefconZ
 {
     public abstract class UnitBase : ObjectBase, IDestructible
     {
         public float health = 100;
+        public float maxHealth = 100;
         public Faction FactionOwner { get; set; }
+        public Zone currentZone;
         public Combat CurrentCombat;
-        private Vector3 targetPosition;
         public AudioClip deathSound;
         public float RecruitCost;
         public float Upkeep;
 
-        [SerializeField]
-        private NavMeshAgent navMeshAgent;
+        public GameObject unitModel;
 
         [SerializeField]
         private AudioSource audioSource;
+
+        private GameManager _gameManager;
 
         /*
          * All unit has an initial base health of 100 and base damage of 10.
@@ -35,20 +39,8 @@ namespace DefconZ
         // Start is called before the first frame update
         public void Start()
         {
-            navMeshAgent = GetComponent<NavMeshAgent>();
+            _gameManager = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<GameManager>();
             audioSource = GetComponent<AudioSource>();
-
-            // check if the nav mesh exists
-            if (navMeshAgent == null)
-            {
-                Debug.Log("Nav Mesh Agent not correctly configured for: " + gameObject.name);
-            }
-            else
-            {
-                // First set the target as the current location
-                targetPosition = gameObject.transform.position;
-                MoveTo(targetPosition);
-            }
 
             InitUnit();
         }
@@ -59,25 +51,6 @@ namespace DefconZ
         public abstract void InitUnit();
 
         public abstract void Update();
-
-        public void DoCurrentAction(Vector3 position)
-        {
-            Debug.Log(position);
-            MoveTo(position);
-        }
-
-        /// <summary>
-        /// Move the unit to target position.
-        /// </summary>
-        /// <param name="target">Target position.</param>
-        public void MoveTo(Vector3 target)
-        {
-            Debug.Log("Moving to:" + target);
-            if (target != null)
-            {
-                navMeshAgent.SetDestination(target);
-            }
-        }
 
         /// <summary>
         /// Called when unit collider collided with each other.
@@ -126,7 +99,7 @@ namespace DefconZ
                 {
                     if (CurrentCombat != null)
                     {
-                        if (GameManager.Instance.ActiveCombats.Remove(CurrentCombat.CombatId))
+                        if (_gameManager.ActiveCombats.Remove(CurrentCombat.CombatId))
                         {
                             Debug.Log($"Combat with {CurrentCombat.CombatId} removed");
                         }
@@ -150,7 +123,7 @@ namespace DefconZ
                 // move to appropriate distance
                 // TODO: calculate appropriate position to move to (Eg, if this unit is a ranged unit, move to maximum/safe firing range?)
                 Vector3 _targetPos = obj.transform.position;
-                MoveTo(_targetPos);
+                GetComponent<IMoveable>().MoveTo(_targetPos);
 
                 // attack other unit
                 Debug.Log("Attacking unit: " + _targetUnit.objName + "\n" + _targetUnit.name);
@@ -175,7 +148,7 @@ namespace DefconZ
                     _targetUnit.CurrentCombat = CurrentCombat;
 
                     // Register the combat to the game manager.
-                    var listOfCombat = GameManager.Instance.ActiveCombats;
+                    var listOfCombat = _gameManager.ActiveCombats;
                     listOfCombat.Add(CurrentCombat.CombatId, CurrentCombat);
 
                     Debug.Log($"Created new Combat with id {CurrentCombat.CombatId}");
@@ -188,10 +161,22 @@ namespace DefconZ
         /// </summary>
         public virtual void DestroySelf()
         {
-            Debug.Log(this.objName + " has reached 0 or less health and has been destroyed");
-            audioSource.clip = deathSound; // set the audio source clip to the death sound clip
+            Debug.Log(this.objName + " has reached 0 or less health and has died");
+
+            // Ask the unit to remove itself the current zone
+            if (currentZone != null)
+            {
+                currentZone.RemoveFromZone(this);
+            }
+            
+            // Rotate the model 
+            unitModel.transform.eulerAngles = new Vector3(90, unitModel.transform.rotation.y, unitModel.transform.rotation.z);
+
+            // set the audio source clip to the death sound clip
+            audioSource.clip = deathSound; 
             audioSource.Play();
-            Destroy(gameObject, deathSound.length); // Remove the game object this script is attached to after the deathsound has finished playing
+
+            _gameManager.RemoveUnit(this, deathSound.length);
         }
 
         /// <summary>
@@ -244,9 +229,9 @@ namespace DefconZ
             return CurrentCombat != null;
         }
 
-        private static bool RemoveCombat(Combat combatToRemove)
+        private bool RemoveCombat(Combat combatToRemove)
         {
-            var removeResult = GameManager.Instance.ActiveCombats.Remove(combatToRemove.CombatId);
+            var removeResult = _gameManager.ActiveCombats.Remove(combatToRemove.CombatId);
             combatToRemove.ClearCombat();
 
             return removeResult;

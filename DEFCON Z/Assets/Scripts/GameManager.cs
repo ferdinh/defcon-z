@@ -10,8 +10,6 @@ namespace DefconZ
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameManager Instance = null;
-
         /// <summary>
         /// Holds the faction's information of the game.
         /// </summary>
@@ -19,17 +17,11 @@ namespace DefconZ
 
         public IDictionary<Guid, Combat> ActiveCombats;
 
+        private Clock _clock;
+
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else if (Instance != this)
-            {
-                Destroy(gameObject);
-            }
-
+            _clock = gameObject.AddComponent<Clock>();
             Factions = new List<Faction>();
             ActiveCombats = new ConcurrentDictionary<Guid, Combat>();
         }
@@ -56,10 +48,8 @@ namespace DefconZ
             humanFaction.RecruitUnit();
             zombieFaction.RecruitUnit();
 
-            var clock = Clock.Instance;
-
-            clock.GameCycleElapsed += Clock_GameCycleElapsed;
-            clock.GameCycleElapsed += Combat;
+            _clock.GameCycleElapsed += Clock_GameCycleElapsed;
+            _clock.GameCycleElapsed += Combat;
 
             // Once the GameManager has finished initialising, tell the in-game UI to initialise
             GameObject.Find("InGameUI").GetComponent<InGameUI>().InitUI(humanFaction);
@@ -104,10 +94,10 @@ namespace DefconZ
                 Debug.Log($"Gathered {resourceGathered} amount of resource.");
                 Debug.Log($"Maintenance cost at {maintenanceCost}");
 
-                Debug.Log($"{faction.FactionName} has {faction.Resource.ResourcePoint} amount of resources.");
+                Debug.Log($"{faction.FactionName} has {faction.Resource.ResourcePoint} amount of resources out of {faction.Resource.GetMaxResourcePoint}.");
             }
 
-            Debug.Log("Game day elapsed " + Clock.Instance.GameDay);
+            Debug.Log("Game day elapsed " + _clock.GameDay);
         }
 
         /// <summary>
@@ -118,10 +108,34 @@ namespace DefconZ
         {
             foreach (var faction in Factions)
             {
+                var modValue = difficulty.Value;
+
+                // If it is not player's faction, negate the modifier value
+                // so it has an opposite effect. For example on easy
+                // difficulty with modifier value of 0.5f will make player's
+                // faction stronger but will cripple the AI's Faction.
+                if (!faction.IsPlayerUnit)
+                {
+                    modValue *= -1;
+                }
+
                 faction.Difficulty.Name = difficulty.Name;
                 faction.Difficulty.Type = difficulty.Type;
-                faction.Difficulty.Value = difficulty.Value;
+                faction.Difficulty.Value = modValue;
             }
+        }
+
+        /// <summary>
+        /// Removes a unit from active state before deleting.
+        /// </summary>
+        /// <param name="unit"></param>
+        public void RemoveUnit(UnitBase unit, float delay)
+        {
+            GameObject unitGameObject = unit.gameObject;
+            // Remove the unit gamescript from the unit
+            Destroy(unit);
+
+            Destroy(unitGameObject, delay);
         }
     }
 }

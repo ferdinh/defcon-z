@@ -16,23 +16,19 @@ namespace DefconZ.Units
         public GameObject UnitSpawnPoint;
 
         public Modifier Difficulty = Simulation.Difficulty.Normal;
+        public ICollection<Modifier> Modifiers;
 
         private void Awake()
         {
             Units = new List<GameObject>();
             Level = new Level();
-            Resource = new Resource();
-
-            // Reference the faction level to the resource calculation.
-            Resource.Modifiers.Add(Level.LevelModifier);
+            Modifiers = new List<Modifier>();
+            Resource = new Resource(Modifiers);
 
             // Reference difficulty modifier.
-            Resource.Modifiers.Add(Difficulty);
+            Modifiers.Add(Difficulty);
 
-            Resource.CalculateMaxPoints()
-                    .ComputeStartingValue();
-
-            Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.MaxResourcePoint);
+            Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.GetMaxResourcePoint);
             Debug.Log(FactionName + " faction has Starting Resource Point of " + Resource.ResourcePoint);
 
             InitAwake();
@@ -103,16 +99,23 @@ namespace DefconZ.Units
         /// <summary>
         /// Maintains the unit.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Total cost of maintaining the unit(s).</returns>
         public float MaintainUnit()
         {
             var cost = 0.0f;
 
-            foreach (var unitObj in Units)
+            for (int i = Units.Count - 1; i >= 0; i--)
             {
-                var upkeep = unitObj.GetComponent<UnitBase>().Upkeep;
-                Resource.UseResource(upkeep);
-                cost += upkeep;
+                if (Units[i] == null)
+                {
+                    Units.RemoveAt(i);
+                }
+                else
+                {
+                    var upkeep = Units[i].GetComponent<UnitBase>().Upkeep;
+                    Resource.UseResource(upkeep);
+                    cost += upkeep;
+                }
             }
 
             return cost;
