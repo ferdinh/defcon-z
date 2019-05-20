@@ -17,6 +17,7 @@ namespace DefconZ
         public Zone currentZone;
         public Combat CurrentCombat;
         public AudioClip deathSound;
+        public AudioClip attackSound;
         public float RecruitCost;
         public float Upkeep;
 

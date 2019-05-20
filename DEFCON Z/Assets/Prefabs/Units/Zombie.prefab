@@ -51,12 +51,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objName: Zombie
   health: 100
+  maxHealth: 100
   currentZone: {fileID: 0}
-  deathSound: {fileID: 8300000, guid: beca4447c7e7c5e4f994c4c88a5e04f9, type: 3}
+  deathSound: {fileID: 8300000, guid: ff7a84c779a2f6543bdf2aa64383abe1, type: 3}
+  attackSound: {fileID: 8300000, guid: 3a5dbf8c14dd9a74e9098d911fe4cdf1, type: 3}
   RecruitCost: 500
   Upkeep: 0.5
   unitModel: {fileID: 8940772615325665434}
-  navMeshAgent: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!114 &5216359969117066730
 MonoBehaviour:
@@ -71,6 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _navMeshAgent: {fileID: 0}
+  log: 0
 --- !u!136 &6693292440879736203
 CapsuleCollider:
   m_ObjectHideFlags: 0
