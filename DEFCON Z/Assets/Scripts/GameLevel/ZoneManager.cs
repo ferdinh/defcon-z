@@ -33,6 +33,8 @@ namespace DefconZ.GameLevel
             {
                 GenerateLevelZones();
             }
+
+            ToggleZoneDisplay();
         }
 
         /// <summary>
