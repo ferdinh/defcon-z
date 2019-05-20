@@ -1,10 +1,42 @@
 ﻿using DefconZ.Simulation;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Tests
 {
     public class ResourceTest
     {
+        protected Resource resource;
+        protected ICollection<Modifier> Modifiers;
+
+        /// <summary>
+        /// Sets up test on first test initiation..
+        /// </summary>
+        [OneTimeSetUp]
+        public void OneTimeSetup()
+        {
+            Modifiers = new List<Modifier>();
+        }
+
+        /// <summary>
+        /// Sets up data before each test.
+        /// </summary>
+        [SetUp]
+        public void SetUp()
+        {
+            resource = new Resource(Modifiers);
+        }
+
+        /// <summary>
+        /// Clean up data after each test.
+        /// </summary>
+        [TearDown]
+        public void TearDown()
+        {
+            Modifiers.Clear();
+            resource = null;
+        }
+
         /// <summary>
         /// Resources should not exceed maximum when being gathered.
         /// </summary>
@@ -12,10 +44,9 @@ namespace Tests
         public void Resource_ShouldNot_Exceed_Max()
         {
             // Arrange
-            Resource resource = new Resource();
 
             // Increase resource recovery rate by huge amount.
-            resource.Modifiers.Add(new Modifier
+            Modifiers.Add(new Modifier
             {
                 Value = 1000
             });
@@ -41,8 +72,6 @@ namespace Tests
             // Arrange
             float expectedMaxValue = 18000.0f;
 
-            Resource resource = new Resource();
-
             Modifier mod = new Modifier
             {
                 Name = "Test Modifier",
@@ -59,8 +88,8 @@ namespace Tests
 
             // The additional modifier value will increase the max value
             // from its base value by 80 percent.
-            resource.Modifiers.Add(mod);
-            resource.Modifiers.Add(mod2);
+            Modifiers.Add(mod);
+            Modifiers.Add(mod2);
 
             // Act
             float actualMaxResourcePoint = resource.MaxResourcePoint;
@@ -73,7 +102,6 @@ namespace Tests
         public void Resource_GatherResource_Should_Follow_Modifiers()
         {
             // Arrange
-            Resource resource = new Resource();
             float margin = 0.001f;
 
             Modifier mod = new Modifier
@@ -92,8 +120,8 @@ namespace Tests
 
             // The additional modifier value will increase the gathering value
             // from its base value by 80 percent.
-            resource.Modifiers.Add(mod);
-            resource.Modifiers.Add(mod2);
+            Modifiers.Add(mod);
+            Modifiers.Add(mod2);
 
             float expectedIncrease = resource.MaxResourcePoint / 1095.0f * 1.8f;
 
