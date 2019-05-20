@@ -16,19 +16,17 @@ namespace DefconZ.Units
         public GameObject UnitSpawnPoint;
 
         public Modifier Difficulty = Simulation.Difficulty.Normal;
+        public ICollection<Modifier> Modifiers;
 
         private void Awake()
         {
             Units = new List<GameObject>();
             Level = new Level();
-            Resource = new Resource();
-
-            // Reference the faction level to the resource calculation.
-            Resource.Modifiers.Add(Level.LevelModifier);
+            Modifiers = new List<Modifier>();
+            Resource = new Resource(Modifiers);
 
             // Reference difficulty modifier.
-            Resource.Modifiers.Add(Difficulty);
-
+            Modifiers.Add(Difficulty);
 
             Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.MaxResourcePoint);
             Debug.Log(FactionName + " faction has Starting Resource Point of " + Resource.ResourcePoint);
