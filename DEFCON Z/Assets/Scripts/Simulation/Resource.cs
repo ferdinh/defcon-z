@@ -1,4 +1,4 @@
-﻿using System;
+﻿using DefconZ.GameLevel;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,26 +11,42 @@ namespace DefconZ.Simulation
     public class Resource
     {
         public float BaseResourcePoint { get; }
-        public float MaxResourcePoint { get; set; }
+
+        /// <summary>
+        /// Gets the maximum resource point.
+        /// </summary>
+        /// <value>
+        /// The maximum resource point.
+        /// </value>
+        public float GetMaxResourcePoint
+        {
+            get
+            {
+                return CalculateMaxPoints();
+            }
+        }
+
         public float MaxSciencePoint { get; set; }
         public float SciencePoint { get; set; }
         public float ResourcePoint { get; set; }
 
-        public IList<Modifier> Modifiers { get; }
+        private ICollection<Modifier> Modifiers { get; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Resource"/> class.
-        /// </summary>
-        public Resource()
+        public ICollection<Zone> OwnedZones { get; }
+
+        public Resource(ICollection<Modifier> modifiers)
         {
             BaseResourcePoint = 10000.0f;
-            Modifiers = new List<Modifier>();
+            Modifiers = modifiers;
+            OwnedZones = new List<Zone>();
+
+            ComputeStartingValue();
         }
 
         /// <summary>
         /// Computes the starting resource value.
         /// </summary>
-        public Resource ComputeStartingValue()
+        private Resource ComputeStartingValue()
         {
             Debug.Log("Calculating starting resources.");
 
@@ -50,7 +66,7 @@ namespace DefconZ.Simulation
 
             var resourceModValue = 0.3f + diffModValue + UnityEngine.Random.Range(0.05f, 0.1f);
 
-            ResourcePoint = resourceModValue * MaxResourcePoint;
+            ResourcePoint = resourceModValue * GetMaxResourcePoint;
 
             Debug.Log("End starting resources.");
 
@@ -58,35 +74,34 @@ namespace DefconZ.Simulation
         }
 
         /// <summary>
-        /// Calculates the maximum points available.
+        /// Calculates the maximum available resource points.
         /// </summary>
-        public Resource CalculateMaxPoints()
+        private float CalculateMaxPoints()
         {
             var modifierValue = 1.0f + Modifiers.Sum(mod => mod.Value);
+            var totalOwnedZones = OwnedZones.Sum(v => v.zoneResourceValue);
 
-            MaxResourcePoint = BaseResourcePoint * modifierValue;
-
-            return this;
+            return (BaseResourcePoint + totalOwnedZones) * modifierValue;
         }
 
         /// <summary>
         /// Computes the gain/loss in resources.
         /// </summary>
-        /// <returns>Resource gathered</returns>
+        /// <returns>Resource gathered.</returns>
         public float GatherResource()
         {
             // Base resource replenish resource point from zero to full in
             // 3 years or 1095 days.
-            float baseresourcePointIncrease = MaxResourcePoint / 1095.0f;
+            float baseresourcePointIncrease = GetMaxResourcePoint / 1095.0f;
             float increaseModifier = 1.0f + Modifiers.Sum(mod => mod.Value);
             float resourcePointIncrease = baseresourcePointIncrease * increaseModifier;
 
             ResourcePoint += resourcePointIncrease;
 
             // Limit the available resource point to MaxResourcePoint.
-            if (ResourcePoint > MaxResourcePoint)
+            if (ResourcePoint > GetMaxResourcePoint)
             {
-                ResourcePoint = MaxResourcePoint;
+                ResourcePoint = GetMaxResourcePoint;
             }
 
             return resourcePointIncrease;
