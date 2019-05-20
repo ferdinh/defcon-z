@@ -15,12 +15,13 @@ namespace Tests
 		/// Selected props should be able to be accessed for information
 		/// </summary>
         [Test]
-        [Ignore("Tests need re-writing to accept new format")]
+        [Ignore("Needs re-writing")]
         public void SelectedObjectAction()
         {
             // Arange
             GameObject manager = new GameObject();
             manager.AddComponent<GameManager>();
+            manager.tag = "GameManager";
             GameObject playerTestObj = new GameObject();
 			playerTestObj.AddComponent<Player>();
 			Player player = playerTestObj.GetComponent<Player>();
@@ -41,13 +42,14 @@ namespace Tests
 		/// </summary>
 		/// <returns></returns>
 		[Test]
-        [Ignore("Tests need re-writing to accept new format")]
+        [Ignore("Needs re-writing")]
         public void SelectionDeSelectTest()
 		{
             // Arange
             Player player = new Player();
             GameObject manager = new GameObject();
             manager.AddComponent<GameManager>();
+            manager.tag = "GameManager";
             player.selectedObjects.Add(new GameObject());
 
             // Act
@@ -62,13 +64,14 @@ namespace Tests
 		/// Test that players with no unit selected do not throw errors when issuing orders  with nothing selected
 		/// </summary>
         [Test]
-        [Ignore("Tests need re-writing to accept new format")]
+        [Ignore("Needs re-writing")]
         public void NullUnitActionTest()
         {
 			// Arange
 			Player player = new Player();
             GameObject manager = new GameObject();
             manager.AddComponent<GameManager>();
+            manager.tag = "GameManager";
             player.selectedObjects.Add(new GameObject());
 
             // Act
@@ -86,12 +89,13 @@ namespace Tests
 		/// Test that players are not able to give orders to units without factions
 		/// </summary>
 		[Test]
-        [Ignore("Tests need re-writing to accept new format")]
+        [Ignore("Needs re-writing")]
         public void UnitOrderNoFactionTest()
 		{
             Player player = new Player();
             GameObject manager = new GameObject();
             manager.AddComponent<GameManager>();
+            manager.tag = "GameManager";
             player.selectedObjects.Add(new GameObject());
             player.selectedObjects[0].AddComponent<Zombie>();
 
