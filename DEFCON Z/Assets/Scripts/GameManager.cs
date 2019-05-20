@@ -94,7 +94,7 @@ namespace DefconZ
                 Debug.Log($"Gathered {resourceGathered} amount of resource.");
                 Debug.Log($"Maintenance cost at {maintenanceCost}");
 
-                Debug.Log($"{faction.FactionName} has {faction.Resource.ResourcePoint} amount of resources.");
+                Debug.Log($"{faction.FactionName} has {faction.Resource.ResourcePoint} amount of resources out of {faction.Resource.MaxResourcePoint}.");
             }
 
             Debug.Log("Game day elapsed " + _clock.GameDay);
