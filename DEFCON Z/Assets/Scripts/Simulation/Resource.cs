@@ -1,5 +1,4 @@
 ﻿using DefconZ.GameLevel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +12,12 @@ namespace DefconZ.Simulation
     {
         public float BaseResourcePoint { get; }
 
+        /// <summary>
+        /// Gets the maximum resource point.
+        /// </summary>
+        /// <value>
+        /// The maximum resource point.
+        /// </value>
         public float MaxResourcePoint
         {
             get
@@ -69,7 +74,7 @@ namespace DefconZ.Simulation
         }
 
         /// <summary>
-        /// Calculates the maximum points available.
+        /// Calculates the maximum available resource points.
         /// </summary>
         private float CalculateMaxPoints()
         {
@@ -82,7 +87,7 @@ namespace DefconZ.Simulation
         /// <summary>
         /// Computes the gain/loss in resources.
         /// </summary>
-        /// <returns>Resource gathered</returns>
+        /// <returns>Resource gathered.</returns>
         public float GatherResource()
         {
             // Base resource replenish resource point from zero to full in
