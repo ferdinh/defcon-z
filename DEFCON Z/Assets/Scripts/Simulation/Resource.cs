@@ -87,7 +87,7 @@ namespace DefconZ.Simulation
             var modifierValue = 1.0f + Modifiers.Sum(mod => mod.Value);
             var totalOwnedZones = OwnedZones.Sum(v => v.zoneResourceValue);
 
-            return (BaseResourcePoint * modifierValue) + totalOwnedZones;
+            return (BaseResourcePoint + totalOwnedZones) * modifierValue;
         }
 
         /// <summary>
