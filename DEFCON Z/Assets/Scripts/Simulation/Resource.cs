@@ -17,6 +17,7 @@ namespace DefconZ.Simulation
         public float ResourcePoint { get; set; }
 
         public IList<Modifier> Modifiers { get; }
+        public ICollection<Modifier> Modifiers { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Resource"/> class.
@@ -26,11 +27,18 @@ namespace DefconZ.Simulation
             BaseResourcePoint = 10000.0f;
             Modifiers = new List<Modifier>();
         }
+        public Resource(ICollection<Modifier> modifiers)
+        {
+            BaseResourcePoint = 10000.0f;
+            Modifiers = modifiers;
+            ComputeStartingValue();
+        }
 
         /// <summary>
         /// Computes the starting resource value.
         /// </summary>
         public Resource ComputeStartingValue()
+        private Resource ComputeStartingValue()
         {
             Debug.Log("Calculating starting resources.");
 
