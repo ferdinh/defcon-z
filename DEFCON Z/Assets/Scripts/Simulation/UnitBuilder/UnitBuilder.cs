@@ -61,6 +61,9 @@ namespace DefconZ.Simulation.UnitBuilder
             else
             {
                 _currentOrderProgress++;
+                
+                // Sends in the created unit when it is completed, else,
+                // send the progress update to the caller.
                 if (_currentOrderProgress >= _currentOrder.recruitTime)
                 {
                     OnBuildFinish(this, new BuildFinishedEventArgs(Instantiate(_currentOrder.unitPrefab, _currentOrder.spawnPoint, Quaternion.identity)));
