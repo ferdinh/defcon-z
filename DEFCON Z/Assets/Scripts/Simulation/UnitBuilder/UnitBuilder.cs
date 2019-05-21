@@ -80,16 +80,5 @@ namespace DefconZ.Simulation.UnitBuilder
         {
             buildQueue.Enqueue(unitOrder);
         }
-
-        /// <summary>
-        /// Removes order from build queue.
-        /// </summary>
-        /// <param name="unitOrder">The unit order.</param>
-        /// <returns></returns>
-        public bool RemoveFromBuildQueue(UnitOrder unitOrder)
-        {
-            buildQueue.Dequeue();
-            return true;
-        }
     }
 }
