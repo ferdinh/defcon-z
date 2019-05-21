@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace DefconZ.Simulation.UnitBuilder
 {
+    /// <summary>
+    /// A class that represent a <see cref="UnitBase"/> that is being 
+    /// created.
+    /// </summary>
     public class UnitOrder
     {
         public Guid Id { get; } = Guid.NewGuid();
