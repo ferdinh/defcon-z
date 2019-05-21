@@ -28,6 +28,7 @@ namespace DefconZ.Units
             Level = new Level();
             Modifiers = new List<Modifier>();
             Resource = new Resource(Modifiers);
+            unitBuilder = gameObject.AddComponent<UnitBuilder>();
 
             // Reference difficulty modifier.
             Modifiers.Add(Difficulty);
