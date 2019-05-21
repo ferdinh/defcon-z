@@ -55,25 +55,54 @@ namespace DefconZ.Simulation.UnitBuilder
                     // Start processing order.
                     _currentOrder = buildQueue.Dequeue();
                     _currentOrderProgress = 1;
-                    OnBuildStart(this, EventArgs.Empty);
+                    OnBuildStarted(EventArgs.Empty);
                 }
             }
             else
             {
                 _currentOrderProgress++;
-                
+
                 // Sends in the created unit when it is completed, else,
                 // send the progress update to the caller.
                 if (_currentOrderProgress >= _currentOrder.recruitTime)
                 {
-                    OnBuildFinish(this, new BuildFinishedEventArgs(Instantiate(_currentOrder.unitPrefab, _currentOrder.spawnPoint, Quaternion.identity)));
+                    var buildFinishEventArgs = new BuildFinishedEventArgs(Instantiate(_currentOrder.unitPrefab, _currentOrder.spawnPoint, Quaternion.identity));
+
+                    OnBuildFinished(buildFinishEventArgs);
                     _currentOrder = null;
                 }
                 else
                 {
-                    OnBuildProgressUpdate(this, new BuildProgressEventArgs(_currentOrderProgress, _currentOrder.recruitTime));
+                    OnUpdatedBuildProgress(new BuildProgressEventArgs(_currentOrderProgress, _currentOrder.recruitTime));
                 }
             }
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:OnBuildStart" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected virtual void OnBuildStarted(EventArgs e)
+        {
+            OnBuildStart?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:OnBuildProgressUpdate" /> event.
+        /// </summary>
+        /// <param name="buildProgressEventArgs">The <see cref="BuildProgressEventArgs"/> instance containing the event data.</param>
+        protected virtual void OnUpdatedBuildProgress(BuildProgressEventArgs buildProgressEventArgs)
+        {
+            OnBuildProgressUpdate?.Invoke(this, buildProgressEventArgs);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:OnBuildFinish" /> event.
+        /// </summary>
+        /// <param name="buildProgressEventArgs">The <see cref="BuildProgressEventArgs"/> instance containing the event data.</param>
+        protected virtual void OnBuildFinished(BuildFinishedEventArgs buildFinishedEventArgs)
+        {
+            OnBuildFinish?.Invoke(this, buildFinishedEventArgs);
         }
 
         /// <summary>
