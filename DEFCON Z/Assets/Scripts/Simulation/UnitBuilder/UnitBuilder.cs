@@ -68,6 +68,7 @@ namespace DefconZ.Simulation.UnitBuilder
                 }
                 else
                 {
+                    OnBuildProgressUpdate(this, new BuildProgressEventArgs(_currentOrderProgress, _currentOrder.recruitTime));
                 }
             }
         }
