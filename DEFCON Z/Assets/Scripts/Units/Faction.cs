@@ -57,7 +57,7 @@ namespace DefconZ.Units
             newUnit.GetComponent<UnitBase>().FactionOwner = this;
             Units.Add(newUnit);
 
-            Debug.LogError("Finish building " + newUnit.GetComponent<UnitBase>().objName);
+            Debug.Log("Finish building " + newUnit.GetComponent<UnitBase>().objName);
         }
 
         /// <summary>
@@ -67,7 +67,10 @@ namespace DefconZ.Units
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void StartBuild(object sender, EventArgs e)
         {
-            Debug.LogError("Start building unit");
+            Debug.Log("Start building unit");
+
+            // Consume the resource when the build had started.
+            Resource.UseResource(UnitPrefab.GetComponent<UnitBase>().RecruitCost);
         }
 
         private void Start()
@@ -100,15 +103,6 @@ namespace DefconZ.Units
             if (CanRecruitUnit(UnitPrefab.GetComponent<UnitBase>().RecruitCost))
             {
                 unitBuilder.AddToBuildQueue(new UnitOrder(UnitPrefab, spawnPoint));
-
-                // Create the new unit.
-                //var newUnit = Instantiate(UnitPrefab, spawnPoint, Quaternion.identity);
-                //newUnit.GetComponent<UnitBase>().FactionOwner = this;
-
-                // Consume the resource when creating.
-                Resource.UseResource(UnitPrefab.GetComponent<UnitBase>().RecruitCost);
-
-                //Units.Add(newUnit);
             }
         }
 
