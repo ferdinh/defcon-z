@@ -64,9 +64,6 @@ namespace DefconZ.Units
         private void StartBuild(object sender, EventArgs e)
         {
             Debug.Log("Start building unit");
-
-            // Consume the resource when the build had started.
-            Resource.UseResource(UnitPrefab.GetComponent<UnitBase>().RecruitCost);
         }
 
         private void Start()
@@ -99,6 +96,9 @@ namespace DefconZ.Units
             if (CanRecruitUnit(UnitPrefab.GetComponent<UnitBase>().RecruitCost))
             {
                 unitBuilder.AddToBuildQueue(new UnitOrder(UnitPrefab, spawnPoint));
+
+                // Consume the resource when the build had started.
+                Resource.UseResource(UnitPrefab.GetComponent<UnitBase>().RecruitCost);
             }
         }
 
@@ -125,7 +125,7 @@ namespace DefconZ.Units
 
             if (canRecruitUnit)
             {
-                Debug.Log(this.FactionName + " have enough point to recruit new unit");
+                Debug.Log(FactionName + " have enough point to recruit new unit");
             }
             else
             {
