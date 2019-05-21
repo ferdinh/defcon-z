@@ -46,6 +46,11 @@ namespace DefconZ.Units
             InitAwake();
         }
 
+        /// <summary>
+        /// Runs after the unit build is completed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="BuildFinishedEventArgs"/> instance containing the event data.</param>
         private void AfterBuild(object sender, BuildFinishedEventArgs e)
         {
             var newUnit = e.createdUnit;
@@ -55,6 +60,11 @@ namespace DefconZ.Units
             Debug.LogError("Finish building " + newUnit.GetComponent<UnitBase>().objName);
         }
 
+        /// <summary>
+        /// Starts the unit building.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void StartBuild(object sender, EventArgs e)
         {
             Debug.LogError("Start building unit");
