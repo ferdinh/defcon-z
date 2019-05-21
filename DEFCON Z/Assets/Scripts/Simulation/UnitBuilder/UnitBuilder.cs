@@ -33,7 +33,15 @@ namespace DefconZ.Simulation.UnitBuilder
         private void Awake()
         {
             buildQueue = new Queue<UnitOrder>();
-            _clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
+
+            try
+            {
+                _clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
+            }
+            catch (NullReferenceException)
+            {
+                Debug.LogError("Unable to find Clock instance from Game Manager.");
+            }
 
             _clock.GameCycleElapsed += ProcessOrder;
         }
