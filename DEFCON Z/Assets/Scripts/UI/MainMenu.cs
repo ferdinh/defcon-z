@@ -54,6 +54,14 @@ namespace DefconZ.UI
         }
 
         /// <summary>
+        /// On click method for credits button
+        /// </summary>
+        public void CreditsMenu()
+        {
+            SceneManager.LoadScene("Credits");
+        }
+
+        /// <summary>
         /// On click method for Quit button 
         /// </summary>
         public void QuitGame()

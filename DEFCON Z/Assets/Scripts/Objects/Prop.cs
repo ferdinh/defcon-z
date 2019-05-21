@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DefconZ.Entity;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace DefconZ
     public class Prop : ObjectBase, IDestructible
     {
         public float health;
+        public float maxHealth;
 
         public void DestroySelf()
         {

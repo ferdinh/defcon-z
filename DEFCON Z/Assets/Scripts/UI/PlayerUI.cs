@@ -12,6 +12,8 @@ namespace DefconZ.UI
         public Text healthLabel;
         public Text factionLabel;
         public Text pointStatusLabel;
+        public Text resourceGainLabel;
+        public float previousResourcePoints;
 
         public SliderBar pointStatus;
 
@@ -32,7 +34,6 @@ namespace DefconZ.UI
         private void Awake()
         {
             player = GameObject.Find("Player").GetComponent<Player>();
-            player.selectedObject = null;
         }
 
         /// <summary>
@@ -53,19 +54,26 @@ namespace DefconZ.UI
         public void InitUI(Faction playerFaction)
         {
             this.playerFaction = playerFaction;
-            pointStatus.InitSliderBar(playerFaction.Resource.MaxResourcePoint, 0.0f);
+            pointStatus.InitSliderBar(playerFaction.Resource.GetMaxResourcePoint, 0.0f);
+            previousResourcePoints = playerFaction.Resource.ResourcePoint;
         }
 
         /// <summary>
         /// Updates the UI Selection area of the UI from the given object
         /// </summary>
-        /// <param name="obj"></param>
-        /// 
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void UpdateResourcePoint(object sender, System.EventArgs e)
         {
             if (playerFaction != null)
             {
-                pointStatus.UpdateSlider(playerFaction.Resource.ResourcePoint, playerFaction.Resource.MaxResourcePoint);
+                pointStatus.UpdateSlider(playerFaction.Resource.ResourcePoint, playerFaction.Resource.GetMaxResourcePoint);
+                float netGain = playerFaction.Resource.ResourcePoint - previousResourcePoints;
+                previousResourcePoints = playerFaction.Resource.ResourcePoint;
+                resourceGainLabel.text = netGain.ToString("+#;-#;+0");
+
+                // setting the colour based on the value of netGain.
+                resourceGainLabel.color = (netGain >= 0) ? friendlyColor : enemyColor;
             }
         }
 
@@ -94,12 +102,22 @@ namespace DefconZ.UI
         /// </summary>
         public void UpdateObjectSelectionUI()
         {
-            GameObject _gameObject = player.selectedObject;
+            GameObject selectedObject;
+
+            if (player.selectedObjects.Count > 0)
+            {
+                selectedObject = player.selectedObjects[0];
+            }
+            else
+            {
+                selectedObject = null;
+            }
+            
             ObjectBase _object = null;
 
-            if (_gameObject != null)
+            if (selectedObject != null)
             {
-                _object = _gameObject.GetComponent<ObjectBase>();
+                _object = selectedObject.GetComponent<ObjectBase>();
             }
 
             // check if we have an object
@@ -111,7 +129,8 @@ namespace DefconZ.UI
                 UnitBase _selectedUnit = _object.GetComponent<UnitBase>();
                 if (_selectedUnit != null)
                 {
-                    healthLabel.text = "HP: " + _selectedUnit.health.ToString();
+                    //healthLabel.text = "HP: " + _selectedUnit.health.ToString();
+                    healthLabel.text = $"HP: {_selectedUnit.health.ToString("n0")}/{_selectedUnit.maxHealth.ToString("n0")}";
                     factionLabel.text = _selectedUnit.FactionOwner.FactionName;
 
                     // check if the unit is friendly and set appropriate color
@@ -123,7 +142,8 @@ namespace DefconZ.UI
                     Prop _selectedProp = _object.GetComponent<Prop>();
                     if (_selectedProp != null)
                     {
-                        healthLabel.text = "HP: " + _selectedProp.health.ToString("n0");
+                        //=healthLabel.text = "HP: " + _selectedProp.health.ToString("n0");
+                        healthLabel.text = $"HP: {_selectedProp.health.ToString("n0")}/{_selectedProp.maxHealth.ToString("n0")}";
                         factionLabel.text = "World Object";
                         factionLabel.color = defaultColor;
                     }

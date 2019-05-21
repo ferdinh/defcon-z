@@ -1,10 +1,8 @@
 pull_request_rules:
-  - name: Automatic Merge to staging branch after approval.
+  - name: Automatic Merge to staging branch after approval
     conditions:
       - "#approved-reviews-by>=1"
-      - "#review-requested=0"
       - "#changes-requested-reviews-by=0"
-      - "#commented-reviews-by=0"
       - label=ready to merge
       - label!=work in progress
       - status-success=CodeFactor
@@ -13,3 +11,14 @@ pull_request_rules:
     actions:
       merge:
         method: merge
+  - name: Dimiss Review when PR changes
+    conditions: []
+    actions:
+      dismiss_reviews:
+        approved: true
+        changes_requested: false
+  - name: Delete head branch with "safe to delete branch" label after merge
+    conditions:
+      - label=safe to delete branch
+    actions:
+      delete_head_branch: {}
