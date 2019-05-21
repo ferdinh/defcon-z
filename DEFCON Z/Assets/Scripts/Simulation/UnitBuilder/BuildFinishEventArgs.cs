@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DefconZ.Simulation.UnitBuilder
 {
     /// <summary>
-    /// Provided finished result after build is finished.
+    /// Event data after <see cref="UnitOrder"/> has been completed.
     /// </summary>
     /// <seealso cref="System.EventArgs" />
     public class BuildFinishedEventArgs : EventArgs
