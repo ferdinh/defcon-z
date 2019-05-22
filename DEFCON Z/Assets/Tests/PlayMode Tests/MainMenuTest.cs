@@ -136,9 +136,7 @@ namespace Tests
             // Assert
             Assert.That(MainMenu.menuPanel.activeSelf, Is.EqualTo(expectedMainMenuPanelState));
             Assert.That(SettingsMenuGameObject.activeSelf, Is.EqualTo(expectedSettingsState));
-            
         }
-
         /// <summary>
         /// Test ensures that main menu toggle as it should.
         ///

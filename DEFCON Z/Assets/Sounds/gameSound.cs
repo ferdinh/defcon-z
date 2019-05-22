@@ -12,7 +12,6 @@ namespace DefconZ
         public AudioClip attackswing;
         public GameManager player;
 
-
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
@@ -21,16 +20,6 @@ namespace DefconZ
         {
             audioSource.clip = attackswing;
             audioSource.Play();
-        }
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }
