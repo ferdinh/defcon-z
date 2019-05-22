@@ -83,7 +83,6 @@ namespace Tests
             AudioSourceGameObject = null;
             MusicSliderObject = null;
             VolumeSliderObject = null;
-
         }
 
         /// <summary>
