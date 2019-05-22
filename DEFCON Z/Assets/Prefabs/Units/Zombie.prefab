@@ -57,6 +57,7 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 3a5dbf8c14dd9a74e9098d911fe4cdf1, type: 3}
   RecruitCost: 500
   Upkeep: 0.5
+  RecruitTime: 5
   unitModel: {fileID: 8940772615325665434}
   audioSource: {fileID: 0}
 --- !u!114 &5216359969117066730

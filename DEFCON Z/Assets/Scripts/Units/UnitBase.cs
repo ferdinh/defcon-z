@@ -20,6 +20,7 @@ namespace DefconZ
         public AudioClip attackSound;
         public float RecruitCost;
         public float Upkeep;
+        public int RecruitTime;
 
         public GameObject unitModel;
 
