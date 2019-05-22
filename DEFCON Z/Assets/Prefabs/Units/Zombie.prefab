@@ -55,6 +55,7 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: beca4447c7e7c5e4f994c4c88a5e04f9, type: 3}
   RecruitCost: 500
   Upkeep: 0.5
+  RecruitTime: 5
   unitModel: {fileID: 8940772615325665434}
   navMeshAgent: {fileID: 0}
   audioSource: {fileID: 0}

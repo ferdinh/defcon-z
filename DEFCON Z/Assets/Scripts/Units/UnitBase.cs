@@ -19,6 +19,7 @@ namespace DefconZ
         public AudioClip deathSound;
         public float RecruitCost;
         public float Upkeep;
+        public int RecruitTime;
 
         public GameObject unitModel;
 
