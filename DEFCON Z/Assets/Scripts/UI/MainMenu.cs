@@ -19,7 +19,6 @@ namespace DefconZ.UI
         {
             SceneManager.LoadScene("SettingsMenu", LoadSceneMode.Additive);
         }
-
         private void Start()
         {
             settingsMenuObject = GameObject.Find("SettingsMenuCanvas");
