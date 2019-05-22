@@ -11,7 +11,6 @@ namespace DefconZ
         private AudioSource audioSource;
         public AudioClip attackswing;
         public GameManager player;
-
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
