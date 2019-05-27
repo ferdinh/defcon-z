@@ -11,6 +11,9 @@ namespace DefconZ.Units.Special
 
     public class SpecialAbility : MonoBehaviour
     {
+
+        public float resourceCost;
+        public string abilityName;
         
 
         public virtual void StartAbility()

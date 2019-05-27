@@ -14,6 +14,7 @@ namespace DefconZ.UI
         public PlayerUI playerUI;
         public PauseMenu pauseUI;
         public SelectionUI selectionUI;
+        public SpecialAbilitiesUI SpecialAbilitiesUI;
 
         public void InitUI(Faction faction)
         {
