@@ -11,15 +11,21 @@ namespace DefconZ.UI
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
-        public bool settings;
-        public GameObject settingsPanel;
         public GameObject menuPanel;
+        public SettingsMenu settingsMenu;
+        public GameObject settingsMenuObject;
 
         public void Awake()
         {
-            // Make sure the menu panel is shown and the settings panel is hidden by default
-            menuPanel.SetActive(true);
-            settingsPanel.SetActive(false);
+            SceneManager.LoadScene("SettingsMenu", LoadSceneMode.Additive);
+        }
+        private void Start()
+        {
+            settingsMenuObject = GameObject.Find("SettingsMenuCanvas");
+            if (settingsMenuObject != null)
+            {
+                settingsMenu = settingsMenuObject.GetComponent<SettingsMenu>();
+            }
         }
 
         /// <summary>
@@ -27,21 +33,7 @@ namespace DefconZ.UI
         /// </summary>
         public void ToggleSettings()
         {
-            // Flip the settings bool state
-            settings = (settings) ? false : true;
-
-            if (settings)
-            {
-                // Hides menu panel
-                settingsPanel.SetActive(true);
-                menuPanel.SetActive(false);
-            }
-            else
-            {
-                // Hides settings panel
-                settingsPanel.SetActive(false);
-                menuPanel.SetActive(true);
-            }
+            settingsMenu.ToggleActive(this.gameObject);
         }
 
         /// <summary>

@@ -1,7 +1,9 @@
-﻿using DefconZ;
-using DefconZ.UI;
+﻿using DefconZ.UI;
 using NUnit.Framework;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace Tests
 {
@@ -11,7 +13,12 @@ namespace Tests
     public class MainMenuTest
     {
         private GameObject MainMenuGameObject = new GameObject();
+        private GameObject SettingsMenuGameObject = new GameObject();
+        private GameObject MusicSliderObject = new GameObject();
+        private GameObject VolumeSliderObject = new GameObject();
+        private GameObject AudioSourceGameObject;
         private MainMenu MainMenu;
+        private SettingsMenu SettingsMenu;
 
         /// <summary>
         /// Setup test data for each test.
@@ -20,17 +27,46 @@ namespace Tests
         public void TestInit()
         {
             MainMenuGameObject = new GameObject();
+            SettingsMenuGameObject = new GameObject();
+            AudioSourceGameObject = new GameObject();
+            MusicSliderObject = new GameObject();
+            VolumeSliderObject = new GameObject();
+            SettingsMenuGameObject.name = "SettingsMenuCanvas";
+            AudioSourceGameObject.name = "Game Music";
 
             // Object is disabled to prevent init code being called.
             MainMenuGameObject.SetActive(false);
+            SettingsMenuGameObject.SetActive(false);
 
             // Set up the components.
+
+            MainMenuGameObject.AddComponent<AudioListener>();
             MainMenu = MainMenuGameObject.AddComponent<MainMenu>();
-            MainMenu.settingsPanel = new GameObject();
+
+            SettingsMenu = SettingsMenuGameObject.AddComponent<SettingsMenu>();
+            MainMenu.settingsMenu = SettingsMenu;
+            SettingsMenu.audioSource = AudioSourceGameObject.AddComponent<AudioSource>();
+
+            SettingsMenu.gameVolume = VolumeSliderObject.AddComponent<Slider>();
+            SettingsMenu.musicVolume = MusicSliderObject.AddComponent<Slider>();
+            // sets slider music volume value
+            SettingsMenu.musicVolume.value = 0.1f;
+
+            //MainMenu.settingsPanel = new GameObject();
             MainMenu.menuPanel = new GameObject();
 
             // Reactivate the object to init the components.
             MainMenuGameObject.SetActive(true);
+            SettingsMenuGameObject.SetActive(true);
+            SettingsMenuGameObject.SetActive(false);
+            //MainMenu.settingsMenu = SettingsMenu;
+        }
+
+        IEnumerator WaitFor(int sec)
+        {
+            Debug.LogError("Start wait");
+            yield return new WaitForSeconds(sec);
+            Debug.LogError("End Wait");
         }
 
         /// <summary>
@@ -41,6 +77,12 @@ namespace Tests
         {
             MainMenuGameObject = null;
             MainMenu = null;
+            SettingsMenu = null;
+            MainMenuGameObject = null;
+            SettingsMenuGameObject = null;
+            AudioSourceGameObject = null;
+            MusicSliderObject = null;
+            VolumeSliderObject = null;
         }
 
         /// <summary>
@@ -54,9 +96,11 @@ namespace Tests
 
             // Act
             // This part has been initiated in the Setup process.
+            //GameObject settingsPanel = MainMenu.settingsMenuObject;
+            //GameObject settingsPanel = MainMenu.settingsMenuObject;
 
             // Assert
-            Assert.That(MainMenu.settingsPanel.activeSelf, Is.EqualTo(expectedSettingsPanelState));
+            Assert.That(SettingsMenuGameObject.activeSelf, Is.EqualTo(expectedSettingsPanelState));
         }
 
         /// <summary>
@@ -90,9 +134,8 @@ namespace Tests
 
             // Assert
             Assert.That(MainMenu.menuPanel.activeSelf, Is.EqualTo(expectedMainMenuPanelState));
-            Assert.That(MainMenu.settings, Is.EqualTo(expectedSettingsState));
+            Assert.That(SettingsMenuGameObject.activeSelf, Is.EqualTo(expectedSettingsState));
         }
-
         /// <summary>
         /// Test ensures that main menu toggle as it should.
         ///
@@ -106,33 +149,27 @@ namespace Tests
         /// <param name="expectedMenuPanelState">Expected Menu Panel state after toggling.</param>
         /// <param name="expectedSettingsPanelState">Expected Settings Panel state after toggling.</param>
         /// <param name="expectedSettingsState">Expected Main Menu settings state after toggling.</param>
-        [TestCase(false, false, true, true)]
-        [TestCase(true, true, false, false)]
-        public void MainMenu_Should_ToggleSettings(bool initialSettingsState, bool expectedMenuPanelState, bool expectedSettingsPanelState, bool expectedSettingsState)
+        [TestCase(false, true, false, true)]
+        [TestCase(true, false, true, false)]
+        public void MainMenu_Should_ToggleSettings(bool initialSettingsState, bool initialMenuState, bool expectedMenuPanelState, bool expectedSettingsPanelState)
         {
-            // Arrange
-            MainMenu.settings = initialSettingsState;
-
             // Act
+            SettingsMenuGameObject.SetActive(initialSettingsState);
+            MainMenuGameObject.SetActive(initialMenuState);
             MainMenu.ToggleSettings();
-
+          
             // Assert
             Debug.Log($"Initial setting state: {initialSettingsState}");
 
             // Assert Menu Panel state.
-            bool actualMenuPanelState = MainMenu.menuPanel.activeSelf;
+            bool actualMenuPanelState = MainMenuGameObject.activeSelf;
             Debug.Log($"Menu panel state: {actualMenuPanelState}, expected: {expectedMenuPanelState}");
             Assert.That(actualMenuPanelState, Is.EqualTo(expectedMenuPanelState));
 
             // Assert Settings Panel state.
-            bool actualSettingsPanelState = MainMenu.settingsPanel.activeSelf;
+            bool actualSettingsPanelState = SettingsMenu.gameObject.activeSelf;
             Debug.Log($"Settings panel state: {actualSettingsPanelState}, expected: {expectedSettingsPanelState}");
             Assert.That(actualSettingsPanelState, Is.EqualTo(expectedSettingsPanelState));
-
-            // Assert Settings state.
-            bool actualSettingsState = MainMenu.settings;
-            Debug.Log($"Settings panel state: {actualSettingsState}, expected: {expectedSettingsState}");
-            Assert.That(actualSettingsState, Is.EqualTo(expectedSettingsState));
         }
     }
 }
