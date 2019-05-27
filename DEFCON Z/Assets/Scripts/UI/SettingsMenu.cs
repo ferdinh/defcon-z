@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine;
 using UnityEngine.UI;
 
 namespace DefconZ.UI
@@ -40,7 +39,7 @@ namespace DefconZ.UI
         /// <summary>
         /// Sets the difficulty by the provided level amount
         /// </summary>
-        /// <param name="difficulty">Int from 1-3, higher the number, harder the difficulty</param>
+        /// <param name="difficulty">Int from 0-2, higher the number, harder the difficulty</param>
         public void SetDifficulty(int difficulty)
         {
             switch (difficulty)
