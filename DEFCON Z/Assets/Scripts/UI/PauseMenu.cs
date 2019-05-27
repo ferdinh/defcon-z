@@ -1,64 +1,85 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+namespace DefconZ.UI
 {
-    public bool isGamePaused;
-    public bool UIActive;
-    public KeyCode key;
-    public GameObject UIObject;
-
-    void Awake()
+    public class PauseMenu : MonoBehaviour
     {
-        UIActive = false;
-        UIObject.SetActive(UIActive);
-        isGamePaused = false;    
-    }
+        public bool isGamePaused;
+        public bool UIActive;
+        public KeyCode key;
+        public GameObject UIObject;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(key))
+        [SerializeField]
+        private SettingsMenu settingsMenu;
+        [SerializeField]
+        private GameObject settingsMenuObject;
+
+        void Awake()
         {
-            UIActive = (UIActive) ? false : true;
+            SceneManager.LoadScene("SettingsMenu", LoadSceneMode.Additive);
+            UIActive = false;
+            UIObject.SetActive(UIActive);
+            isGamePaused = false;
+        }
+
+        private void Start()
+        {
+            settingsMenuObject = GameObject.Find("SettingsMenuCanvas");
+            settingsMenu = settingsMenuObject.GetComponent<SettingsMenu>();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetKeyDown(key))
+            {
+                UIActive = (UIActive) ? false : true;
+                UIObject.SetActive(UIActive);
+                TogglePauseGame();
+            }
+        }
+
+        public void SettingsMenuButton()
+        {
+            settingsMenu.ToggleActive(this.gameObject);
+        }
+
+        /// <summary>
+        /// On click method for Quit button 
+        /// </summary>
+        public void QuitGame()
+        {
+            Debug.Log("Quitting game!");
+
+            if (Application.isEditor)
+            {
+                UnityEditor.EditorApplication.isPlaying = false;
+            }
+            Application.Quit();
+        }
+
+        public void ResumeGame()
+        {
+            UIActive = false;
             UIObject.SetActive(UIActive);
             TogglePauseGame();
         }
-    }
 
-    /// <summary>
-    /// On click method for Quit button 
-    /// </summary>
-    public void QuitGame()
-    {
-        Debug.Log("Quitting game!");
-
-        if (Application.isEditor)
+        private void TogglePauseGame()
         {
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-        Application.Quit();
-    }
-
-    public void ResumeGame()
-    {
-        UIActive = false;
-        UIObject.SetActive(UIActive);
-        TogglePauseGame();
-    }
-
-    private void TogglePauseGame()
-    {
-        if (isGamePaused)
-        {
-            Time.timeScale = 1;
-            isGamePaused = false;
-        }
-        else
-        {
-            Time.timeScale = 0;
-            isGamePaused = true;
+            if (isGamePaused)
+            {
+                Time.timeScale = 1;
+                isGamePaused = false;
+            }
+            else
+            {
+                Time.timeScale = 0;
+                isGamePaused = true;
+            }
         }
     }
 }

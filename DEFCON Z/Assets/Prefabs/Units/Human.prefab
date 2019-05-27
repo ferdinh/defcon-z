@@ -85,7 +85,8 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   currentZone: {fileID: 0}
-  deathSound: {fileID: 8300000, guid: beca4447c7e7c5e4f994c4c88a5e04f9, type: 3}
+  deathSound: {fileID: 8300000, guid: fb42e9b5351b3be4f8b825afd3ea9627, type: 3}
+  attackSound: {fileID: 0}
   RecruitCost: 500
   Upkeep: 0.5
   RecruitTime: 5
