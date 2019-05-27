@@ -618,7 +618,6 @@ RectTransform:
   - {fileID: 1711652370}
   - {fileID: 1982945648}
   - {fileID: 1318681740}
-  - {fileID: 1406229330}
   m_Father: {fileID: 852593952}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2026,14 +2025,14 @@ RectTransform:
   m_GameObject: {fileID: 1406229329}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 496475452}
-  m_RootOrder: 3
+  m_Father: {fileID: 1842608140}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 960, y: 540}
+  m_AnchoredPosition: {x: -50, y: -50}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1406229331
@@ -2898,6 +2897,7 @@ RectTransform:
   - {fileID: 2063786500}
   - {fileID: 1327332525}
   - {fileID: 500949504}
+  - {fileID: 1406229330}
   m_Father: {fileID: 1307565347}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2990,6 +2990,7 @@ MonoBehaviour:
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
   friendlyColor: {r: 0.14947058, g: 0.3882353, b: 0.18580437, a: 1}
   enemyColor: {r: 0.67058825, g: 0.2816471, b: 0.2816471, a: 1}
+  playerFaction: {fileID: 0}
   player: {fileID: 0}
   abilitiesUI: {fileID: 500949507}
 --- !u!1 &1859222186
