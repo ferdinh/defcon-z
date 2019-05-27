@@ -3,25 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombCollider : MonoBehaviour
+namespace DefconZ.Units.Special
 {
-    public float bombDamage;
-
-    private void OnTriggerEnter(Collider other)
+    public class BombCollider : MonoBehaviour
     {
-        Debug.LogError($"Hit: {other.name}");
+        public float bombDamage;
 
-        IDestructible obj = other.GetComponent<IDestructible>();
-
-        if (obj != null)
+        private void OnTriggerEnter(Collider other)
         {
-            Debug.Log($"Damaged {other.name} for {bombDamage} HP");
-            obj.TakeDamage(bombDamage);
-        }
-    }
+            IDestructible destructible = other.GetComponent<IDestructible>();
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.LogError($"Hit: {collision.gameObject.name}");
+            if (destructible != null)
+            {
+                Debug.Log($"Damaged {other.name} for {bombDamage} HP");
+                destructible.TakeDamage(bombDamage);
+            }
+        }
     }
 }

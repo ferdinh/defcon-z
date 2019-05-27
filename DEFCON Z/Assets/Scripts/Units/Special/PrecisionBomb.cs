@@ -16,24 +16,21 @@ namespace DefconZ.Units.Special
         public GameObject plane;
         public GameObject bomb;
 
-
         private Vector3 target;
         public Vector3 planeTarget;
 
         private MeshRenderer bombMesh;
         private SphereCollider bombCollider;
+        private AudioSource audioSource;
+
+        private Vector3 rotation;
         
         private bool bombDropped = false;
-        private bool initialised = false;
         private bool exploded = false;
-        private Vector3 rotation;
-
-        private AudioSource audioSource;
+        private bool disabled = false;
 
         public void StartAbility(Vector3 target, Vector3 eulerAngle, GameObject cam)
         {
-            // Set the position of the plane
-            // We want the plane to be the specified distance from the target, behind the player camera
             audioSource = GetComponentInChildren<AudioSource>();
             bombMesh = bomb.GetComponentInChildren<MeshRenderer>();
             bombCollider = bomb.GetComponent<SphereCollider>();
@@ -43,19 +40,21 @@ namespace DefconZ.Units.Special
             planeTarget = target;
             planeTarget.y = height;
 
-            Vector3 pos = new Vector3();
-            pos.y = height;
-            pos.x = cam.transform.position.x + (distanceFromTarget * Mathf.Sin(cam.transform.rotation.eulerAngles.y * Mathf.Deg2Rad));
-            pos.z = cam.transform.position.z + (distanceFromTarget * Mathf.Cos(cam.transform.rotation.eulerAngles.y * Mathf.Deg2Rad));
+            Vector3 pos = new Vector3
+            {
+                y = height,
+                x = cam.transform.position.x + (distanceFromTarget * Mathf.Sin(cam.transform.rotation.eulerAngles.y * Mathf.Deg2Rad)),
+                z = cam.transform.position.z + (distanceFromTarget * Mathf.Cos(cam.transform.rotation.eulerAngles.y * Mathf.Deg2Rad))
+            };
             gameObject.transform.position = pos;
 
             // Set the rotation of the plane
-            rotation = new Vector3();
-            rotation.y = cam.transform.rotation.eulerAngles.y + 180.0f;
-            
-            gameObject.transform.eulerAngles = rotation;
+            rotation = new Vector3
+            {
+                y = cam.transform.rotation.eulerAngles.y + 180.0f
+            };
 
-            initialised = true;
+            gameObject.transform.eulerAngles = rotation;
         }
 
         private void MoveTowardsTarget()
@@ -88,27 +87,34 @@ namespace DefconZ.Units.Special
             audioSource.Play();
         }
 
+        private void CleanUp()
+        {
+            Destroy(bomb, audioSource.clip.length);
+            Destroy(this.gameObject, audioSource.clip.length);
+        }
+
         public void Update()
         {
-            
-                // If the bomb has exploded at the start of the update, disable the collider
-                if (exploded)
-                {
-                    bombCollider.enabled = false;
-                }
+            // If the bomb has exploded at the start of the update, disable the collider
+            if (exploded && !disabled)
+            {
+                bombCollider.enabled = false;
+                disabled = true;
 
-                MoveTowardsTarget();
+                CleanUp();
+            }
 
-                if (!bombDropped && Vector3.Distance(gameObject.transform.position, target) <= height + 10.0f)
-                {
-                    DropBomb();
-                }
+            MoveTowardsTarget();
 
-                if (bombDropped && !exploded && Vector3.Distance(bomb.transform.position, target) <= 0.5f)
-                {
-                    ExplodeBomb();
-                }
-            
+            if (!bombDropped && Vector3.Distance(gameObject.transform.position, target) <= height + 10.0f)
+            {
+                DropBomb();
+            }
+
+            if (bombDropped && !exploded && Vector3.Distance(bomb.transform.position, target) <= 0.5f)
+            {
+                ExplodeBomb();
+            }
         }
     }
 }

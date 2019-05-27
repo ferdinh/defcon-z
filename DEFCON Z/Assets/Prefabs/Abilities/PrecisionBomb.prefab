@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebb6a5646fb708849bcaa4e42a136aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceFromTarget: 200
+  distanceFromTarget: 500
   height: 50
   planeSpeed: 100
   bombSpeed: 30
