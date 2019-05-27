@@ -16,9 +16,12 @@ namespace DefconZ
         public ObjectSelection objectSelector;
         public List<GameObject> selectedObjects;
         public GameObject indicatorPrefab;
+        public SpecialAbilities SpecialAbilities;
 
         public Material friendlyMaterial;
         public Material enemyMaterial;
+
+        public bool selectedAction;
 
         private void Awake()
         {
@@ -29,12 +32,41 @@ namespace DefconZ
             objectSelector.cam = cam;
 
             selectedObjects = new List<GameObject>();
+
+            SpecialAbilities = GetComponent<SpecialAbilities>();
         }
 
         // Update is called once per frame
         void Update() { }
 
+        private void SelectedAction()
+        {
+            // check that the player has clicked somewhere
+            if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit _rayCastHit))
+            {
+                GameObject orderLocationIndicator = Instantiate(indicatorPrefab, _rayCastHit.point, Quaternion.identity);
+                MeshRenderer orderLocationIndicatorMaterial = orderLocationIndicator.GetComponentInChildren<MeshRenderer>();
+                orderLocationIndicatorMaterial.material = enemyMaterial;
+
+                SpecialAbilities.PrecisionBombAbility(_rayCastHit.point, cam.transform.rotation.eulerAngles, cam.gameObject);
+
+                Destroy(orderLocationIndicator, 4);
+            }
+        }
+
         public void SelectedObjectAction()
+        {
+            if (selectedAction)
+            {
+                SelectedAction();
+            }
+            else
+            {
+                SelectedUnitAction();
+            }
+        }
+
+        private void SelectedUnitAction()
         {
             // Check if the player has selected a unit
             if (selectedObjects.Count > 0)
