@@ -1,5 +1,6 @@
 ﻿using DefconZ.Entity.Action;
 using DefconZ.UI;
+using DefconZ.Units;
 using DefconZ.Units.Actions;
 using DefconZ.Units.Special;
 using System.Collections;
@@ -12,11 +13,17 @@ namespace DefconZ
     {
         public GameObject precisionBombPrefab;
 
-        public void PrecisionBombAbility(Vector3 target, Vector3 eulerAngle, GameObject cam)
+        public void PrecisionBombAbility(Vector3 target, Vector3 eulerAngle, GameObject cam, Faction faction)
         {
-            GameObject bomb = Instantiate(precisionBombPrefab, new Vector3(0, -100, 0), Quaternion.identity);
-            PrecisionBomb precisionBomb = bomb.GetComponent<PrecisionBomb>();
-            precisionBomb.StartAbility(target, eulerAngle, cam);
+
+            if(PrecisionBomb.CanAfford(faction, PrecisionBomb.abilityCost))
+            {
+                faction.Resource.ResourcePoint -= PrecisionBomb.abilityCost;
+                GameObject bomb = Instantiate(precisionBombPrefab, new Vector3(0, -100, 0), Quaternion.identity);
+                PrecisionBomb precisionBomb = bomb.GetComponent<PrecisionBomb>();
+                precisionBomb.StartAbility(target, eulerAngle, cam);
+            }
+            
         }
     }
 }

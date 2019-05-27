@@ -1,5 +1,6 @@
 ﻿using DefconZ.Entity.Action;
 using DefconZ.UI;
+using DefconZ.Units;
 using DefconZ.Units.Actions;
 using DefconZ.Units.Special;
 using System.Collections;
@@ -21,6 +22,7 @@ namespace DefconZ
 
         public Material friendlyMaterial;
         public Material enemyMaterial;
+        public Faction playerFaction;
 
         public bool selectedAction;
         public AbilityType selectedAbility;
@@ -36,6 +38,7 @@ namespace DefconZ
             selectedObjects = new List<GameObject>();
 
             SpecialAbilities = GetComponent<SpecialAbilities>();
+
         }
 
         // Update is called once per frame
@@ -120,7 +123,7 @@ namespace DefconZ
             switch (selectedAbility)
             {
                 case AbilityType.PrecisionBomb:
-                    SpecialAbilities.PrecisionBombAbility(target, cam.transform.rotation.eulerAngles, cam.gameObject);
+                    SpecialAbilities.PrecisionBombAbility(target, cam.transform.rotation.eulerAngles, cam.gameObject, playerFaction);
                     break;
                 default:
                     break;

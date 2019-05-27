@@ -25,11 +25,13 @@ namespace DefconZ.UI
         public Color friendlyColor;
         public Color enemyColor;
 
-        private Faction playerFaction;
+        public Faction playerFaction;
         [SerializeField]
         private Player player;
 
         private Clock clock;
+
+        public SpecialAbilitiesUI abilitiesUI;
 
         private void Awake()
         {
@@ -54,8 +56,10 @@ namespace DefconZ.UI
         public void InitUI(Faction playerFaction)
         {
             this.playerFaction = playerFaction;
+            player.playerFaction = playerFaction;
             pointStatus.InitSliderBar(playerFaction.Resource.GetMaxResourcePoint, 0.0f);
             previousResourcePoints = playerFaction.Resource.ResourcePoint;
+            abilitiesUI.player = player;
         }
 
         /// <summary>
