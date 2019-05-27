@@ -1,4 +1,5 @@
-﻿using DefconZ.Simulation;
+﻿using DefconZ.GameLevel;
+using DefconZ.Simulation;
 using DefconZ.Simulation.UnitBuilder;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace DefconZ.Units
         public string FactionName { get; set; }
         public Resource Resource { get; set; }
         public IList<GameObject> Units { get; set; }
+        public IList<Zone> Zones { get; set; }
         public FactionType FactionType { get; set; }
         public bool IsPlayerUnit { get; set; } = false;
         public GameObject UnitPrefab { get; internal set; }
@@ -54,6 +56,13 @@ namespace DefconZ.Units
             Units.Add(newUnit);
 
             Debug.Log("Finish building " + newUnit.GetComponent<UnitBase>().objName);
+        }
+
+        public void SpawnFactionUnit(GameObject prefab, Vector3 spawnPoint)
+        {
+             var newUnit = Instantiate(prefab, spawnPoint, Quaternion.identity);
+            newUnit.GetComponent<UnitBase>().FactionOwner = this;
+            Units.Add(newUnit);
         }
 
         /// <summary>

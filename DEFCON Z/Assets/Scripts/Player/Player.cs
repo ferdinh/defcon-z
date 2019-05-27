@@ -11,7 +11,7 @@ namespace DefconZ
     {
         public CameraController camController;
         public Camera cam;
-        private InGameUI inGameUI;
+        public InGameUI inGameUI;
         public PlayerUI playerUI;
         public ObjectSelection objectSelector;
         public List<GameObject> selectedObjects;
