@@ -18,6 +18,7 @@ namespace DefconZ.Units.Special
 
         private Vector3 target;
         public Vector3 planeTarget;
+        public Vector3 planeFinalTarget;
 
         private MeshRenderer bombMesh;
         private SphereCollider bombCollider;
@@ -46,6 +47,10 @@ namespace DefconZ.Units.Special
                 x = cam.transform.position.x + (distanceFromTarget * Mathf.Sin(cam.transform.rotation.eulerAngles.y * Mathf.Deg2Rad)),
                 z = cam.transform.position.z + (distanceFromTarget * Mathf.Cos(cam.transform.rotation.eulerAngles.y * Mathf.Deg2Rad))
             };
+
+            planeFinalTarget = pos * -1;
+            planeFinalTarget.y = height;
+
             gameObject.transform.position = pos;
 
             // Set the rotation of the plane
@@ -67,7 +72,7 @@ namespace DefconZ.Units.Special
             else
             {
                 // Move the bomb and the plane
-                gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, planeTarget, planeSpeed * Time.deltaTime);
+                gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, planeFinalTarget, planeSpeed * Time.deltaTime);
                 bomb.transform.position = Vector3.MoveTowards(bomb.transform.position, target, bombSpeed * Time.deltaTime);
             }
         }
