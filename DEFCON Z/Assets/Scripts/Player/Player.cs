@@ -1,6 +1,7 @@
 ﻿using DefconZ.Entity.Action;
 using DefconZ.UI;
 using DefconZ.Units.Actions;
+using DefconZ.Units.Special;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace DefconZ
         public Material enemyMaterial;
 
         public bool selectedAction;
+        public AbilityType selectedAbility;
 
         private void Awake()
         {
@@ -47,8 +49,8 @@ namespace DefconZ
                 GameObject orderLocationIndicator = Instantiate(indicatorPrefab, _rayCastHit.point, Quaternion.identity);
                 MeshRenderer orderLocationIndicatorMaterial = orderLocationIndicator.GetComponentInChildren<MeshRenderer>();
                 orderLocationIndicatorMaterial.material = enemyMaterial;
-
-                SpecialAbilities.PrecisionBombAbility(_rayCastHit.point, cam.transform.rotation.eulerAngles, cam.gameObject);
+                ActivateSelectedAbility(_rayCastHit.point);
+                
 
                 Destroy(orderLocationIndicator, 4);
             }
@@ -110,6 +112,18 @@ namespace DefconZ
                         }
                     }
                 }
+            }
+        }
+
+        private void ActivateSelectedAbility(Vector3 target)
+        {
+            switch (selectedAbility)
+            {
+                case AbilityType.PrecisionBomb:
+                    SpecialAbilities.PrecisionBombAbility(target, cam.transform.rotation.eulerAngles, cam.gameObject);
+                    break;
+                default:
+                    break;
             }
         }
     }

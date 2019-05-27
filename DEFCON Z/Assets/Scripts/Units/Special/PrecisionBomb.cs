@@ -30,6 +30,8 @@ namespace DefconZ.Units.Special
         private bool exploded = false;
         private bool disabled = false;
 
+        public AbilityType type = AbilityType.PrecisionBomb;
+
         public void StartAbility(Vector3 target, Vector3 eulerAngle, GameObject cam)
         {
             audioSource = GetComponentInChildren<AudioSource>();
