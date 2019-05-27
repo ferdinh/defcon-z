@@ -52,7 +52,9 @@ namespace DefconZ
             _clock.GameCycleElapsed += Combat;
 
             // Once the GameManager has finished initialising, tell the in-game UI to initialise
-            GameObject.Find("InGameUI").GetComponent<InGameUI>().InitUI(humanFaction);
+            InGameUI inGameUI = GameObject.Find("InGameUI").GetComponent<InGameUI>();
+            inGameUI.InitUI(humanFaction);
+            inGameUI.PostInitUI();
 
             if (Difficulty.SelectedDifficulty != null)
             {
