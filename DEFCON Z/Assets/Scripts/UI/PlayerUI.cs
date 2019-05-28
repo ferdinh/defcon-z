@@ -13,11 +13,10 @@ namespace DefconZ.UI
         public Text factionLabel;
         public Text pointStatusLabel;
         public Text resourceGainLabel;
+        public Text playerLevelLabel;
         public float previousResourcePoints;
 
         public SliderBar pointStatus;
-
-        public Text levelStatusLabel;
 
         public Text gameDayLabel;
 
@@ -39,14 +38,37 @@ namespace DefconZ.UI
         }
 
         /// <summary>
+        /// Post initialisation for the player UI
+        /// Manually updates UI references for first frame.
+        /// </summary>
+        public void PostInit()
+        {
+            if (clock == null)
+            {
+                clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
+            }
+
+            // Update the UI on the first game frame
+            UpdateResourcePoint(null, null);
+            UpdateSelectionDisplayEvent(null, null);
+            UpdateGameDayLabelEvent(null, null);
+            UpdatePlayerLevelLabelEvent(null, null);
+        }
+
+        /// <summary>
         /// Subscribes the player UI to the game clock for updates.
         /// </summary>
         public void GameClockSubscribe()
         {
-            clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
+            if (clock == null)
+            {
+                clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
+            }
+            
             clock.GameCycleElapsed += UpdateResourcePoint;
             clock.GameCycleElapsed += UpdateSelectionDisplayEvent;
             clock.GameCycleElapsed += UpdateGameDayLabelEvent;
+            clock.GameCycleElapsed += UpdatePlayerLevelLabelEvent;
         }
 
         /// <summary>
@@ -99,6 +121,16 @@ namespace DefconZ.UI
         public void UpdateGameDayLabelEvent(object sender, System.EventArgs e)
         {
             gameDayLabel.text = clock.GameDay.ToString();
+        }
+
+        /// <summary>
+        /// Updates Level Label.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void UpdatePlayerLevelLabelEvent(object sender, System.EventArgs e)
+        {
+            playerLevelLabel.text = "Level: " + playerFaction.Level.CurrentLevel.ToString();
         }
 
         /// <summary>
@@ -168,6 +200,17 @@ namespace DefconZ.UI
 		public void PurchaseUnitAction()
         {
             playerFaction.RecruitUnit();
+        }
+
+        /// <summary>
+        /// Executes the test code bellow.
+        /// The functionality of this test button may change depending on the needs of the current branch
+        /// Function is not final, and will not be accessible in final builds.
+        /// </summary>
+        public void TestButtonAction()
+        {
+            Debug.LogError($"{Time.time}: Using test button");
+            playerFaction.Level.AddXP(50);
         }
     }
 }
