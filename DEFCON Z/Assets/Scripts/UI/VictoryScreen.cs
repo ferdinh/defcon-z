@@ -25,10 +25,8 @@ namespace DefconZ.UI
         /// </summary>
         /// <param name="looser"></param>
         /// <param name="winner"></param>
-
         public void DisplayVictory(Faction looser, Faction winner)
         {
-            
             gameObject.SetActive(true);
 
             winnerLabel.text = winner.FactionName;
