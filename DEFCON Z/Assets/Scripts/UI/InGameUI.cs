@@ -23,5 +23,13 @@ namespace DefconZ.UI
             player.objectSelector.cam = player.cam;
             player.objectSelector.selectionUI = selectionUI;
         }
+
+        /// <summary>
+        /// Post initialisation for the InGameUI
+        /// </summary>
+        public void PostInitUI()
+        {
+            playerUI.PostInit();
+        }
     }
 }

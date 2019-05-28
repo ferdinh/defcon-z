@@ -35,6 +35,7 @@ namespace DefconZ.Units
 
             Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.GetMaxResourcePoint);
             Debug.Log(FactionName + " faction has Starting Resource Point of " + Resource.ResourcePoint);
+            Debug.Log($"{FactionName} faction has Starting level of {Level.CurrentLevel}");
 
             unitBuilder.OnBuildStart += StartBuild;
             unitBuilder.OnBuildFinish += AfterBuild;
