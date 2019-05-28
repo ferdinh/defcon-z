@@ -32,7 +32,8 @@ namespace DefconZ.UI
             winnerLabel.text = winner.FactionName;
             winnerLabel.color = (winner.IsPlayerUnit) ? winnerColor : looserColor;
 
-            string victoryText = $"{winner.FactionName} has won the game!\nShame on {looser.FactionName} for loosing!";description.text = victoryText;
+            string victoryText = $"{winner.FactionName} has won the game!\nShame on {looser.FactionName} for loosing!";
+            description.text = victoryText;
         }
 
         /// <summary>
