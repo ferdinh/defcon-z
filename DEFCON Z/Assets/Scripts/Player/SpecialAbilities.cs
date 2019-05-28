@@ -22,7 +22,6 @@ namespace DefconZ
         /// <param name="faction"></param>
         public void PrecisionBombAbility(Vector3 target, Vector3 eulerAngle, GameObject cam, Faction faction)
         {
-
             if(PrecisionBomb.CanAfford(faction, PrecisionBomb.abilityCost))
             {
                 faction.Resource.ResourcePoint -= PrecisionBomb.abilityCost;

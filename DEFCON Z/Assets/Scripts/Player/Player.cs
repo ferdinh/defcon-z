@@ -38,7 +38,6 @@ namespace DefconZ
             selectedObjects = new List<GameObject>();
 
             SpecialAbilities = GetComponent<SpecialAbilities>();
-
         }
 
         // Update is called once per frame
