@@ -53,7 +53,6 @@ namespace DefconZ
                 MeshRenderer orderLocationIndicatorMaterial = orderLocationIndicator.GetComponentInChildren<MeshRenderer>();
                 orderLocationIndicatorMaterial.material = enemyMaterial;
                 ActivateSelectedAbility(_rayCastHit.point);
-                
 
                 Destroy(orderLocationIndicator, 4);
             }

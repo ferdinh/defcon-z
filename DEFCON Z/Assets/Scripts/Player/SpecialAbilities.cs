@@ -13,6 +13,13 @@ namespace DefconZ
     {
         public GameObject precisionBombPrefab;
 
+        /// <summary>
+        /// Calls and activates the airstrike special ability
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="eulerAngle"></param>
+        /// <param name="cam"></param>
+        /// <param name="faction"></param>
         public void PrecisionBombAbility(Vector3 target, Vector3 eulerAngle, GameObject cam, Faction faction)
         {
 
@@ -23,7 +30,6 @@ namespace DefconZ
                 PrecisionBomb precisionBomb = bomb.GetComponent<PrecisionBomb>();
                 precisionBomb.StartAbility(target, eulerAngle, cam);
             }
-            
         }
     }
 }

@@ -14,7 +14,6 @@ namespace DefconZ.Units.Special
         public float bombDamage;
         public static string abilityName = "Air Strike";
         public static float abilityCost = 500f;
-        
 
         public GameObject plane;
         public GameObject bomb;
