@@ -3882,6 +3882,11 @@ PrefabInstance:
       propertyPath: enemyMaterial
       value: 
       objectReference: {fileID: 2100000, guid: fea9990c5cb0d7a41902e2b9a72e4d32, type: 2}
+    - target: {fileID: 8731220371253252657, guid: 2501a28f187da884dac09869c1d24e56,
+        type: 3}
+      propertyPath: selectedAction
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 784628555139685445, guid: 2501a28f187da884dac09869c1d24e56,
         type: 3}
       propertyPath: zoneManager
@@ -5438,6 +5443,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 543999521}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &758261695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758261694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cbff15a71d8a7c4b82b6d53f1bd11cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  precisionBombPrefab: {fileID: 6735422202875195753, guid: 2df00fbf7edd6284697c6002ef649ada,
+    type: 3}
 --- !u!114 &758261697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13910,7 +13929,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 31231c552f3a1eb4e9b158b39dc3756b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 64e72972ccc5dd148910671cd7e8b9e9, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
