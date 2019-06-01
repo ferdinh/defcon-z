@@ -196,7 +196,7 @@ namespace DefconZ
             // When a unit dies, remove the combat from list of combats and
             // remove the combat from the winning unit whilst destroy the
             // losing unit.
-            if (health <= 0.0f)
+            if (IsAlive())
             {
                 if (CombatPresent())
                 {
