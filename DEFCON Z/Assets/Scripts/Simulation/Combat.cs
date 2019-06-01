@@ -23,17 +23,12 @@ namespace DefconZ.Simulation
             // of each other.
             if (IsFighting)
             {
-                var damageToFirstCombatant = SecondCombatant.CalculateDamage();
-                var damageToSecondCombatant = FirstCombatant.CalculateDamage();
+                SecondCombatant.TakeDamageFrom(FirstCombatant);
 
-                SecondCombatant.TakeDamage(damageToSecondCombatant);
-
-                if (SecondCombatant.health <= 0)
+                if (SecondCombatant.IsAlive())
                 {
-                    damageToFirstCombatant = 0.0f;
+                    FirstCombatant.TakeDamageFrom(SecondCombatant);
                 }
-
-                FirstCombatant.TakeDamage(damageToFirstCombatant);
             }
         }
 
