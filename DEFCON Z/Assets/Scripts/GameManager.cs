@@ -45,9 +45,6 @@ namespace DefconZ
             Factions.Add(humanFaction);
             Factions.Add(zombieFaction);
 
-            humanFaction.RecruitUnit();
-            zombieFaction.RecruitUnit();
-
             _clock.GameCycleElapsed += Clock_GameCycleElapsed;
             _clock.GameCycleElapsed += Combat;
 
