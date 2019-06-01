@@ -85,6 +85,7 @@ namespace DefconZ.Units
         /// </summary>
         protected virtual void InitStart()
         {
+            ForceRecruitUnit();
         }
 
         /// <summary>
@@ -104,13 +105,15 @@ namespace DefconZ.Units
         }
 
         /// <summary>
-        /// Recruits a new unit when there is enough resource for the
-        /// faction.
+        /// Recruit unit by bypassing resources and build time.
+        /// Only for initializing.
         /// </summary>
-        [Obsolete("This method will be deprecated, use RecruitUnitAt(Vector3)")]
-        public void RecruitUnit()
+        private void ForceRecruitUnit()
         {
-            RecruitUnitAt(UnitSpawnPoint.transform.position);
+            var recruitedUnit = Instantiate(UnitPrefab, UnitSpawnPoint.transform.position, Quaternion.identity);
+            recruitedUnit.GetComponent<UnitBase>().FactionOwner = this;
+
+            Units.Add(recruitedUnit);
         }
 
         /// <summary>

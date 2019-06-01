@@ -199,7 +199,7 @@ namespace DefconZ.UI
 		/// </summary>
 		public void PurchaseUnitAction()
         {
-            playerFaction.RecruitUnit();
+            playerFaction.ForceRecruitUnit();
         }
 
         /// <summary>
