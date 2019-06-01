@@ -208,6 +208,17 @@ namespace DefconZ
         }
 
         /// <summary>
+        /// Determines whether this unit is alive.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this unit is alive; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsAlive()
+        {
+            return health > 0;
+        }
+
+        /// <summary>
         /// Calculates the damage to be inflicted.
         /// </summary>
         /// <returns>Damage given.</returns>
