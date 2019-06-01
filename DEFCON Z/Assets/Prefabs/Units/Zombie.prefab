@@ -58,6 +58,7 @@ MonoBehaviour:
   RecruitCost: 500
   Upkeep: 0.5
   RecruitTime: 5
+  XP: 50
   unitModel: {fileID: 8940772615325665434}
   audioSource: {fileID: 0}
 --- !u!114 &5216359969117066730

@@ -21,6 +21,7 @@ namespace DefconZ
         public float RecruitCost;
         public float Upkeep;
         public int RecruitTime;
+        public int XP;
 
         public GameObject unitModel;
 
