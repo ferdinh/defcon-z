@@ -21,6 +21,7 @@ namespace DefconZ
         public float RecruitCost;
         public float Upkeep;
         public int RecruitTime;
+        public int XP;
 
         public GameObject unitModel;
 
@@ -195,7 +196,7 @@ namespace DefconZ
             // When a unit dies, remove the combat from list of combats and
             // remove the combat from the winning unit whilst destroy the
             // losing unit.
-            if (health <= 0.0f)
+            if (!IsAlive())
             {
                 if (CombatPresent())
                 {
@@ -204,6 +205,42 @@ namespace DefconZ
 
                 DestroySelf();
             }
+        }
+
+        /// <summary>
+        /// Takes the damage from another unit.
+        /// </summary>
+        /// <param name="hostileUnit">The hostile unit.</param>
+        public virtual void TakeDamageFrom(UnitBase hostileUnit)
+        {
+            var damageToTake = hostileUnit.CalculateDamage();
+
+            health -= damageToTake;
+
+            if (!IsAlive())
+            {
+                if (CombatPresent())
+                {
+                    RemoveCombat(CurrentCombat);
+                }
+
+                // Hostile unit faction will be awarded with XP corresponding
+                // to how hard this unit is to defeat.
+                hostileUnit.FactionOwner.Level.AddXP(XP);
+
+                DestroySelf();
+            }
+        }
+
+        /// <summary>
+        /// Determines whether this unit is alive.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this unit is alive; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsAlive()
+        {
+            return health > 0;
         }
 
         /// <summary>
