@@ -37,6 +37,7 @@ namespace DefconZ.Units
 
             Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.GetMaxResourcePoint);
             Debug.Log(FactionName + " faction has Starting Resource Point of " + Resource.ResourcePoint);
+            Debug.Log($"{FactionName} faction has Starting level of {Level.CurrentLevel}");
 
             unitBuilder.OnBuildStart += StartBuild;
             unitBuilder.OnBuildFinish += AfterBuild;
@@ -93,6 +94,7 @@ namespace DefconZ.Units
         /// </summary>
         protected virtual void InitStart()
         {
+            ForceRecruitUnit();
         }
 
         /// <summary>
@@ -112,13 +114,15 @@ namespace DefconZ.Units
         }
 
         /// <summary>
-        /// Recruits a new unit when there is enough resource for the
-        /// faction.
+        /// Recruit unit by bypassing resources and build time.
+        /// Only for initializing.
         /// </summary>
-        [Obsolete("This method will be deprecated, use RecruitUnitAt(Vector3)")]
-        public void RecruitUnit()
+        private void ForceRecruitUnit()
         {
-            RecruitUnitAt(UnitSpawnPoint.transform.position);
+            var recruitedUnit = Instantiate(UnitPrefab, UnitSpawnPoint.transform.position, Quaternion.identity);
+            recruitedUnit.GetComponent<UnitBase>().FactionOwner = this;
+
+            Units.Add(recruitedUnit);
         }
 
         /// <summary>

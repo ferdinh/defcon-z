@@ -129,6 +129,9 @@ namespace DefconZ
         {
             bool selectable = false;
 
+            // If they player has an action selected, it should be disabled
+            player.selectedAction = false;
+
             // check if the raycast hit anything
             if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit rayCastHit))
             {

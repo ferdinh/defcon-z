@@ -50,15 +50,15 @@ namespace DefconZ
             // We don't want to recruit a unit on game start, but instead, each faction should start with at least one unit.
             humanFaction.SpawnFactionUnit(humanFaction.UnitPrefab, humanFaction.UnitSpawnPoint.transform.position);
             zombieFaction.SpawnFactionUnit(zombieFaction.UnitPrefab, zombieFaction.UnitSpawnPoint.transform.position);
-            //humanFaction.RecruitUnit();
-            //zombieFaction.RecruitUnit();
 
             _clock.GameCycleElapsed += Clock_GameCycleElapsed;
             _clock.GameCycleElapsed += Combat;
             _clock.GameCycleElapsed += VictoryCheck;
 
             // Once the GameManager has finished initialising, tell the in-game UI to initialise
-            GameObject.Find("InGameUI").GetComponent<InGameUI>().InitUI(humanFaction);
+            InGameUI inGameUI = GameObject.Find("InGameUI").GetComponent<InGameUI>();
+            inGameUI.InitUI(humanFaction);
+            inGameUI.PostInitUI();
 
             if (Difficulty.SelectedDifficulty != null)
             {

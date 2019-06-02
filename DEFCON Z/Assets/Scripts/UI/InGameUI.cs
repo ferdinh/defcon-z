@@ -16,6 +16,7 @@ namespace DefconZ.UI
         public SelectionUI selectionUI;
         public VictoryScreen victoryScreen;
         public Player player;
+        public SpecialAbilitiesUI specialAbilitiesUI;
 
         public void InitUI(Faction faction)
         {
@@ -31,6 +32,14 @@ namespace DefconZ.UI
         {
             GameObject.Find("Game Music").SetActive(false);
             victoryScreen.DisplayVictory(looser, winner);
+        }
+        
+        /// <summary>
+        /// Post initialisation for the InGameUI
+        /// </summary>
+        public void PostInitUI()
+        {
+            playerUI.PostInit();
         }
     }
 }

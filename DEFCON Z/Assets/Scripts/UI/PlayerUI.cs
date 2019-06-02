@@ -13,11 +13,10 @@ namespace DefconZ.UI
         public Text factionLabel;
         public Text pointStatusLabel;
         public Text resourceGainLabel;
+        public Text playerLevelLabel;
         public float previousResourcePoints;
 
         public SliderBar pointStatus;
-
-        public Text levelStatusLabel;
 
         public Text gameDayLabel;
 
@@ -25,11 +24,13 @@ namespace DefconZ.UI
         public Color friendlyColor;
         public Color enemyColor;
 
-        private Faction playerFaction;
+        public Faction playerFaction;
         [SerializeField]
         private Player player;
 
         private Clock clock;
+
+        public SpecialAbilitiesUI abilitiesUI;
 
         private void Awake()
         {
@@ -37,14 +38,37 @@ namespace DefconZ.UI
         }
 
         /// <summary>
+        /// Post initialisation for the player UI
+        /// Manually updates UI references for first frame.
+        /// </summary>
+        public void PostInit()
+        {
+            if (clock == null)
+            {
+                clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
+            }
+
+            // Update the UI on the first game frame
+            UpdateResourcePoint(null, null);
+            UpdateSelectionDisplayEvent(null, null);
+            UpdateGameDayLabelEvent(null, null);
+            UpdatePlayerLevelLabelEvent(null, null);
+        }
+
+        /// <summary>
         /// Subscribes the player UI to the game clock for updates.
         /// </summary>
         public void GameClockSubscribe()
         {
-            clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
+            if (clock == null)
+            {
+                clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
+            }
+
             clock.GameCycleElapsed += UpdateResourcePoint;
             clock.GameCycleElapsed += UpdateSelectionDisplayEvent;
             clock.GameCycleElapsed += UpdateGameDayLabelEvent;
+            clock.GameCycleElapsed += UpdatePlayerLevelLabelEvent;
         }
 
         /// <summary>
@@ -54,8 +78,10 @@ namespace DefconZ.UI
         public void InitUI(Faction playerFaction)
         {
             this.playerFaction = playerFaction;
+            player.playerFaction = playerFaction;
             pointStatus.InitSliderBar(playerFaction.Resource.GetMaxResourcePoint, 0.0f);
             previousResourcePoints = playerFaction.Resource.ResourcePoint;
+            abilitiesUI.player = player;
         }
 
         /// <summary>
@@ -98,6 +124,16 @@ namespace DefconZ.UI
         }
 
         /// <summary>
+        /// Updates Level Label.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void UpdatePlayerLevelLabelEvent(object sender, System.EventArgs e)
+        {
+            playerLevelLabel.text = "Level: " + playerFaction.Level.CurrentLevel.ToString();
+        }
+
+        /// <summary>
         /// Updates the object selection panel information display.
         /// </summary>
         public void UpdateObjectSelectionUI()
@@ -112,7 +148,7 @@ namespace DefconZ.UI
             {
                 selectedObject = null;
             }
-            
+
             ObjectBase _object = null;
 
             if (selectedObject != null)
@@ -159,11 +195,22 @@ namespace DefconZ.UI
         }
 
         /// <summary>
-		/// Action when purchase unit button is pressed
-		/// </summary>
-		public void PurchaseUnitAction()
+        /// Action when purchase unit button is pressed
+        /// </summary>
+        public void PurchaseUnitAction()
         {
-            playerFaction.RecruitUnit();
+            playerFaction.RecruitUnitAt(playerFaction.UnitSpawnPoint.transform.position);
+        }
+
+        /// <summary>
+        /// Executes the test code bellow.
+        /// The functionality of this test button may change depending on the needs of the current branch
+        /// Function is not final, and will not be accessible in final builds.
+        /// </summary>
+        public void TestButtonAction()
+        {
+            Debug.LogError($"{Time.time}: Using test button");
+            playerFaction.Level.AddXP(50);
         }
     }
 }
