@@ -64,7 +64,7 @@ namespace DefconZ.UI
             {
                 clock = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<Clock>();
             }
-            
+
             clock.GameCycleElapsed += UpdateResourcePoint;
             clock.GameCycleElapsed += UpdateSelectionDisplayEvent;
             clock.GameCycleElapsed += UpdateGameDayLabelEvent;
@@ -148,7 +148,7 @@ namespace DefconZ.UI
             {
                 selectedObject = null;
             }
-            
+
             ObjectBase _object = null;
 
             if (selectedObject != null)
@@ -195,11 +195,11 @@ namespace DefconZ.UI
         }
 
         /// <summary>
-		/// Action when purchase unit button is pressed
-		/// </summary>
-		public void PurchaseUnitAction()
+        /// Action when purchase unit button is pressed
+        /// </summary>
+        public void PurchaseUnitAction()
         {
-            playerFaction.ForceRecruitUnit();
+            playerFaction.RecruitUnitAt(playerFaction.UnitSpawnPoint.transform.position);
         }
 
         /// <summary>
