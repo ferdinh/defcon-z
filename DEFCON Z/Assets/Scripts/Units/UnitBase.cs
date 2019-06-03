@@ -26,7 +26,7 @@ namespace DefconZ
         public GameObject unitModel;
 
         [SerializeField]
-        private AudioSource audioSource;
+        public AudioSource audioSource;
 
         private GameManager _gameManager;
 

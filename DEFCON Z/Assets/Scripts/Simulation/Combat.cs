@@ -24,10 +24,17 @@ namespace DefconZ.Simulation
             if (IsFighting)
             {
                 SecondCombatant.TakeDamageFrom(FirstCombatant);
+                //Loads the sound of the Zombie Attacker
+                FirstCombatant.audioSource.clip = FirstCombatant.attackSound;
+                FirstCombatant.audioSource.Play();
 
                 if (SecondCombatant.IsAlive())
                 {
                     FirstCombatant.TakeDamageFrom(SecondCombatant);
+                    //Loads the sound of the Human Attacker
+                    SecondCombatant.audioSource.clip = FirstCombatant.attackSound;
+                    SecondCombatant.audioSource.Play();
+
                 }
             }
         }
