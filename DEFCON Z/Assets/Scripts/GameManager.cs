@@ -4,6 +4,7 @@ using DefconZ.Units;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DefconZ
@@ -17,6 +18,8 @@ namespace DefconZ
 
         public IDictionary<Guid, Combat> ActiveCombats;
 
+        public IList<Events> listOfEvents;
+
         private Clock _clock;
         private AI _AI;
 
@@ -28,6 +31,18 @@ namespace DefconZ
             Factions = new List<Faction>();
             ActiveCombats = new ConcurrentDictionary<Guid, Combat>();
             _AI = gameObject.AddComponent<AI>();
+            listOfEvents = new List<Events>
+            {
+                new Events
+                {
+                    name = "Abundance",
+                    modifier = new Modifier
+                    {
+                        Name = "Abundance",
+                        Value = 1.0f
+                    }
+                }
+            };
         }
 
         // Start is called before the first frame update
@@ -102,7 +117,21 @@ namespace DefconZ
 
                 if (!faction.IsPlayerUnit)
                 {
-                   _AI.Run(faction);
+                    _AI.Run(faction);
+                }
+
+                var abundanceEvent = listOfEvents.SingleOrDefault(events => events.name.Equals("Abundance"));
+
+                if (faction.Resource.OwnedZones.Count > 5 && !faction.Modifiers.Any(mod => mod.Name.Equals("Abundance")))
+                {
+                    faction.Modifiers.Add(abundanceEvent.modifier);
+                    Debug.LogError("Abundance Event Modifier Added.");
+                }
+
+                if (faction.Resource.OwnedZones.Count < 5 && faction.Modifiers.Any(mod => mod.Name.Equals("Abundance")))
+                {
+                    faction.Modifiers.Remove(abundanceEvent.modifier);
+                    Debug.LogError("Abundance Event Modifier Removed.");
                 }
             }
 
@@ -124,7 +153,7 @@ namespace DefconZ
                 // Check for faction victory
                 foreach (Faction faction in Factions)
                 {
-                    // Check if each faction satisfies a loose condition. 
+                    // Check if each faction satisfies a loose condition.
                     if (faction.Units.Count <= 0 || faction.Resource.OwnedZones.Count <= 0)
                     {
                         loser = faction;
