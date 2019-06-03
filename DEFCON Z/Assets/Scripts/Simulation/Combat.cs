@@ -34,7 +34,6 @@ namespace DefconZ.Simulation
                     //Loads the sound of the Human Attacker
                     SecondCombatant.audioSource.clip = FirstCombatant.attackSound;
                     SecondCombatant.audioSource.Play();
-
                 }
             }
         }
