@@ -47,7 +47,6 @@ namespace DefconZ.GameLevel
         /// </summary>
         private void UpdateZone()
         {
-            Debug.LogError("Updating zone");
             Faction owner = null;
             bool multipleFactions = false;
             
