@@ -37,8 +37,7 @@ namespace DefconZ.GameLevel
         {
             foreach (Zone _zone in customZones)
             {
-                _zone.Init(zoneManager, null);
-                zoneManager.managedZones.Add(_zone);
+                zoneManager.AddZone(_zone);
             }
         }
     }

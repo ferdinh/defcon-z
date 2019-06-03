@@ -17,6 +17,10 @@ namespace DefconZ.GameLevel
         [SerializeField]
         private List<UnitBase> unitsInZone;
 
+        public GameObject friendlyDisplay;
+        public GameObject enemyDisplay;
+        public GameObject neutralDisplay;
+
         private void Awake()
         {
             unitsInZone = new List<UnitBase>();
@@ -43,6 +47,7 @@ namespace DefconZ.GameLevel
         /// </summary>
         private void UpdateZone()
         {
+            Debug.LogError("Updating zone");
             Faction owner = null;
             bool multipleFactions = false;
             
@@ -142,7 +147,7 @@ namespace DefconZ.GameLevel
                 }
 
                 // Update the display color of the zone
-                UpdateZoneColor(zoneOwner);
+                UpdateZoneColor();
             }
         }
 
@@ -150,19 +155,35 @@ namespace DefconZ.GameLevel
         /// Updates the display color for the zone
         /// </summary>
         /// <param name="faction"></param>
-        private void UpdateZoneColor(Faction faction)
+        public void UpdateZoneColor()
         {
-            if (faction == null)
+            if (zoneOwner == null)
             {
-                zoneMaterial.color = zoneManager.neutralColor;
+                //zoneMaterial.color = zoneManager.neutralColor;
+                neutralDisplay.SetActive(true);
+                friendlyDisplay.SetActive(false);
+                enemyDisplay.SetActive(false);
             }
-            else if (faction.IsPlayerUnit)
+            else if (zoneOwner.IsPlayerUnit)
             {
-                zoneMaterial.color = zoneManager.friendlyColor;
+                //zoneMaterial.color = zoneManager.friendlyColor;
+                neutralDisplay.SetActive(false);
+                friendlyDisplay.SetActive(true);
+                enemyDisplay.SetActive(false);
             }
             else
             {
-                zoneMaterial.color = zoneManager.enemyColor;
+                //zoneMaterial.color = zoneManager.enemyColor;
+                neutralDisplay.SetActive(false);
+                friendlyDisplay.SetActive(false);
+                enemyDisplay.SetActive(true);
+            }
+
+            if (!zoneManager.zoneDisplayActive)
+            {
+                neutralDisplay.SetActive(false);
+                friendlyDisplay.SetActive(false);
+                enemyDisplay.SetActive(false);
             }
         }
 

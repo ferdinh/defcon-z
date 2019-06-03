@@ -13,16 +13,15 @@ namespace DefconZ.GameLevel
         public int worldHeight;
         public float zoneSpacing;
         public Color neutralColor, friendlyColor, enemyColor;
-
         public List<Zone> managedZones;
-
-        [SerializeField]
-        private bool zoneDisplayActive;
+        public bool zoneDisplayActive;
 
         private void Awake()
         {
             managedZones = new List<Zone>();
             zoneDisplayActive = true;
+
+            // Add pre-built zones to list of managed zones
         }
 
         // Start is called before the first frame update
@@ -62,6 +61,17 @@ namespace DefconZ.GameLevel
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public void AddZone(Zone zone)
+        {
+            
+            zone.Init(this, null); // Initialise the zone
+            zone.transform.parent = gameObject.transform;
+            managedZones.Add(zone);
+        }
+
+        /// <summary>
         /// Toggles the display of the zones to the player
         /// Does not effect simulation
         /// </summary>
@@ -71,7 +81,7 @@ namespace DefconZ.GameLevel
 
             foreach (Zone zone in managedZones)
             {
-                zone.GetComponentInChildren<MeshRenderer>().enabled = zoneDisplayActive;
+                zone.UpdateZoneColor();
             }
         }
     }
