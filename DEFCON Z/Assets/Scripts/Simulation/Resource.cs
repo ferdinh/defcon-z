@@ -78,7 +78,7 @@ namespace DefconZ.Simulation
         /// </summary>
         private float CalculateMaxPoints()
         {
-            var modifierValue = 1.0f + Modifiers.Sum(mod => mod.Value);
+            var modifierValue = 1.0f + Modifiers.Where(mod => mod.Type == ModifierType.Difficulty).Sum(mod => mod.Value);
             var totalOwnedZones = OwnedZones.Sum(v => v.zoneResourceValue);
 
             return (BaseResourcePoint + totalOwnedZones) * modifierValue;

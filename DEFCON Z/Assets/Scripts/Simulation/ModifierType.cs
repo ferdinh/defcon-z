@@ -8,6 +8,7 @@
         Event,
         Difficulty,
         Level,
+        ResourceBoost,
         SoundSetting
     }
 }
