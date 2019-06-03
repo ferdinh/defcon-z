@@ -18,12 +18,14 @@ namespace DefconZ
         public IDictionary<Guid, Combat> ActiveCombats;
 
         private Clock _clock;
+        private AI _AI;
 
         private void Awake()
         {
             _clock = gameObject.AddComponent<Clock>();
             Factions = new List<Faction>();
             ActiveCombats = new ConcurrentDictionary<Guid, Combat>();
+            _AI = gameObject.AddComponent<AI>();
         }
 
         // Start is called before the first frame update
@@ -94,6 +96,11 @@ namespace DefconZ
                 Debug.Log($"Maintenance cost at {maintenanceCost}");
 
                 Debug.Log($"{faction.FactionName} has {faction.Resource.ResourcePoint} amount of resources out of {faction.Resource.GetMaxResourcePoint}.");
+
+                if (!faction.IsPlayerUnit)
+                {
+                   _AI.Run(faction);
+                }
             }
 
             Debug.Log("Game day elapsed " + _clock.GameDay);
