@@ -158,21 +158,18 @@ namespace DefconZ.GameLevel
         {
             if (zoneOwner == null)
             {
-                //zoneMaterial.color = zoneManager.neutralColor;
                 neutralDisplay.SetActive(true);
                 friendlyDisplay.SetActive(false);
                 enemyDisplay.SetActive(false);
             }
             else if (zoneOwner.IsPlayerUnit)
             {
-                //zoneMaterial.color = zoneManager.friendlyColor;
                 neutralDisplay.SetActive(false);
                 friendlyDisplay.SetActive(true);
                 enemyDisplay.SetActive(false);
             }
             else
             {
-                //zoneMaterial.color = zoneManager.enemyColor;
                 neutralDisplay.SetActive(false);
                 friendlyDisplay.SetActive(false);
                 enemyDisplay.SetActive(true);
