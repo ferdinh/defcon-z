@@ -26,7 +26,7 @@ namespace DefconZ
         public GameObject unitModel;
 
         [SerializeField]
-        private AudioSource audioSource;
+        public AudioSource audioSource;
 
         private GameManager _gameManager;
 
@@ -274,6 +274,12 @@ namespace DefconZ
             combatToRemove.ClearCombat();
 
             return removeResult;
+        }
+
+        public void PlayAttackSound()
+        {
+            audioSource.clip = attackSound;
+            audioSource.Play();
         }
     }
 }

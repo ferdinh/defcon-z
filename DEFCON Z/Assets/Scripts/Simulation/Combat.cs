@@ -24,10 +24,12 @@ namespace DefconZ.Simulation
             if (IsFighting)
             {
                 SecondCombatant.TakeDamageFrom(FirstCombatant);
+                FirstCombatant.PlayAttackSound();
 
                 if (SecondCombatant.IsAlive())
                 {
                     FirstCombatant.TakeDamageFrom(SecondCombatant);
+                    SecondCombatant.PlayAttackSound();
                 }
             }
         }
