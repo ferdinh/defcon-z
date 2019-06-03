@@ -65,7 +65,6 @@ namespace DefconZ.GameLevel
         /// </summary>
         public void AddZone(Zone zone)
         {
-            
             zone.Init(this, null); // Initialise the zone
             zone.transform.parent = gameObject.transform;
             managedZones.Add(zone);
