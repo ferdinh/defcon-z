@@ -7,6 +7,7 @@
     {
         Event,
         Difficulty,
-        Level
+        Level,
+        SoundSetting
     }
 }
