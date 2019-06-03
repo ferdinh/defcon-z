@@ -127,5 +127,15 @@ namespace DefconZ
                     break;
             }
         }
+
+        /// <summary>
+        /// Checks if the player can afford to spend "value" amount of resource points
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool CanAfford(float value)
+        {
+            return playerFaction.Resource.ResourcePoint >= value;
+        }
     }
 }

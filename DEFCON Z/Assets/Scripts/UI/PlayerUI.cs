@@ -31,6 +31,7 @@ namespace DefconZ.UI
         private Clock clock;
 
         public SpecialAbilitiesUI abilitiesUI;
+        public PerksUI PerksUI;
 
         private void Awake()
         {
@@ -82,6 +83,7 @@ namespace DefconZ.UI
             pointStatus.InitSliderBar(playerFaction.Resource.GetMaxResourcePoint, 0.0f);
             previousResourcePoints = playerFaction.Resource.ResourcePoint;
             abilitiesUI.player = player;
+            PerksUI.player = player;
         }
 
         /// <summary>
