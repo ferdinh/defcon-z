@@ -77,6 +77,7 @@ namespace DefconZ
                             if (CurrentCombat != null)
                             {
                                 CurrentCombat.IsFighting = true;
+                                GetComponent<IMoveable>().StopMoving();
                                 Debug.Log("Collided with an enemy unit and starts engaging");
                             }
                         }
@@ -123,10 +124,9 @@ namespace DefconZ
             UnitBase _targetUnit = obj.GetComponent<UnitBase>();
             if (_targetUnit != null)
             {
-                // move to appropriate distance
+                // move to target object.
                 // TODO: calculate appropriate position to move to (Eg, if this unit is a ranged unit, move to maximum/safe firing range?)
-                Vector3 _targetPos = obj.transform.position;
-                GetComponent<IMoveable>().MoveTo(_targetPos);
+                GetComponent<IMoveable>().MoveTo(obj);
 
                 // attack other unit
                 Debug.Log("Attacking unit: " + _targetUnit.objName + "\n" + _targetUnit.name);
@@ -171,12 +171,12 @@ namespace DefconZ
             {
                 currentZone.RemoveFromZone(this);
             }
-            
-            // Rotate the model 
+
+            // Rotate the model
             unitModel.transform.eulerAngles = new Vector3(90, unitModel.transform.rotation.y, unitModel.transform.rotation.z);
 
             // set the audio source clip to the death sound clip
-            audioSource.clip = deathSound; 
+            audioSource.clip = deathSound;
             audioSource.Play();
 
             _gameManager.RemoveUnit(this, deathSound.length);
