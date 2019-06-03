@@ -96,8 +96,6 @@ namespace DefconZ.Simulation
             float increaseModifier = 1.0f + Modifiers.Sum(mod => mod.Value);
             float resourcePointIncrease = baseresourcePointIncrease * increaseModifier;
 
-            Debug.LogError($"base: {baseresourcePointIncrease} Modifier: {increaseModifier} Total increase: {resourcePointIncrease}");
-
             ResourcePoint += resourcePointIncrease;
 
             // Limit the available resource point to MaxResourcePoint.
