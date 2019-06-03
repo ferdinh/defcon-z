@@ -275,5 +275,11 @@ namespace DefconZ
 
             return removeResult;
         }
+
+        public void PlayAttackSound()
+        {
+            audioSource.clip = attackSound;
+            audioSource.Play();
+        }
     }
 }
