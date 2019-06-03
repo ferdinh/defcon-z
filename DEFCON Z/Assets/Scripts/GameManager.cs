@@ -125,13 +125,13 @@ namespace DefconZ
                 if (faction.Resource.OwnedZones.Count > 5 && !faction.Modifiers.Any(mod => mod.Name.Equals("Abundance")))
                 {
                     faction.Modifiers.Add(abundanceEvent.modifier);
-                    Debug.LogError("Abundance Event Modifier Added.");
+                    Debug.Log("Abundance Event Modifier Added.");
                 }
 
                 if (faction.Resource.OwnedZones.Count < 5 && faction.Modifiers.Any(mod => mod.Name.Equals("Abundance")))
                 {
                     faction.Modifiers.Remove(abundanceEvent.modifier);
-                    Debug.LogError("Abundance Event Modifier Removed.");
+                    Debug.Log("Abundance Event Modifier Removed.");
                 }
             }
 
