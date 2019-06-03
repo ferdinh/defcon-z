@@ -47,10 +47,6 @@ namespace DefconZ
             Factions.Add(humanFaction);
             Factions.Add(zombieFaction);
 
-            // We don't want to recruit a unit on game start, but instead, each faction should start with at least one unit.
-            humanFaction.SpawnFactionUnit(humanFaction.UnitPrefab, humanFaction.UnitSpawnPoint.transform.position);
-            zombieFaction.SpawnFactionUnit(zombieFaction.UnitPrefab, zombieFaction.UnitSpawnPoint.transform.position);
-
             _clock.GameCycleElapsed += Clock_GameCycleElapsed;
             _clock.GameCycleElapsed += Combat;
             _clock.GameCycleElapsed += VictoryCheck;
