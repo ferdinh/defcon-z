@@ -19,6 +19,8 @@ namespace DefconZ
 
         private Clock _clock;
 
+        private bool gameOver = false;
+
         private void Awake()
         {
             _clock = gameObject.AddComponent<Clock>();
@@ -47,6 +49,7 @@ namespace DefconZ
 
             _clock.GameCycleElapsed += Clock_GameCycleElapsed;
             _clock.GameCycleElapsed += Combat;
+            _clock.GameCycleElapsed += VictoryCheck;
 
             // Once the GameManager has finished initialising, tell the in-game UI to initialise
             InGameUI inGameUI = GameObject.Find("InGameUI").GetComponent<InGameUI>();
@@ -97,6 +100,43 @@ namespace DefconZ
             }
 
             Debug.Log("Game day elapsed " + _clock.GameDay);
+        }
+
+        /// <summary>
+        /// Checks if any faction has won or lost the game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void VictoryCheck(object sender, System.EventArgs e)
+        {
+            if (!gameOver)
+            {
+                Faction loser = null;
+                Faction winner = null;
+
+                // Check for faction victory
+                foreach (Faction faction in Factions)
+                {
+                    // Check if each faction satisfies a loose condition. 
+                    if (faction.Units.Count <= 0 || faction.Resource.OwnedZones.Count <= 0)
+                    {
+                        loser = faction;
+                    }
+                    else
+                    {
+                        winner = faction;
+                    }
+                }
+
+                if (loser != null)
+                {
+                    Debug.Log($"{loser.FactionName} has lost the game!");
+                    Debug.Log($"{winner.FactionName} has won the game!");
+                    Player player = GameObject.Find("Player").GetComponent<Player>();
+                    player.inGameUI.EndGameScreen(loser, winner);
+                    gameOver = true;
+                }
+            }
         }
 
         /// <summary>
