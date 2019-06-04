@@ -41,9 +41,11 @@ namespace Tests
 
             //Assert
             Assert.That(victoryScreen.gameObject.activeSelf, Is.EqualTo(expected));
-
         }
-        /// Tests whether the victory display gets set to active.
+        /// <summary>
+        /// Tests whether the display victory gets set to active.
+        /// </summary>
+        /// <returns></returns>
         [UnityTest]
         public IEnumerator DisplayVictory_Should_Set_Object_To_Active()
         {
