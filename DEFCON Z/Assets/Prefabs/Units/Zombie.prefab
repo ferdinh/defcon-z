@@ -50,8 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objName: Zombie
-  health: 100
+  health: 1
   maxHealth: 100
+  attackRange: 1
   currentZone: {fileID: 0}
   deathSound: {fileID: 8300000, guid: ff7a84c779a2f6543bdf2aa64383abe1, type: 3}
   attackSound: {fileID: 8300000, guid: 3a5dbf8c14dd9a74e9098d911fe4cdf1, type: 3}

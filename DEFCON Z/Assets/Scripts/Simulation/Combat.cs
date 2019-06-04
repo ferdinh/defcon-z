@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DefconZ.Units.Actions;
+using System;
+using UnityEngine;
 
 namespace DefconZ.Simulation
 {
@@ -23,14 +25,25 @@ namespace DefconZ.Simulation
             // of each other.
             if (IsFighting)
             {
-                SecondCombatant.TakeDamageFrom(FirstCombatant);
-                FirstCombatant.PlayAttackSound();
-
-                if (SecondCombatant.IsAlive())
+                // Checks such as range should be here
+                // Check that the unit is within range to attack
+                if (Vector3.Distance(FirstCombatant.transform.position, SecondCombatant.transform.position) <= FirstCombatant.attackRange)
                 {
-                    FirstCombatant.TakeDamageFrom(SecondCombatant);
-                    SecondCombatant.PlayAttackSound();
+                    // Make sure both units stop moving
+                    FirstCombatant.GetComponent<UnitMoveScript>().StopMoving();
+                    SecondCombatant.GetComponent<UnitMoveScript>().StopMoving();
+
+                    // Deal damage to the assigned enemy
+                    FirstCombatant.PlayAttackSound();
+                    SecondCombatant.TakeDamageFrom(FirstCombatant);
                 }
+                else
+                {
+                    // The unit needs to move into range of the defending unit
+                    FirstCombatant.GetComponent<UnitMoveScript>().MoveTo(SecondCombatant.transform.position);
+                }
+
+                
             }
         }
 

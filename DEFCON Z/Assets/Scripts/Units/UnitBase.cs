@@ -3,6 +3,7 @@ using DefconZ.Entity.Action;
 using DefconZ.GameLevel;
 using DefconZ.Simulation;
 using DefconZ.Units;
+using DefconZ.Units.Actions;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace DefconZ
     {
         public float health = 100;
         public float maxHealth = 100;
+        public float attackRange = 1;
         public Faction FactionOwner { get; set; }
         public Zone currentZone;
         public Combat CurrentCombat;
@@ -76,6 +78,10 @@ namespace DefconZ
                         {
                             if (CurrentCombat != null)
                             {
+                                // Tell both units to stop moving
+                                GetComponent<UnitMoveScript>().StopMoving();
+                                other.GetComponent<UnitMoveScript>().StopMoving();
+
                                 CurrentCombat.IsFighting = true;
                                 GetComponent<IMoveable>().StopMoving();
                                 Debug.Log("Collided with an enemy unit and starts engaging");
@@ -92,27 +98,31 @@ namespace DefconZ
         /// <param name="other">The other collider.</param>
         private void OnTriggerExit(Collider other)
         {
-            Debug.Log("Trigger exit " + this.objName);
-            // We expect unit to depart from another unit.
-            var collidedGameObject = other.gameObject.GetComponent<UnitBase>();
+            //Debug.Log("Trigger exit " + this.objName);
+            //// We expect unit to depart from another unit.
+            //var collidedGameObject = other.gameObject.GetComponent<UnitBase>();
 
-            if (collidedGameObject != null)
-            {
-                // Remove combat only if it is from another hostile unit.
-                if (collidedGameObject.FactionOwner != this.FactionOwner)
-                {
-                    if (CurrentCombat != null)
-                    {
-                        if (_gameManager.ActiveCombats.Remove(CurrentCombat.CombatId))
-                        {
-                            Debug.Log($"Combat with {CurrentCombat.CombatId} removed");
-                        }
-                    }
+            //if (collidedGameObject != null)
+            //{
+            //    // Remove combat only if it is from another hostile unit.
+            //    if (collidedGameObject.FactionOwner != this.FactionOwner)
+            //    {
+            //        if (CurrentCombat != null)
+            //        {
+            //            // Check if the objec leaving was the unit combat is engaged with
+            //            if (CurrentCombat.SecondCombatant == other.GetComponent<UnitBase>())
+            //            {
+            //                //if (_gameManager.ActiveCombats.Remove(CurrentCombat.CombatId))
+            //                //{
+            //                //    Debug.Log($"Combat with {CurrentCombat.CombatId} removed");
+            //                //}
 
-                    // Since combat no longer applicable, remove it.
-                    this.CurrentCombat = null;
-                }
-            }
+            //                // Since combat no longer applicable, remove it.
+            //                //this.CurrentCombat = null;
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -145,10 +155,19 @@ namespace DefconZ
 
                     CurrentCombat = combat;
 
-                    // Set the target unit combat.
-                    // Both this unit and target unit should have the same
-                    // combat.
-                    _targetUnit.CurrentCombat = CurrentCombat;
+                    // Check if the defending unit is engaged in combat
+                    // If the defending unit is not already in combat, it should create a combat with this unit
+                    if (_targetUnit.CurrentCombat == null)
+                    {
+                        var targetCombat = new Combat
+                        {
+                            FirstCombatant = _targetUnit,
+                            SecondCombatant = this
+                        };
+
+                        // TODO: This might not be needed, potentially can use triggers to automatically set other unit combat
+                        _targetUnit.CurrentCombat = targetCombat;
+                    }
 
                     // Register the combat to the game manager.
                     var listOfCombat = _gameManager.ActiveCombats;
@@ -222,6 +241,12 @@ namespace DefconZ
                 if (CombatPresent())
                 {
                     RemoveCombat(CurrentCombat);
+                }
+
+                if (hostileUnit.CombatPresent())
+                {
+                    hostileUnit.RemoveCombat(hostileUnit.CurrentCombat);
+                    Debug.LogError("Unit died, removing attacker combat");
                 }
 
                 // Hostile unit faction will be awarded with XP corresponding
