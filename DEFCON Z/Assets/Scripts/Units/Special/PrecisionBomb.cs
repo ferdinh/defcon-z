@@ -33,6 +33,12 @@ namespace DefconZ.Units.Special
 
         public AbilityType type = AbilityType.PrecisionBomb;
 
+        /// <summary>
+        /// Starts the ability
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="eulerAngle"></param>
+        /// <param name="cam"></param>
         public void StartAbility(Vector3 target, Vector3 eulerAngle, GameObject cam)
         {
             abilityName = "Air Strike";
@@ -66,6 +72,9 @@ namespace DefconZ.Units.Special
             gameObject.transform.eulerAngles = rotation;
         }
 
+        /// <summary>
+        /// Moves the objects towards their respective targets
+        /// </summary>
         private void MoveTowardsTarget()
         {
             if (!bombDropped)
@@ -81,6 +90,9 @@ namespace DefconZ.Units.Special
             }
         }
 
+        /// <summary>
+        /// Drops the bomb
+        /// </summary>
         public void DropBomb()
         {
             Debug.Log("Dropping bomb!");
@@ -88,6 +100,9 @@ namespace DefconZ.Units.Special
             bomb.transform.parent = null;
         }
 
+        /// <summary>
+        /// Explodes the bomb
+        /// </summary>
         public void ExplodeBomb()
         {
             exploded = true;
@@ -96,6 +111,9 @@ namespace DefconZ.Units.Special
             audioSource.Play();
         }
 
+        /// <summary>
+        /// Cleans up the ability
+        /// </summary>
         private void CleanUp()
         {
             Destroy(bomb, audioSource.clip.length);
