@@ -25,25 +25,25 @@ namespace DefconZ.Simulation
             // of each other.
             if (IsFighting)
             {
-                // Checks such as range should be here
-                // Check that the unit is within range to attack
-                if (Vector3.Distance(FirstCombatant.transform.position, SecondCombatant.transform.position) <= FirstCombatant.attackRange)
-                {
-                    // Make sure both units stop moving
-                    FirstCombatant.GetComponent<UnitMoveScript>().StopMoving();
-                    SecondCombatant.GetComponent<UnitMoveScript>().StopMoving();
-
-                    // Deal damage to the assigned enemy
-                    FirstCombatant.PlayAttackSound();
-                    SecondCombatant.TakeDamageFrom(FirstCombatant);
-                }
-                else
-                {
-                    // The unit needs to move into range of the defending unit
-                    FirstCombatant.GetComponent<UnitMoveScript>().MoveTo(SecondCombatant.transform.position);
-                }
-
                 
+            }
+
+            // Checks such as range should be here
+            // Check that the unit is within range to attack
+            if (Vector3.Distance(FirstCombatant.transform.position, SecondCombatant.transform.position) <= FirstCombatant.attackRange)
+            {
+                // Make sure both units stop moving
+                FirstCombatant.GetComponent<UnitMoveScript>().StopMoving();
+                SecondCombatant.GetComponent<UnitMoveScript>().StopMoving();
+
+                // Deal damage to the assigned enemy
+                FirstCombatant.PlayAttackSound();
+                SecondCombatant.TakeDamageFrom(FirstCombatant);
+            }
+            else
+            {
+                // The unit needs to move into range of the defending unit
+                FirstCombatant.GetComponent<UnitMoveScript>().MoveTo(SecondCombatant.transform.position);
             }
         }
 

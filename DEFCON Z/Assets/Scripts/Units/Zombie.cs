@@ -5,9 +5,5 @@
         public override void InitUnit()
         {
         }
-
-        public override void Update()
-        {
-        }
     }
 }

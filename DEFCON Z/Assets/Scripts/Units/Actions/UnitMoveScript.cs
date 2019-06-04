@@ -97,8 +97,16 @@ namespace DefconZ.Units.Actions
 
             while (IsMoving)
             {
-                _navMeshAgent.SetDestination(targetObj.transform.position);
-                yield return null;
+                if (targetObj != null)
+                {
+                    _navMeshAgent.SetDestination(targetObj.transform.position);
+                    yield return null;
+                }
+                else
+                {
+                    StopMoving();
+                }
+                
             }
         }
 
