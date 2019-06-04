@@ -446,7 +446,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -36}
   m_SizeDelta: {x: 157.7, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &218974627
@@ -612,7 +612,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Ranged Human
+  m_Text: 'Ranged Human
+
+    750 RP'
 --- !u!222 &249679178
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -855,8 +857,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 558, y: 58}
-  m_SizeDelta: {x: 255.98, y: 94.41}
+  m_AnchoredPosition: {x: 558, y: 86.75}
+  m_SizeDelta: {x: 255.98, y: 173.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &279920675
 MonoBehaviour:
@@ -1923,7 +1925,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Melee Human
+  m_Text: 'Melee Human
+
+    500 RP'
 --- !u!222 &645432201
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3760,7 +3764,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 82}
+  m_AnchoredPosition: {x: 0, y: 36}
   m_SizeDelta: {x: 157.7, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1350471654
