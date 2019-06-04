@@ -16,8 +16,6 @@ namespace DefconZ
         /// </summary>
         public List<Faction> Factions;
 
-        public IDictionary<Guid, Combat> ActiveCombats;
-
         public IList<Events> listOfEvents;
 
         private Clock _clock;
@@ -29,7 +27,6 @@ namespace DefconZ
         {
             _clock = gameObject.AddComponent<Clock>();
             Factions = new List<Faction>();
-            ActiveCombats = new ConcurrentDictionary<Guid, Combat>();
             _AI = gameObject.AddComponent<AI>();
             listOfEvents = new List<Events>
             {
@@ -65,7 +62,6 @@ namespace DefconZ
             Factions.Add(zombieFaction);
 
             _clock.GameCycleElapsed += Clock_GameCycleElapsed;
-            _clock.GameCycleElapsed += Combat;
             _clock.GameCycleElapsed += VictoryCheck;
 
             // Once the GameManager has finished initialising, tell the in-game UI to initialise
@@ -81,19 +77,6 @@ namespace DefconZ
             {
                 // If a difficulty has not been selected, default to normal difficulty
                 SetDifficulty(Difficulty.Normal);
-            }
-        }
-
-        /// <summary>
-        /// Engage any available combat.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void Combat(object sender, System.EventArgs e)
-        {
-            foreach (var combat in ActiveCombats)
-            {
-                combat.Value.Engage();
             }
         }
 
