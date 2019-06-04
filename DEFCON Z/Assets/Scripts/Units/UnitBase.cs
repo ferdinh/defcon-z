@@ -268,6 +268,11 @@ namespace DefconZ
             return CurrentCombat != null;
         }
 
+        /// <summary>
+        /// Removes the combat from the pool.
+        /// </summary>
+        /// <param name="combatToRemove">The combat to remove.</param>
+        /// <returns></returns>
         private bool RemoveCombat(Combat combatToRemove)
         {
             var removeResult = _gameManager.ActiveCombats.Remove(combatToRemove.CombatId);
@@ -276,10 +281,16 @@ namespace DefconZ
             return removeResult;
         }
 
+        /// <summary>
+        /// Plays the attack sound.
+        /// </summary>
         public void PlayAttackSound()
         {
-            audioSource.clip = attackSound;
-            audioSource.Play();
+            if (audioSource != null)
+            {
+                audioSource.clip = attackSound;
+                audioSource.Play();
+            }
         }
     }
 }
