@@ -27,8 +27,9 @@ namespace Tests
         {
             SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         }
+        
         /// <summary>
-        /// Tests Victory screen being initialized correctly.
+        /// Victory Screen should be inactive when initialized 
         /// </summary>
         [Test]
         public void VictoryScreen_Should_Be_Initialize_Correctly()
@@ -42,13 +43,17 @@ namespace Tests
             //Assert
             Assert.That(victoryScreen.gameObject.activeSelf, Is.EqualTo(expected));
         }
+        
         /// <summary>
-        /// Tests whether the display victory gets set to active.
+        /// Tests whether victory screen gets set to active.
         /// </summary>
         /// <returns></returns>
         [UnityTest]
         public IEnumerator DisplayVictory_Should_Set_Object_To_Active()
         {
+            yield return null;
+            
+            // Assert 
             bool expected = true;
 
             var gameManager = GameObject.FindGameObjectWithTag(nameof(GameManager));
@@ -63,8 +68,6 @@ namespace Tests
 
             // Assert 
             Assert.That(victoryScreen.isActiveAndEnabled, Is.EqualTo(expected));
-
-            yield return null;
         }
     }
 }
