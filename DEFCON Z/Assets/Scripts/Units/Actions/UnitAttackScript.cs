@@ -63,6 +63,8 @@ public class UnitAttackScript : MonoBehaviour
             // Check that the cooldown has passed
             if (Time.time >= nextAttackTime)
             {
+                transform.LookAt(enemyUnit.transform.position, transform.up);
+
                 nextAttackTime = Time.time + unit.attackTime;
                 enemyUnit.TakeDamageFrom(unit);
                 unit.PlayAttackSound();
