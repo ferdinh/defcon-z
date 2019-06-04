@@ -12,7 +12,6 @@ namespace DefconZ.Units.Special
         public float planeSpeed;
         public float bombSpeed;
         public float bombDamage;
-        public static string abilityName = "Air Strike";
         public static float abilityCost = 500f;
 
         public GameObject plane;
@@ -36,6 +35,7 @@ namespace DefconZ.Units.Special
 
         public void StartAbility(Vector3 target, Vector3 eulerAngle, GameObject cam)
         {
+            abilityName = "Air Strike";
             audioSource = GetComponentInChildren<AudioSource>();
             bombMesh = bomb.GetComponentInChildren<MeshRenderer>();
             bombCollider = bomb.GetComponent<SphereCollider>();

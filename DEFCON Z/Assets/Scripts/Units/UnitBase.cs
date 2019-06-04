@@ -3,6 +3,7 @@ using DefconZ.Entity.Action;
 using DefconZ.GameLevel;
 using DefconZ.Simulation;
 using DefconZ.Units;
+using DefconZ.Units.Actions;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,11 +14,15 @@ namespace DefconZ
     {
         public float health = 100;
         public float maxHealth = 100;
+        public float attackRange = 1;
+        public float attackTime = 1;
+        public float sightRange = 15;
         public Faction FactionOwner { get; set; }
+        public Faction enemyFaction;
         public Zone currentZone;
-        public Combat CurrentCombat;
         public AudioClip deathSound;
         public AudioClip attackSound;
+        public UnitAttackScript unitAttackScript;
         public float RecruitCost;
         public float Upkeep;
         public int RecruitTime;
@@ -36,128 +41,35 @@ namespace DefconZ
          *
          */
         protected float baseHealth = 100.0f;
+        [SerializeField]
         protected float baseDamage = 10.0f;
         public IList<Modifier> Modifiers = new List<Modifier>();
 
         // Start is called before the first frame update
-        public void Start()
+        public void Awake()
         {
             _gameManager = GameObject.FindGameObjectWithTag(nameof(GameManager)).GetComponent<GameManager>();
+            unitAttackScript = GetComponent<UnitAttackScript>();
             audioSource = GetComponent<AudioSource>();
 
             InitUnit();
+        }
+        public void Start()
+        {
+            foreach (Faction f in _gameManager.Factions)
+            {
+                if (FactionOwner != f)
+                {
+                    enemyFaction = f;
+                    unitAttackScript.enemyFaction = f;
+                }
+            }
         }
 
         /// <summary>
         /// Initialises the unit, called upon the first frame the unit is instantiated
         /// </summary>
         public abstract void InitUnit();
-
-        public abstract void Update();
-
-        /// <summary>
-        /// Called when unit collider collided with each other.
-        /// </summary>
-        /// <param name="other">The other collider.</param>
-        private void OnTriggerEnter(Collider other)
-        {
-            Debug.Log("Trigger entered");
-            // We expect unit to collide with another unit.
-            var collidedGameObject = other.gameObject.GetComponent<UnitBase>();
-
-            if (collidedGameObject != null)
-            {
-                // Engage combat only if the unit collides with a hostile unit.
-                if (collidedGameObject.FactionOwner != this.FactionOwner)
-                {
-                    if (CombatPresent())
-                    {
-                        lock (CurrentCombat)
-                        {
-                            if (CurrentCombat != null)
-                            {
-                                CurrentCombat.IsFighting = true;
-                                GetComponent<IMoveable>().StopMoving();
-                                Debug.Log("Collided with an enemy unit and starts engaging");
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Called when two collider move away from each other.
-        /// </summary>
-        /// <param name="other">The other collider.</param>
-        private void OnTriggerExit(Collider other)
-        {
-            Debug.Log("Trigger exit " + this.objName);
-            // We expect unit to depart from another unit.
-            var collidedGameObject = other.gameObject.GetComponent<UnitBase>();
-
-            if (collidedGameObject != null)
-            {
-                // Remove combat only if it is from another hostile unit.
-                if (collidedGameObject.FactionOwner != this.FactionOwner)
-                {
-                    if (CurrentCombat != null)
-                    {
-                        if (_gameManager.ActiveCombats.Remove(CurrentCombat.CombatId))
-                        {
-                            Debug.Log($"Combat with {CurrentCombat.CombatId} removed");
-                        }
-                    }
-
-                    // Since combat no longer applicable, remove it.
-                    this.CurrentCombat = null;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Initiate an attack to hostile unit.
-        /// </summary>
-        /// <param name="obj"></param>
-        public void StartAttack(GameObject obj)
-        {
-            UnitBase _targetUnit = obj.GetComponent<UnitBase>();
-            if (_targetUnit != null)
-            {
-                // move to target object.
-                // TODO: calculate appropriate position to move to (Eg, if this unit is a ranged unit, move to maximum/safe firing range?)
-                GetComponent<IMoveable>().MoveTo(obj);
-
-                // attack other unit
-                Debug.Log("Attacking unit: " + _targetUnit.objName + "\n" + _targetUnit.name);
-
-                // If there is no current combat for the unit,
-                // create a new one.
-                // Combat status remain inactive until they collides.
-                if (!CombatPresent())
-                {
-                    // Create new combat
-                    var combat = new Combat
-                    {
-                        FirstCombatant = this,
-                        SecondCombatant = _targetUnit
-                    };
-
-                    CurrentCombat = combat;
-
-                    // Set the target unit combat.
-                    // Both this unit and target unit should have the same
-                    // combat.
-                    _targetUnit.CurrentCombat = CurrentCombat;
-
-                    // Register the combat to the game manager.
-                    var listOfCombat = _gameManager.ActiveCombats;
-                    listOfCombat.Add(CurrentCombat.CombatId, CurrentCombat);
-
-                    Debug.Log($"Created new Combat with id {CurrentCombat.CombatId}");
-                }
-            }
-        }
 
         /// <summary>
         /// Defines how a unit is destroyed
@@ -171,6 +83,17 @@ namespace DefconZ
             {
                 currentZone.RemoveFromZone(this);
             }
+
+            // If the unit has a compbat, it should stop
+            Destroy(unitAttackScript);
+
+            // If the unit is moving, it should stop
+            UnitMoveScript moveScript = GetComponent<UnitMoveScript>();
+            moveScript.StopMoving();
+            Destroy(moveScript);
+
+            // Remove the unit from the faction list
+            FactionOwner.Units.Remove(this.gameObject);
 
             // Rotate the model
             unitModel.transform.eulerAngles = new Vector3(90, unitModel.transform.rotation.y, unitModel.transform.rotation.z);
@@ -198,11 +121,6 @@ namespace DefconZ
             // losing unit.
             if (!IsAlive())
             {
-                if (CombatPresent())
-                {
-                    RemoveCombat(CurrentCombat);
-                }
-
                 DestroySelf();
             }
         }
@@ -219,11 +137,6 @@ namespace DefconZ
 
             if (!IsAlive())
             {
-                if (CombatPresent())
-                {
-                    RemoveCombat(CurrentCombat);
-                }
-
                 // Hostile unit faction will be awarded with XP corresponding
                 // to how hard this unit is to defeat.
                 hostileUnit.FactionOwner.Level.AddXP(XP);
@@ -263,22 +176,17 @@ namespace DefconZ
         /// Checks if this instance currently have a combat.
         /// </summary>
         /// <returns>True if combat is present, else, false.</returns>
-        private bool CombatPresent()
+        public bool CombatPresent()
         {
-            return CurrentCombat != null;
+            return unitAttackScript.InCombat();
         }
 
-        /// <summary>
-        /// Removes the combat from the pool.
+        ///<summary>
+        /// Starts an attack for the unit
         /// </summary>
-        /// <param name="combatToRemove">The combat to remove.</param>
-        /// <returns></returns>
-        private bool RemoveCombat(Combat combatToRemove)
+        public void StartAttack(GameObject target)
         {
-            var removeResult = _gameManager.ActiveCombats.Remove(combatToRemove.CombatId);
-            combatToRemove.ClearCombat();
-
-            return removeResult;
+            GetComponent<UnitAttackScript>().StartAttack(target);
         }
 
         /// <summary>

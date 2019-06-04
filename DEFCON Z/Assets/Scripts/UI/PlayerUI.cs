@@ -33,6 +33,9 @@ namespace DefconZ.UI
         public SpecialAbilitiesUI abilitiesUI;
         public PerksUI PerksUI;
 
+        // TODO: Change the position of this
+        public GameObject rangedPrefab;
+
         private void Awake()
         {
             player = GameObject.Find("Player").GetComponent<Player>();
@@ -202,6 +205,12 @@ namespace DefconZ.UI
         public void PurchaseUnitAction()
         {
             playerFaction.RecruitUnitAt(playerFaction.UnitSpawnPoint.transform.position);
+        }
+
+        public void PurchaseRangedUnitAction()
+        {
+            //playerFaction.ForceRecruitUnit(rangedPrefab);
+            playerFaction.RecruitUnitAt(playerFaction.UnitSpawnPoint.transform.position, rangedPrefab);
         }
 
         /// <summary>

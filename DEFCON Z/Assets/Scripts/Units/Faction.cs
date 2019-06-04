@@ -113,6 +113,17 @@ namespace DefconZ.Units
             }
         }
 
+        public void RecruitUnitAt(Vector3 spawnPoint, GameObject prefab)
+        {
+            if (CanRecruitUnit(UnitPrefab.GetComponent<UnitBase>().RecruitCost))
+            {
+                unitBuilder.AddToBuildQueue(new UnitOrder(prefab, spawnPoint));
+
+                // Consume the resource when the build had started.
+                Resource.UseResource(UnitPrefab.GetComponent<UnitBase>().RecruitCost);
+            }
+        }
+
         /// <summary>
         /// Recruit unit by bypassing resources and build time.
         /// Only for initializing.
@@ -120,6 +131,18 @@ namespace DefconZ.Units
         private void ForceRecruitUnit()
         {
             var recruitedUnit = Instantiate(UnitPrefab, UnitSpawnPoint.transform.position, Quaternion.identity);
+            recruitedUnit.GetComponent<UnitBase>().FactionOwner = this;
+
+            Units.Add(recruitedUnit);
+        }
+
+        /// <summary>
+        /// Recruit unit by bypassing resources and build time.
+        /// Only for initializing.
+        /// </summary>
+        public void ForceRecruitUnit(GameObject prefab)
+        {
+            var recruitedUnit = Instantiate(prefab, UnitSpawnPoint.transform.position, Quaternion.identity);
             recruitedUnit.GetComponent<UnitBase>().FactionOwner = this;
 
             Units.Add(recruitedUnit);
