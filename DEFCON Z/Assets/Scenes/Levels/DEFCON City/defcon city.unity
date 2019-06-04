@@ -5531,6 +5531,11 @@ PrefabInstance:
       propertyPath: boost
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2236229889046659882, guid: 2501a28f187da884dac09869c1d24e56,
+        type: 3}
+      propertyPath: boostMultiplier
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8731220371253252657, guid: 2501a28f187da884dac09869c1d24e56,
         type: 3}
       propertyPath: labelSelectedObjectName
@@ -7951,7 +7956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cefbd89b86f6064b9d037d78f3a5ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionBoxDelay: 0.3
+  selectionBoxDelay: 0.1
   selectionUI: {fileID: 0}
   player: {fileID: 0}
   cam: {fileID: 0}
