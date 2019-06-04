@@ -27,7 +27,7 @@ namespace DefconZ.Units.Special
 
         public static bool CanAfford(Faction faction, float cost)
         {
-            Debug.LogError($"Ability will cost ${cost}");
+            Debug.Log($"Ability will cost ${cost}");
             if (faction.Resource.ResourcePoint >= cost)
             {
                 return true;

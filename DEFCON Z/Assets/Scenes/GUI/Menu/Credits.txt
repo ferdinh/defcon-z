@@ -9,5 +9,28 @@ DEFCON Z Development Team
 -Ferdin - Developer
 
 Development Environment
--Unity 2019.1.1f1
--Visual Studio 2017
+- Unity 2019.1.1f1
+- Visual Studio 2019
+
+UI Design
+- Neil Ramanandi
+
+Game Art and Models
+- Jordan Carter
+
+Game Simulation
+- Ferdin Handoko
+
+Game sounds used with permission from:
+- MrCraft Animation
+- Michel Baradari
+- Yd
+- Will Leaman
+
+Music - Used with permission from:
+Credits Music - Zombies' March by yd
+In game Music - 'This used to be a city' by yd
+Main Menu Music - 'Ove Melaa - Theme Crystalized' by OveMelaa
+
+Game Font
+- "Good Brush" used with permission from Good Java Studio

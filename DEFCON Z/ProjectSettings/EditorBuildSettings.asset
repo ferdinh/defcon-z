@@ -5,28 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Levels/DEFCON City/defcon city.unity
-    guid: 8aabd5629729f724d84f94f7d34e164e
-  - enabled: 1
-    path: Assets/Tests/Test Scenes/defcon city test.unity
-    guid: 15eb29fd198572e45aa186779d9bbd84
-  - enabled: 0
-    path: Assets/Scenes/TestScenes/ObjectSelectionScene.unity
-    guid: 47a36c0173f81b0439a179642e786c47
-  - enabled: 1
-    path: Assets/Scenes/GUI/InGameUI.unity
-    guid: d563de1302beca446ad260b360d55ad5
-  - enabled: 1
-    path: Assets/Scenes/GUI/Menu/Credits.unity
-    guid: 24d0254b3fdd77f4e9058f8209192a9f
   - enabled: 1
     path: Assets/Scenes/GUI/Menu/MainMenu.unity
     guid: 6283754cb59e518448ccaaa19e2d6c68
   - enabled: 1
+    path: Assets/Scenes/Levels/DEFCON City/defcon city.unity
+    guid: 15eb29fd198572e45aa186779d9bbd84
+  - enabled: 1
+    path: Assets/Scenes/GUI/Menu/Credits.unity
+    guid: 24d0254b3fdd77f4e9058f8209192a9f
+  - enabled: 1
     path: Assets/Scenes/GUI/Menu/SettingsMenu.unity
     guid: 52a706f0e6ce4a242a2685d715fe7265
+  - enabled: 1
+    path: Assets/Scenes/GUI/InGameUI.unity
+    guid: d563de1302beca446ad260b360d55ad5
   m_configObjects: {}

@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 namespace DefconZ.UI
 {
+    /// <summary>
+    /// Stores toggles and pause settings.
+    /// </summary>
     public class PauseMenu : MonoBehaviour
     {
         public bool isGamePaused;
@@ -31,7 +34,6 @@ namespace DefconZ.UI
             settingsMenu = settingsMenuObject.GetComponent<SettingsMenu>();
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (Input.GetKeyDown(key))
@@ -41,7 +43,9 @@ namespace DefconZ.UI
                 TogglePauseGame();
             }
         }
-
+        /// <summary>
+        /// Settings menu button toggle 
+        /// </summary>
         public void SettingsMenuButton()
         {
             settingsMenu.ToggleActive(this.gameObject);
@@ -53,21 +57,25 @@ namespace DefconZ.UI
         public void QuitGame()
         {
             Debug.Log("Quitting game!");
-
-            if (Application.isEditor)
-            {
+        
+            #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
-            }
+            #endif
+
             Application.Quit();
         }
-
+        /// <summary>
+        /// On click method resuming the game.
+        /// </summary>
         public void ResumeGame()
         {
             UIActive = false;
             UIObject.SetActive(UIActive);
             TogglePauseGame();
         }
-
+        /// <summary>
+        /// Pause menu toggle set via timescale.
+        /// </summary>
         private void TogglePauseGame()
         {
             if (isGamePaused)

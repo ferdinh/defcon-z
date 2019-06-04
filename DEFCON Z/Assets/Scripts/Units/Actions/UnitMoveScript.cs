@@ -126,7 +126,7 @@ namespace DefconZ.Units.Actions
                     {
                         IsMoving = false;
 
-                        Debug.LogError(gameObject.name + " reached destination");
+                        Debug.Log(gameObject.name + " reached destination");
 
                         StopCoroutine(_checkIfReachDestinationCoroutine);
                     }

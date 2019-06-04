@@ -21,6 +21,8 @@ namespace DefconZ.UI
                 player.playerFaction.Resource.ResourcePoint -= 500f;
                 player.playerFaction.Modifiers.Add(Perks.SmallResourceBoost);
             }
+
+            TogglePanelAction();
         }
 
         public void MediumResourceBoostButton()
@@ -30,6 +32,8 @@ namespace DefconZ.UI
                 player.playerFaction.Resource.ResourcePoint -= 1000f;
                 player.playerFaction.Modifiers.Add(Perks.MediumResourceBoost);
             }
+
+            TogglePanelAction();
         }
 
         public void LargeResourceBoostButton()
@@ -39,6 +43,8 @@ namespace DefconZ.UI
                 player.playerFaction.Resource.ResourcePoint -= 2000f;
                 player.playerFaction.Modifiers.Add(Perks.LargeResourceBoost);
             }
+
+            TogglePanelAction();
         }
 
         public void TogglePanelAction()

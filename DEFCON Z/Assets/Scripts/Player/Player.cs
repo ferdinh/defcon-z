@@ -126,6 +126,8 @@ namespace DefconZ
                 default:
                     break;
             }
+
+            selectedAction = false;
         }
 
         /// <summary>
