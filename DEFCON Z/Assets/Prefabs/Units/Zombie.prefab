@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6693292440879736311}
   - component: {fileID: 1581249274220424531}
+  - component: {fileID: 5216359969117066730}
+  - component: {fileID: 8871250443000418022}
   - component: {fileID: 6693292440879736203}
   - component: {fileID: 6693292440879736202}
   - component: {fileID: 4709239624639122175}
@@ -32,7 +34,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8895272907540564105}
+  - {fileID: 1807248510703030338}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -49,12 +51,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objName: Zombie
-  health: 100
-  deathSound: {fileID: 8300000, guid: beca4447c7e7c5e4f994c4c88a5e04f9, type: 3}
+  health: 60
+  maxHealth: 60
+  attackRange: 1
+  sightRange: 15
+  currentZone: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: ff7a84c779a2f6543bdf2aa64383abe1, type: 3}
+  attackSound: {fileID: 8300000, guid: 3a5dbf8c14dd9a74e9098d911fe4cdf1, type: 3}
   RecruitCost: 500
   Upkeep: 0.5
-  navMeshAgent: {fileID: 0}
+  RecruitTime: 5
+  XP: 50
+  unitModel: {fileID: 8940772615325665434}
   audioSource: {fileID: 0}
+  baseDamage: 10
+--- !u!114 &5216359969117066730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693292440879736205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c1fe97b75c9b744b4be087fe65d4bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _navMeshAgent: {fileID: 0}
+  log: 0
+--- !u!114 &8871250443000418022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6693292440879736205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9428878a865a6c46bcc521f196e0658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &6693292440879736203
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -65,7 +101,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.22
+  m_Radius: 0.37
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -119,7 +155,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -128,7 +164,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -163,7 +199,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -203,12 +239,43 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &8940772615325665434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1807248510703030338}
+  m_Layer: 0
+  m_Name: UnitModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1807248510703030338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8940772615325665434}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8895272907540564105}
+  m_Father: {fileID: 6693292440879736311}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8895272907540435467
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 6693292440879736311}
+    m_TransformParent: {fileID: 1807248510703030338}
     m_Modifications:
     - target: {fileID: 100002, guid: 51687450f95b6d34e83af27dd2902f62, type: 3}
       propertyPath: m_Name
@@ -216,7 +283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 51687450f95b6d34e83af27dd2902f62, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 51687450f95b6d34e83af27dd2902f62, type: 3}
       propertyPath: m_LocalPosition.y
@@ -228,7 +295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 51687450f95b6d34e83af27dd2902f62, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 51687450f95b6d34e83af27dd2902f62, type: 3}
       propertyPath: m_LocalRotation.y

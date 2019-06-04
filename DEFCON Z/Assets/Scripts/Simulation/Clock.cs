@@ -3,14 +3,12 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// This class keep tracks in-game time (Game Cycle).
+/// This class keeps track of in-game time (Game Cycle).
 ///
 /// Game time will notify subscribers when a cycle has passes.
 /// </summary>
 public class Clock : MonoBehaviour
 {
-    public static Clock Instance = null;
-
     /// <summary>
     /// Occurs when [a game cycle passes].
     /// </summary>
@@ -46,21 +44,6 @@ public class Clock : MonoBehaviour
             }
 
             _timeScale = value;
-        }
-    }
-
-    /// <summary>
-    /// Awakes this instance. There can only be one of Clock Instance.
-    /// </summary>
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
         }
     }
 

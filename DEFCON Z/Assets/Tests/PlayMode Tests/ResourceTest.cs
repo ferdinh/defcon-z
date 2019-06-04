@@ -1,10 +1,42 @@
 ﻿using DefconZ.Simulation;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Tests
 {
     public class ResourceTest
     {
+        protected Resource resource;
+        protected ICollection<Modifier> Modifiers;
+
+        /// <summary>
+        /// Sets up test on first test initiation..
+        /// </summary>
+        [OneTimeSetUp]
+        public void OneTimeSetup()
+        {
+            Modifiers = new List<Modifier>();
+        }
+
+        /// <summary>
+        /// Sets up data before each test.
+        /// </summary>
+        [SetUp]
+        public void SetUp()
+        {
+            resource = new Resource(Modifiers);
+        }
+
+        /// <summary>
+        /// Clean up data after each test.
+        /// </summary>
+        [TearDown]
+        public void TearDown()
+        {
+            Modifiers.Clear();
+            resource = null;
+        }
+
         /// <summary>
         /// Resources should not exceed maximum when being gathered.
         /// </summary>
@@ -12,12 +44,9 @@ namespace Tests
         public void Resource_ShouldNot_Exceed_Max()
         {
             // Arrange
-            Resource resource = new Resource();
-            resource.CalculateMaxPoints()
-                    .ComputeStartingValue();
 
             // Increase resource recovery rate by huge amount.
-            resource.Modifiers.Add(new Modifier
+            Modifiers.Add(new Modifier
             {
                 Value = 1000
             });
@@ -30,25 +59,23 @@ namespace Tests
             }
 
             // Assert
-            Assert.That(resource.MaxResourcePoint, Is.EqualTo(resource.ResourcePoint));
+            Assert.That(resource.GetMaxResourcePoint, Is.EqualTo(resource.ResourcePoint));
         }
 
         /// <summary>
         /// The test ensure that maximum points for available resources follow
-        /// the modifiers.
+        /// the modifiers (Difficulty Modifier).
         /// </summary>
         [Test]
         public void Resource_CalculateMaxPoints_Should_Follow_Modifiers()
         {
             // Arrange
-            float expectedMaxValue = 18000.0f;
-
-            Resource resource = new Resource();
+            float expectedMaxValue = 15000.0f;
 
             Modifier mod = new Modifier
             {
                 Name = "Test Modifier",
-                Type = ModifierType.Event,
+                Type = ModifierType.Difficulty,
                 Value = 0.5f
             };
 
@@ -60,23 +87,22 @@ namespace Tests
             };
 
             // The additional modifier value will increase the max value
-            // from its base value by 80 percent.
-            resource.Modifiers.Add(mod);
-            resource.Modifiers.Add(mod2);
+            // from its base value by 50 percent due to max resource point
+            // is being affected to only the difficulty modifier.
+            Modifiers.Add(mod);
+            Modifiers.Add(mod2);
 
             // Act
-            resource.CalculateMaxPoints();
+            float actualMaxResourcePoint = resource.GetMaxResourcePoint;
 
             // Assert
-            Assert.AreEqual(expectedMaxValue, resource.MaxResourcePoint);
-            Assert.That(expectedMaxValue, Is.EqualTo(resource.MaxResourcePoint));
+            Assert.That(expectedMaxValue, Is.EqualTo(actualMaxResourcePoint));
         }
 
         [Test]
         public void Resource_GatherResource_Should_Follow_Modifiers()
         {
             // Arrange
-            Resource resource = new Resource();
             float margin = 0.001f;
 
             Modifier mod = new Modifier
@@ -93,22 +119,18 @@ namespace Tests
                 Value = 0.3f
             };
 
-            resource.CalculateMaxPoints()
-                    .ComputeStartingValue();
-
-            float expectedIncrease = resource.MaxResourcePoint / 1095.0f * 1.8f;
-
             // The additional modifier value will increase the gathering value
             // from its base value by 80 percent.
-            resource.Modifiers.Add(mod);
-            resource.Modifiers.Add(mod2);
+            Modifiers.Add(mod);
+            Modifiers.Add(mod2);
+
+            float expectedIncrease = resource.GetMaxResourcePoint / 1095.0f * 1.8f;
 
             // Act
             float startingResource = resource.ResourcePoint;
-            resource.GatherResource();
+            var actualIncrease = resource.GatherResource();
 
             // Assert
-            var actualIncrease = resource.ResourcePoint - startingResource;
             Assert.That(expectedIncrease, Is.EqualTo(actualIncrease).Within(margin));
         }
     }

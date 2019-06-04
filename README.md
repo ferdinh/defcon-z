@@ -13,5 +13,5 @@ DEFCON Z is a top down zombie simulation/strategy game developed using Unity3D.
 
 ## Development Environment
 
-- Unity 2018.3.11f1
+- Unity 2019.1.1f1 (Using the LWRP)
 - Visual Studio 2017

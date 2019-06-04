@@ -1,4 +1,4 @@
-﻿namespace DefconZ
+﻿namespace DefconZ.Entity
 {
     public interface IDestructible
     {
