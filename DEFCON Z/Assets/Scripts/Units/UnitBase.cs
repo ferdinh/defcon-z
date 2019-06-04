@@ -182,15 +182,24 @@ namespace DefconZ
             return unitAttackScript.InCombat();
         }
 
+        ///<summary>
+        /// Starts an attack for the unit
+        /// </summary>
         public void StartAttack(GameObject target)
         {
             GetComponent<UnitAttackScript>().StartAttack(target);
         }
 
+        /// <summary>
+        /// Plays the attack sound.
+        /// </summary>
         public void PlayAttackSound()
         {
-            audioSource.clip = attackSound;
-            audioSource.Play();
+            if (audioSource != null)
+            {
+                audioSource.clip = attackSound;
+                audioSource.Play();
+            }
         }
     }
 }

@@ -64,18 +64,18 @@ namespace Tests
 
         /// <summary>
         /// The test ensure that maximum points for available resources follow
-        /// the modifiers.
+        /// the modifiers (Difficulty Modifier).
         /// </summary>
         [Test]
         public void Resource_CalculateMaxPoints_Should_Follow_Modifiers()
         {
             // Arrange
-            float expectedMaxValue = 18000.0f;
+            float expectedMaxValue = 15000.0f;
 
             Modifier mod = new Modifier
             {
                 Name = "Test Modifier",
-                Type = ModifierType.Event,
+                Type = ModifierType.Difficulty,
                 Value = 0.5f
             };
 
@@ -87,7 +87,8 @@ namespace Tests
             };
 
             // The additional modifier value will increase the max value
-            // from its base value by 80 percent.
+            // from its base value by 50 percent due to max resource point
+            // is being affected to only the difficulty modifier.
             Modifiers.Add(mod);
             Modifiers.Add(mod2);
 
