@@ -85,7 +85,6 @@ namespace DefconZ
             }
 
             // If the unit has a compbat, it should stop
-            //unitAttackScript.RemoveCombat();
             Destroy(unitAttackScript);
 
             // If the unit is moving, it should stop
