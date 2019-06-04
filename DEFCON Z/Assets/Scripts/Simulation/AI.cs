@@ -18,21 +18,13 @@ namespace DefconZ.Simulation
             {
                 var unit = unitObj.GetComponent<UnitBase>();
 
-                if (unit.CurrentCombat == null)
+                if (!unit.CombatPresent())
                 {
                     var unitMoveScript = unitObj.GetComponent<UnitBase>().GetComponent<IMoveable>();
 
                     if (!unitMoveScript.IsMoving)
                     {
                         unitMoveScript.MoveTo(new Vector3(10, 0, 20));
-                    }
-                }
-                else
-                {
-                    if (!unit.CurrentCombat.IsFighting)
-                    {
-                        var unitMoveScript = unitObj.GetComponent<UnitBase>().GetComponent<IMoveable>();
-                        unitMoveScript.MoveTo(unit.CurrentCombat.FirstCombatant.gameObject);
                     }
                 }
             }

@@ -120,4 +120,9 @@ public class UnitAttackScript : MonoBehaviour
         inCombat = false;
         enemyUnit = null;
     }
+
+    public bool InCombat()
+    {
+        return inCombat;
+    }
 }

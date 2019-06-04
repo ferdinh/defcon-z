@@ -20,7 +20,6 @@ namespace DefconZ
         public Faction FactionOwner { get; set; }
         public Faction enemyFaction;
         public Zone currentZone;
-        public Combat CurrentCombat;
         public AudioClip deathSound;
         public AudioClip attackSound;
         public UnitAttackScript unitAttackScript;
@@ -255,17 +254,7 @@ namespace DefconZ
         /// <returns>True if combat is present, else, false.</returns>
         public bool CombatPresent()
         {
-            return CurrentCombat != null;
-        }
-
-        private bool RemoveCombat(Combat combatToRemove)
-        {
-            var removeResult = _gameManager.ActiveCombats.Remove(combatToRemove.CombatId);
-            combatToRemove.ClearCombat();
-
-            Debug.Log($"Removing combat for {this.objName}");
-
-            return removeResult;
+            return unitAttackScript.InCombat();
         }
 
         public void StartAttack(GameObject target)
