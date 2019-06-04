@@ -44,9 +44,11 @@ public class UnitAttackScript : MonoBehaviour
                 RemoveCombat();
             }
         }
-        
     }
 
+    /// <summary>
+    /// Orders the unit to attack the current enemy
+    /// </summary>
     private void Attack()
     {
         // Check that the unit is close enough to attack
@@ -79,9 +81,9 @@ public class UnitAttackScript : MonoBehaviour
         }
     }
 
-
-
-
+    /// <summary>
+    /// Checks for enemy units in the sight radius of the unit
+    /// </summary>
     private void CheckSightRadius()
     {
         GameObject enemyObj = null;
@@ -109,18 +111,29 @@ public class UnitAttackScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts an attack
+    /// </summary>
+    /// <param name="enemy"></param>
     public void StartAttack(GameObject enemy)
     {
         inCombat = true;
         enemyUnit = enemy.GetComponent<UnitBase>();
     }
 
+    /// <summary>
+    /// Removes an attack
+    /// </summary>
     public void RemoveCombat()
     {
         inCombat = false;
         enemyUnit = null;
     }
 
+    /// <summary>
+    /// Returns whether the unit is engaged in combat or not
+    /// </summary>
+    /// <returns></returns>
     public bool InCombat()
     {
         return inCombat;

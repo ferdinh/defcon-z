@@ -106,7 +106,6 @@ namespace DefconZ.Units.Actions
                 {
                     StopMoving();
                 }
-                
             }
         }
 
