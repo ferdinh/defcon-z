@@ -19,6 +19,7 @@ namespace DefconZ.UI
         {
             player.selectedAction = true;
             player.selectedAbility = AbilityType.PrecisionBomb;
+            TogglePanelAction();
         }
 
         public void TogglePanelAction()
