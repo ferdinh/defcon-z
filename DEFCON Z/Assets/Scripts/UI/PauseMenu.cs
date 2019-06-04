@@ -57,11 +57,11 @@ namespace DefconZ.UI
         public void QuitGame()
         {
             Debug.Log("Quitting game!");
-
-            if (Application.isEditor)
-            {
+        
+            #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
-            }
+            #endif
+
             Application.Quit();
         }
         /// <summary>
