@@ -12766,6 +12766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Factions: []
+  zoneManager: {fileID: 755133322}
 --- !u!4 &1196489415
 Transform:
   m_ObjectHideFlags: 0

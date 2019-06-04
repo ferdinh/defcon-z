@@ -1,4 +1,5 @@
-﻿using DefconZ.Simulation;
+﻿using DefconZ.GameLevel;
+using DefconZ.Simulation;
 using DefconZ.UI;
 using DefconZ.Units;
 using System;
@@ -15,6 +16,7 @@ namespace DefconZ
         /// Holds the faction's information of the game.
         /// </summary>
         public List<Faction> Factions;
+        public ZoneManager zoneManager;
 
         public IList<Events> listOfEvents;
 
@@ -28,6 +30,7 @@ namespace DefconZ
             _clock = gameObject.AddComponent<Clock>();
             Factions = new List<Faction>();
             _AI = gameObject.AddComponent<AI>();
+            _AI.gameManager = this;
             listOfEvents = new List<Events>
             {
                 new Events
@@ -51,6 +54,8 @@ namespace DefconZ
             humanFaction.FactionType = FactionType.Human;
             humanFaction.FactionName = "Human Player";
             humanFaction.IsPlayerUnit = true;
+
+            _AI.playerFaction = humanFaction;
 
             var zombieFaction = gameObject.AddComponent<ZombieFaction>();
 
