@@ -197,7 +197,7 @@ namespace DefconZ.Units
         /// </summary>
         /// <remarks>
         /// Method should only be called once. This method does not check if
-        /// `difficulty` modifier is present. We do not expected this to change
+        /// `difficulty` modifier is present. We do not expect this to change
         /// as we do not allow changing of difficulty mid game.
         /// </remarks>
         /// <param name="difficulty">The difficulty.</param>
