@@ -182,9 +182,14 @@ namespace DefconZ
                     modValue *= -1;
                 }
 
-                faction.Difficulty.Name = difficulty.Name;
-                faction.Difficulty.Type = difficulty.Type;
-                faction.Difficulty.Value = modValue;
+                var selectedDifficulty = new Modifier
+                {
+                    Name = difficulty.Name,
+                    Type = difficulty.Type,
+                    Value = modValue
+                };
+
+                faction.RegisterDifficulty(selectedDifficulty);
             }
         }
 
