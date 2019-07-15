@@ -191,5 +191,19 @@ namespace DefconZ.Units
 
             return cost;
         }
+
+        /// <summary>
+        /// Registers the difficulty.
+        /// </summary>
+        /// <remarks>
+        /// Method should only be called once. This method does not check if
+        /// `difficulty` modifier is present. We do not expected this to change
+        /// as we do not allow changing of difficulty mid game.
+        /// </remarks>
+        /// <param name="difficulty">The difficulty.</param>
+        public void RegisterDifficulty(Modifier difficulty)
+        { 
+            Modifiers.Add(difficulty);
+        }
     }
 }
