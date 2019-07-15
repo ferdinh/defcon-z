@@ -13,7 +13,7 @@ namespace DefconZ.UI
         public Text description;
 
         public Color winnerColor;
-        public Color looserColor;
+        public Color loserColor;
 
         private void Awake()
         {
@@ -23,16 +23,16 @@ namespace DefconZ.UI
         /// <summary>
         /// Activates and updates the victory screen panel
         /// </summary>
-        /// <param name="looser"></param>
+        /// <param name="loser"></param>
         /// <param name="winner"></param>
-        public void DisplayVictory(Faction looser, Faction winner)
+        public void DisplayVictory(Faction loser, Faction winner)
         {
             gameObject.SetActive(true);
 
             winnerLabel.text = winner.FactionName;
-            winnerLabel.color = (winner.IsPlayerUnit) ? winnerColor : looserColor;
+            winnerLabel.color = (winner.IsPlayerUnit) ? winnerColor : loserColor;
 
-            string victoryText = $"{winner.FactionName} has won the game!\nShame on {looser.FactionName} for loosing!";
+            string victoryText = $"{winner.FactionName} has won the game!\nShame on {loser.FactionName} for losing!";
             description.text = victoryText;
         }
 
