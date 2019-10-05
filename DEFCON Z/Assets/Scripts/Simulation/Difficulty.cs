@@ -1,4 +1,5 @@
-﻿using DefconZ.Simulation;
+﻿using System;
+using DefconZ.Simulation;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace DefconZ.Simulation
         {
             Name = "Easy Difficulty",
             Type = ModifierType.Difficulty,
-            Value = 1.0f
+            Value = 0.5f
         };
 
         public static Modifier Normal = new Modifier

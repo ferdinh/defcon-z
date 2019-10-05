@@ -19,7 +19,6 @@ namespace DefconZ.Units
         public Level Level { get; set; }
         public GameObject UnitSpawnPoint;
 
-        public Modifier Difficulty = Simulation.Difficulty.Normal;
         public ICollection<Modifier> Modifiers;
 
         public UnitBuilder unitBuilder;
@@ -31,9 +30,6 @@ namespace DefconZ.Units
             Modifiers = new List<Modifier>();
             Resource = new Resource(Modifiers);
             unitBuilder = gameObject.AddComponent<UnitBuilder>();
-
-            // Reference difficulty modifier.
-            Modifiers.Add(Difficulty);
 
             Debug.Log(FactionName + " faction has Max Resource Point of " + Resource.GetMaxResourcePoint);
             Debug.Log(FactionName + " faction has Starting Resource Point of " + Resource.ResourcePoint);
@@ -61,7 +57,7 @@ namespace DefconZ.Units
 
         public void SpawnFactionUnit(GameObject prefab, Vector3 spawnPoint)
         {
-             var newUnit = Instantiate(prefab, spawnPoint, Quaternion.identity);
+            var newUnit = Instantiate(prefab, spawnPoint, Quaternion.identity);
             newUnit.GetComponent<UnitBase>().FactionOwner = this;
             Units.Add(newUnit);
         }
@@ -194,6 +190,20 @@ namespace DefconZ.Units
             }
 
             return cost;
+        }
+
+        /// <summary>
+        /// Registers the difficulty.
+        /// </summary>
+        /// <remarks>
+        /// Method should only be called once. This method does not check if
+        /// `difficulty` modifier is present. We do not expect this to change
+        /// as we do not allow changing of difficulty mid game.
+        /// </remarks>
+        /// <param name="difficulty">The difficulty.</param>
+        public void RegisterDifficulty(Modifier difficulty)
+        { 
+            Modifiers.Add(difficulty);
         }
     }
 }
